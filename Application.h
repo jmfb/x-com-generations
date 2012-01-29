@@ -2,6 +2,12 @@
 #include "WindowsInclude.h"
 #include <string>
 #include <gl/gl.h>
+#include "GraphicsBuffer.h"
+#include "Game.h"
+#include "Mouse.h"
+#include "MouseEvents.h"
+#include "IdleMap.h"
+#include "ScreenManager.h"
 
 namespace XCom
 {
@@ -14,6 +20,15 @@ public:
 	
 	int Run();
 	
+	enum
+	{
+		GAME_WIDTH = 320,
+		GAME_HEIGHT = 200,
+		SCALE_FACTOR = 4,
+		CLIENT_WIDTH = GAME_WIDTH * SCALE_FACTOR,
+		CLIENT_HEIGHT = GAME_HEIGHT * SCALE_FACTOR
+	};
+	
 private:
 	void CreateWindowAtom();
 	void CreateWindowHandle();
@@ -23,7 +38,7 @@ private:
 	void OnCreate(HWND hwnd);
 	void OnSize();
 	bool OnSetCursor(LPARAM lparam);
-	void OnPaint();
+	void OnPaint(bool validate);
 	void OnKeyDown(char ch);
 	void OnMouseMove(WPARAM wparam);
 	void OnLButtonDown();
@@ -44,7 +59,13 @@ private:
 	HDC mWindowDC;
     HGLRC mOpenGLContext;
 	bool mPaused;
-
+	Mouse mMouse;
+	MouseEvents mMouseEvents;
+	GraphicsBuffer mGraphicsBuffer;
+	Game mGame;
+	IdleMap mIdleMap;
+	ScreenManager mScreenManager;
+	
 private:
 	Application(const Application& rhs);
 	Application& operator=(const Application& rhs);

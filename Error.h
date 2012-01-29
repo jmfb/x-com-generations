@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
 
-#define ReportUnhandled() Error::ReportUnhandledEx(__FILE__, __LINE__, __PRETTY_FUNCTION__)
-#define CheckWindowsError(error, location) Error::CheckWindowsErrorEx(error, __FILE__, __LINE__, __PRETTY_FUNCTION__, location)
-#define CheckError(error, code, location, description) Error::CheckErrorEx(error, __FILE__, __LINE__, code, __PRETTY_FUNCTION__, location, description)
+#define ReportUnhandled() XCom::Error::ReportUnhandledEx(__FILE__, __LINE__, __PRETTY_FUNCTION__)
+#define CheckWindowsError(error, location) XCom::Error::CheckWindowsErrorEx(error, __FILE__, __LINE__, __PRETTY_FUNCTION__, location)
+#define CheckError(error, code, location, description) XCom::Error::CheckErrorEx(error, __FILE__, __LINE__, code, __PRETTY_FUNCTION__, location, description)
+#define RaiseError(code, location, description) throw XCom::Error(__FILE__, __LINE__, code, __PRETTY_FUNCTION__, location, description)
 
 namespace XCom
 {

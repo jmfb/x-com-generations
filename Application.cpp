@@ -9,7 +9,15 @@ Application* Application::mThis = 0;
 Application::Application(HINSTANCE instance, char* command, int show)
 	: mInstance(instance), mCommandLine(command), mShowWindowCommand(show),
 	mWindowAtom(0), mWindowHandle(NULL), mWindowDC(NULL), mOpenGLContext(NULL),
-	mPaused(false)
+	mPaused(false),
+	mMouse(GAME_WIDTH, GAME_HEIGHT, CLIENT_WIDTH, CLIENT_HEIGHT, mWindowHandle),
+	mGraphicsBuffer(GAME_WIDTH, GAME_HEIGHT, CLIENT_WIDTH, CLIENT_HEIGHT,
+	[](unsigned char* data)
+	{
+		::glRasterPos2i(0, 0);
+		::glDrawPixels(CLIENT_WIDTH, CLIENT_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, data);
+	}),
+	mGame([&](){ ::PostMessage(mWindowHandle, WM_CLOSE, 0, 0); })
 {
 	mThis = this;
 }
@@ -64,10 +72,8 @@ void Application::CreateWindowAtom()
 
 void Application::CreateWindowHandle()
 {
-	int clientWidth = 800;
-	int clientHeight = 600;
 	unsigned long style = WS_OVERLAPPEDWINDOW & ~(WS_OVERLAPPED | WS_THICKFRAME | WS_MAXIMIZEBOX);
-	RECT rect = {0, 0, clientWidth, clientHeight};
+	RECT rect = {0, 0, CLIENT_WIDTH, CLIENT_HEIGHT};
 	::AdjustWindowRectEx(&rect, style, FALSE, WS_EX_WINDOWEDGE);
 
     HWND hwnd = ::CreateWindowEx(
@@ -113,8 +119,12 @@ int Application::RunMessageLoop()
             }
             else if (!mPaused)
             {
-                //render another frame, advance game state based on time?
-				//TODO: do shit
+                //render another frame
+				mIdleMap.OnIdle();
+				OnPaint(false);
+				
+				//NOTE: This doesn't seem necessary, but leaving in to
+				//reduce the CPU usage.
 				::Sleep(1);
             }
 			else
@@ -158,7 +168,7 @@ LRESULT Application::CallbackWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPAR
 		break;
 	
     case WM_PAINT:
-		OnPaint();
+		OnPaint(true);
         return 0;
 
     case WM_CHAR:
@@ -232,21 +242,19 @@ void Application::OnCreate(HWND hwnd)
 	//Setup pixel operations to be on byte boundaries
 	::glPixelStorei(GL_PACK_ALIGNMENT, 1);
 	::glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	
+	//Set the main menu screen
+	mScreenManager.Set(SCREEN_MAIN_MENU);
 }
 
 void Application::OnSize()
 {
-	RECT client = {0};
-	::GetClientRect(mWindowHandle, &client);
-	
 	//Set the viewport to the entire window
-	::glViewport(0, 0, client.right, client.bottom);
+	::glViewport(0, 0, CLIENT_WIDTH, CLIENT_HEIGHT);
 	::glLoadIdentity();
 
 	//Set the x and y ranges to that of the game height and width
-	int gameWidth = 320;
-	int gameHeight = 200;
-	::glOrtho(0.0f, gameWidth, 0.0f, gameHeight, 1.0f, -1.0f);
+	::glOrtho(0.0f, CLIENT_WIDTH, 0.0f, CLIENT_HEIGHT, 1.0f, -1.0f);
 }
 
 bool Application::OnSetCursor(LPARAM lparam)
@@ -260,41 +268,45 @@ bool Application::OnSetCursor(LPARAM lparam)
 	return false;
 }
 
-void Application::OnPaint()
+void Application::OnPaint(bool validate)
 {
 	//Render the game screen and re-validate the window
-	//CGame::GetInstance().Render();
-	::ValidateRect(mWindowHandle, NULL);
+	mGame.RenderScene();
+	mGraphicsBuffer.Commit();
+    ::glFlush();
+    ::SwapBuffers(::wglGetCurrentDC());
+	if (validate)
+		::ValidateRect(mWindowHandle, NULL);
 }
 
 void Application::OnKeyDown(char ch)
 {
-	//TODO:
+	mMouseEvents.OnKeyDown(ch);
 }
 
 void Application::OnMouseMove(WPARAM wparam)
 {
-	//TODO:
+	mMouseEvents.OnMouseMove((wparam & MK_LBUTTON) == MK_LBUTTON, (wparam & MK_RBUTTON) == MK_RBUTTON);
 }
 
 void Application::OnLButtonDown()
 {
-	//TODO:
+	mMouseEvents.OnLButtonDown();
 }
 
 void Application::OnLButtonUp()
 {
-	//TODO:
+	mMouseEvents.OnLButtonUp();
 }
 
 void Application::OnRButtonDown()
 {
-	//TODO:
+	mMouseEvents.OnRButtonDown();
 }
 
 void Application::OnRButtonUp()
 {
-	//TODO:
+	mMouseEvents.OnRButtonUp();
 }
 
 void Application::OnDestroy()

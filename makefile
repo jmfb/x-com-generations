@@ -9,7 +9,7 @@ output_file = xcom.exe
 # This is at the top of the file because it must be "evaluated" prior to the
 # include statement.
 #==============================================================================
-dummy = $(shell g++ -MM *.cpp > $(expected_build_file))
+dummy = $(shell g++ -std=c++0x -MM *.cpp > $(expected_build_file))
 ifeq ($(dummy),dummy)
 endif
 build_file = $(wildcard $(expected_build_file))
