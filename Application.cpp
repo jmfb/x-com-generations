@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "Error.h"
+#include "constants.h"
 
 namespace XCom
 {

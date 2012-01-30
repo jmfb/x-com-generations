@@ -1,6 +1,8 @@
 #include "GraphicsBuffer.h"
 #include "Error.h"
 #include <cstring>
+#include <sstream>
+#include <iomanip>
 
 namespace XCom
 {
@@ -40,6 +42,16 @@ GraphicsBuffer::GraphicsBuffer(
 		mPalettes[6 + index] = mPalettes[5];
 		mPalettes[6 + index].Move(index * 16, 16, 224);
 	}
+	
+	//Load the background images (files are numbered sequentially)
+	for (unsigned long index = 0; index < BACK_COUNT; ++index)
+	{
+		std::ostringstream out;
+		out << "./background/BACK" << std::setw(2) << std::setfill('0') << (index + 1) << ".dat";
+		mBackgrounds[index].Load(out.str());
+	}
+	
+	LoadImages();
 }
 
 GraphicsBuffer::~GraphicsBuffer()
@@ -155,6 +167,81 @@ void GraphicsBuffer::DrawImage(
 	}
 }
 
+void GraphicsBuffer::DrawImageFromFile(
+	unsigned long x, unsigned long y,
+	ImageType imageIndex)
+{
+	const Image& image = mImages[imageIndex];
+	if (image.GetData())
+		DrawMaskedImage(
+			x, y,
+			image.GetData(),
+			image.GetWidth(), image.GetHeight(),
+			0, 0,
+			image.GetWidth(), image.GetHeight());
+}
+
+//Source image is a 4-byte pixel where the bytes are r, g, b, and the mask(0,1)
+//indicating whether or not to draw the pixel or leave transparent.
+void GraphicsBuffer::DrawMaskedImage(
+	unsigned long x, unsigned long y,
+	const unsigned char* image,
+	unsigned long imageWidth, unsigned long imageHeight,
+	unsigned long sourceX, unsigned long sourceY,
+	unsigned long sourceWidth, unsigned long sourceHeight)
+{
+	for (unsigned long ix = 0; ix < sourceWidth; ++ix)
+	{
+		for (unsigned long iy = 0; iy < sourceHeight; ++iy)
+		{
+			if ((sourceX + ix) < imageWidth && (sourceY + iy) < imageHeight &&
+				(x + ix) < mGameWidth && (y - iy) < mGameHeight)
+			{
+				unsigned long sourceIndex = (sourceX + ix + (imageHeight - sourceY - iy - 1) * imageWidth) * 4;
+				if (image[sourceIndex + 3])
+				{
+					unsigned long destIndex = (x + ix + (y - iy) * mGameWidth) * Color::COLOR_BYTES;
+					::memcpy(mData + destIndex, image + sourceIndex, Color::COLOR_BYTES);
+				}
+			}
+		}
+	}
+}
+
+void GraphicsBuffer::DrawBackground(
+	unsigned long x, unsigned long y,
+	unsigned long width, unsigned long height,
+	BackgroundType backgroundIndex,
+	unsigned long paletteIndex)
+{
+	DrawPaletteImage(x, y,
+		mBackgrounds[backgroundIndex].GetData(),
+		mGameWidth, mGameHeight, x, mGameHeight - y - 1,
+		width, height, paletteIndex);
+}
+
+void GraphicsBuffer::DrawPaletteImage(
+	unsigned long x, unsigned long y,
+	const unsigned char* image,
+	unsigned long imageWidth, unsigned long imageHeight,
+	unsigned long sourceX, unsigned long sourceY,
+	unsigned long sourceWidth, unsigned long sourceHeight,
+	unsigned long paletteIndex)
+{
+	for (unsigned long ix = 0; ix < sourceWidth; ++ix)
+	{
+		for (unsigned long iy = 0; iy < sourceHeight; ++iy)
+		{
+			if ((sourceX + ix) < imageWidth && (sourceY + iy) < imageHeight)
+			{
+				unsigned long sourceIndex = sourceX + ix + (imageHeight - sourceY - iy - 1) * imageWidth;
+				SetBrush(mPalettes[paletteIndex][image[sourceIndex]], Set);
+				DrawPoint(x + ix, y - iy);
+			}
+		}
+	}
+}
+
 void GraphicsBuffer::DrawChar(
 	const ColorScheme& scheme,
 	unsigned long x, unsigned long y,
@@ -195,6 +282,20 @@ void GraphicsBuffer::Commit()
 const Palette& GraphicsBuffer::GetPalette(unsigned long index) const
 {
 	return mPalettes[index];
+}
+
+void GraphicsBuffer::LoadImages()
+{
+	std::string imageFiles[IMAGE_COUNT] = {
+		"rank_rookie",
+		"rank_squaddie",
+		"rank_sergeant",
+		"rank_captain",
+		"rank_colonel",
+		"rank_commander"
+	};
+	for (unsigned long index = 0; index < IMAGE_COUNT; ++index)
+		mImages[index].Load("./images/" + imageFiles[index] + ".xmg");
 }
 
 }

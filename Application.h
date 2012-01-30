@@ -20,15 +20,6 @@ public:
 	
 	int Run();
 	
-	enum
-	{
-		GAME_WIDTH = 320,
-		GAME_HEIGHT = 200,
-		SCALE_FACTOR = 4,
-		CLIENT_WIDTH = GAME_WIDTH * SCALE_FACTOR,
-		CLIENT_HEIGHT = GAME_HEIGHT * SCALE_FACTOR
-	};
-	
 private:
 	void CreateWindowAtom();
 	void CreateWindowHandle();

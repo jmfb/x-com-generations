@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseScreen.h"
 #include "ControlButton.h"
+#include "ControlBorder.h"
+#include "ControlText.h"
 
 namespace XCom
 {
@@ -18,6 +20,9 @@ private:
 	
 	virtual void OnButton(unsigned long id);
 	
+	ControlBorder mBorder;
+	ControlText mTitle;
+	ControlText mSubTitle;
 	ControlButton mNewGame;
 	ControlButton mLoadGame;
 	ControlButton mQuit;

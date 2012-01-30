@@ -13,7 +13,10 @@ enum
 
 ScreenMainMenu::ScreenMainMenu()
 {
-	//TODO: title, subtitle and border
+	mBorder.Init(this, 32, 179, 256, 160, SCHEME_AQUA, BACK_TITLE, 0);
+	
+	mTitle.Init(this, X_CENTER, 154, "X-Com", FONT_LARGE, SCHEME_YELLOW);
+	mSubTitle.Init(this, X_CENTER, 138, "UFO Defense", FONT_NORMAL, SCHEME_YELLOW);
 	
 	mNewGame.Init(this, 64, 109, 192, 20, "New Game", SCHEME_AQUA, ID_NEW_GAME);
 	mLoadGame.Init(this, 64, 81, 192, 20, "Load Saved Game", SCHEME_AQUA, ID_LOAD_GAME);

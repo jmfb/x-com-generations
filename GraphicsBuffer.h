@@ -3,6 +3,8 @@
 #include "Color.h"
 #include "Palette.h"
 #include "ColorScheme.h"
+#include "Background.h"
+#include "Image.h"
 
 namespace XCom
 {
@@ -34,6 +36,31 @@ public:
 		unsigned long width, unsigned long height,
 		unsigned long paletteIndex, unsigned long paletteOffset);
 	
+	void DrawImageFromFile(
+		unsigned long x, unsigned long y,
+		ImageType imageIndex);
+	
+	void DrawMaskedImage(
+		unsigned long x, unsigned long y,
+		const unsigned char* image,
+		unsigned long imageWidth, unsigned long imageHeight,
+		unsigned long sourceX, unsigned long sourceY,
+		unsigned long sourceWidth, unsigned long sourceHeight);
+	
+	void DrawBackground(
+		unsigned long x, unsigned long y,
+		unsigned long width, unsigned long height,
+		BackgroundType backgroundIndex,
+		unsigned long paletteIndex);
+	
+	void DrawPaletteImage(
+		unsigned long x, unsigned long y,
+		const unsigned char* image,
+		unsigned long imageWidth, unsigned long imageHeight,
+		unsigned long sourceX, unsigned long sourceY,
+		unsigned long sourceWidth, unsigned long sourceHeight,
+		unsigned long paletteIndex);
+	
 	void DrawChar(
 		const ColorScheme& scheme,
 		unsigned long x, unsigned long y,
@@ -63,6 +90,7 @@ private:
 	GraphicsBuffer& operator=(const GraphicsBuffer& rhs);
 
 	void Commit();
+	void LoadImages();
 	
 	friend class Application;
 	
@@ -79,6 +107,8 @@ private:
 	Color mColor;
 	PixelOperation mOperation;
 	Palette mPalettes[PALETTE_COUNT];
+	Background mBackgrounds[BACK_COUNT];
+	Image mImages[IMAGE_COUNT];
 };
 
 }
