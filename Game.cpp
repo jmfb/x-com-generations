@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "Error.h"
-#include "Mouse.h"
-#include "ScreenManager.h"
+#include "Mouse/Mouse.h"
+#include "Screens/ScreenManager.h"
 
 namespace XCom
 {

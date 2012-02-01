@@ -2,12 +2,12 @@
 #include "WindowsInclude.h"
 #include <string>
 #include <gl/gl.h>
-#include "GraphicsBuffer.h"
+#include "Graphics/GraphicsBuffer.h"
 #include "Game.h"
-#include "Mouse.h"
-#include "MouseEvents.h"
+#include "Mouse/Mouse.h"
+#include "Mouse/MouseEvents.h"
 #include "IdleMap.h"
-#include "ScreenManager.h"
+#include "Screens/ScreenManager.h"
 
 namespace XCom
 {
