@@ -1,5 +1,6 @@
 #include "ScreenMainMenu.h"
 #include "../Game.h"
+#include "ScreenManager.h"
 
 namespace XCom
 {
@@ -8,7 +9,8 @@ enum
 {
 	ID_NEW_GAME,
 	ID_LOAD_GAME,
-	ID_QUIT
+	ID_QUIT,
+	ID_TEST
 };
 
 ScreenMainMenu::ScreenMainMenu()
@@ -21,6 +23,7 @@ ScreenMainMenu::ScreenMainMenu()
 	mNewGame.Init(this, 64, 109, 192, 20, "New Game", SCHEME_AQUA, ID_NEW_GAME);
 	mLoadGame.Init(this, 64, 81, 192, 20, "Load Saved Game", SCHEME_AQUA, ID_LOAD_GAME);
 	mQuit.Init(this, 64, 53, 192, 20, "Quit", SCHEME_AQUA, ID_QUIT);
+	mTest.Init(this, 10, 190, 40, 20, "Test", SCHEME_AQUA, ID_TEST);
 }
 
 ScreenMainMenu::~ScreenMainMenu()
@@ -40,6 +43,8 @@ void ScreenMainMenu::OnButton(unsigned long id)
 	case ID_QUIT:
 		Game::Get().Quit();
 		break;
+	case ID_TEST:
+		ScreenManager::Get().Set(SCREEN_TEST);
 	}
 }
 

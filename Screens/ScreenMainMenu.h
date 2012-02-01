@@ -26,6 +26,7 @@ private:
 	ControlButton mNewGame;
 	ControlButton mLoadGame;
 	ControlButton mQuit;
+	ControlButton mTest;
 };
 
 }

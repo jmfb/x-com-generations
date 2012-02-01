@@ -55,7 +55,10 @@ enum ScreenType
     SCREEN_BATTLE_MAP,
     SCREEN_BATTLE_OPTIONS,
     SCREEN_BATTLE_SUMMARY,
-    SCREEN_PROMOTIONS
+    SCREEN_PROMOTIONS,
+	
+	//Test screen
+	SCREEN_TEST
 };
 
 class ScreenManager
