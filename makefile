@@ -11,8 +11,6 @@ LIBRARIES = -lopengl32 -lgdi32
 #======================================================
 SOURCES = $(sort $(strip $(wildcard *.cpp) $(wildcard */*.cpp)))
 
-#$(info $(filter-out \,$(shell $(CC) $(CCFLAGS) -MM Image.cpp -MT Image.o)))
-
 define BUILD_SOURCE =
 OBJECTS += $(OUTDIR)/$(basename $(notdir $(1))).o
 $(filter-out \,$(shell $(CC) $(CCFLAGS) -MM $(1) -MT $(OUTDIR)/$(basename $(notdir $(1))).o))
