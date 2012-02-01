@@ -1,59 +1,66 @@
-#==============================================================================
-# Constants used for later in the build script.
-#==============================================================================
-expected_build_file = dependecies.txt
-output_file = xcom.exe
+CC = g++
+CCFLAGS = -O3 -Wall -std=c++0x
+OUTDIR = ./bin
+TARGET = xcom.exe
+LIBRARIES = -lopengl32 -lgdi32
 
-#==============================================================================
-# Use a dummy variable that executes a shell command to generate the build file.
-# This is at the top of the file because it must be "evaluated" prior to the
-# include statement.
-#==============================================================================
-dummy = $(shell g++ -std=c++0x -MM *.cpp > $(expected_build_file))
-ifeq ($(dummy),dummy)
+#======================================================
+# Build all source (*.cpp) files in the root directory
+# and one level deep.  If more levels are needed, add to
+# the SOURCES list here.
+#======================================================
+SOURCES = $(sort $(strip $(wildcard *.cpp) $(wildcard */*.cpp)))
+
+#$(info $(filter-out \,$(shell $(CC) $(CCFLAGS) -MM Image.cpp -MT Image.o)))
+
+define BUILD_SOURCE =
+OBJECTS += $(OUTDIR)/$(basename $(notdir $(1))).o
+$(filter-out \,$(shell $(CC) $(CCFLAGS) -MM $(1) -MT $(OUTDIR)/$(basename $(notdir $(1))).o))
+	$(CC) $(CCFLAGS) -c $(1) -o $(OUTDIR)/$(basename $(notdir $(1))).o
+endef
+
+$(foreach file,$(SOURCES),$(eval $(call BUILD_SOURCE,$(file))))
+
+#======================================================
+# Primary output.  Make output directory is dependency
+# so that it will get created if it does not already exist.
+# Since the BUILD_SOURCE template must be expanded by the
+# preceding foreach statement, this cannot be the first
+# target in the file; therefore we need to override the
+# default goal to this target.
+#======================================================
+install: OUTDIR $(OBJECTS)
+	$(CC) $(CCFLAGS) $(OBJECTS) -o $(OUTDIR)/$(TARGET) $(LIBRARIES)
+	copy $(subst /,\,$(OUTDIR))\$(TARGET) $(TARGET)
+
+.DEFAULT_GOAL := install
+
+#======================================================
+# The following section contains "phony" commands that
+# do no actually build output files.
+#======================================================
+.PHONY: OUTDIR clean
+
+#======================================================
+# Create the output directory if it doesn't already exist.
+#======================================================
+OUTDIR:
+ifeq ($(wildcard $(OUTDIR)),)
+	mkdir $(subst /,\,$(OUTDIR))
 endif
-build_file = $(wildcard $(expected_build_file))
 
-#==============================================================================
-# Default target.  Links the executable by expecting every cpp file to generate
-# an object file.
-# - subsystem: Which linker subsystem is used: 'console' or 'windows'.
-#==============================================================================
-objects = $(patsubst %.cpp,%.o,$(wildcard *.cpp))
-subsystem = -Xlinker --subsystem -Xlinker console
-options = -std=c++0x -O3 -Wall
-libraries = -lopengl32 -lgdi32
-xcom: $(objects)
-	g++ $(options) -o $(output_file) $(subsystem) $(objects) $(libraries)
-
-#==============================================================================
-# Makefile preparation.  Clears out known suffixes and only recognizes object
-# files and cpp files.  Redefines the implicit rule for building object files
-# from cpp files.
-#==============================================================================
-includes = 
-.SUFFIXES:
-.SUFFIXES: .o .cpp
-.cpp.o:
-	g++ $(options) $(includes) -c -o $@ $<
-
-#==============================================================================
-# Include the build file.  This file contains the g++ generated listing of
-# file dependencies generated from #include directives in all cpp files.
-# Example: main.o: main.cpp Error.h
-#==============================================================================
-ifeq ($(build_file),$(expected_build_file))
-include $(expected_build_file)
-endif
-
-#==============================================================================
-# Clean directive.  This will delete all intermediate files generated during
-# the build process.  This handles the case when there are no files to delete.
-#==============================================================================
-clean_target = $(build_file) $(wildcard xcom.exe) $(wildcard *.o)
-empty_target = $(wildcard doesnotexist) $(wildcard doesnotexist) $(wildcard doesnotexist)
-.PHONY: clean
+#======================================================
+# Delete intermediate files from output directory and
+# delete output directory.  Delete output file from
+# root directory if it exists there as post build step.
+#======================================================
 clean:
-ifneq ($(clean_target),$(empty_target))
-	-del $(clean_target)
+ifneq ($(wildcard $(OUTDIR)/*.*),)
+	del /Q $(subst /,\,$(OUTDIR))\*.*
+endif
+ifneq ($(wildcard $(OUTDIR)),)
+	rmdir $(subst /,\,$(OUTDIR))
+endif
+ifneq ($(wildcard $(TARGET)),)
+	del $(TARGET)
 endif
