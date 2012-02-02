@@ -27,6 +27,7 @@ private:
 	ControlButton mLoadGame;
 	ControlButton mQuit;
 	ControlButton mTest;
+	ControlButton mBattleTest;
 };
 
 }

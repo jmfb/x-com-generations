@@ -10,7 +10,8 @@ enum
 	ID_NEW_GAME,
 	ID_LOAD_GAME,
 	ID_QUIT,
-	ID_TEST
+	ID_TEST,
+	ID_BATTLE
 };
 
 ScreenMainMenu::ScreenMainMenu()
@@ -24,6 +25,7 @@ ScreenMainMenu::ScreenMainMenu()
 	mLoadGame.Init(this, 64, 81, 192, 20, "Load Saved Game", SCHEME_AQUA, ID_LOAD_GAME);
 	mQuit.Init(this, 64, 53, 192, 20, "Quit", SCHEME_AQUA, ID_QUIT);
 	mTest.Init(this, 10, 190, 40, 20, "Test", SCHEME_AQUA, ID_TEST);
+	mBattleTest.Init(this, 10, 170, 40, 20, "Battle", SCHEME_AQUA, ID_BATTLE);
 }
 
 ScreenMainMenu::~ScreenMainMenu()
@@ -45,6 +47,10 @@ void ScreenMainMenu::OnButton(unsigned long id)
 		break;
 	case ID_TEST:
 		ScreenManager::Get().Set(SCREEN_TEST);
+		break;
+	case ID_BATTLE:
+		ScreenManager::Get().Set(SCREEN_BATTLE_TEST);
+		break;
 	}
 }
 

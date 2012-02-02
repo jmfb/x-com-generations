@@ -3,6 +3,7 @@
 #include "../Mouse/MouseEvents.h"
 #include "ScreenMainMenu.h"
 #include "ScreenTestControls.h"
+#include "ScreenTestBattle.h"
 
 namespace XCom
 {
@@ -52,12 +53,15 @@ BaseScreen* ScreenManager::FindScreen(ScreenType type)
 {
 	static ScreenMainMenu mainMenu;
 	static ScreenTestControls testControls;
+	static ScreenTestBattle testBattle;
 	switch(type)
 	{
 	case SCREEN_MAIN_MENU:
 		return &mainMenu;
 	case SCREEN_TEST:
 		return &testControls;
+	case SCREEN_BATTLE_TEST:
+		return &testBattle;
 	default:
 		return 0;
 	}

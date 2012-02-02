@@ -58,7 +58,8 @@ enum ScreenType
     SCREEN_PROMOTIONS,
 	
 	//Test screen
-	SCREEN_TEST
+	SCREEN_TEST,
+	SCREEN_BATTLE_TEST
 };
 
 class ScreenManager
