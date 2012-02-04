@@ -3,7 +3,7 @@ CCFLAGS = -O3 -Wall -std=c++0x
 LINKFLAGS = -mwindows
 OUTDIR = ./bin
 TARGET = ImageEditor.exe
-LIBRARIES = -lgdi32
+LIBRARIES = -lgdi32 -lcomdlg32
 
 #======================================================
 # Build all source (*.cpp) files in the root directory

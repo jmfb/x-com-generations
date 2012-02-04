@@ -292,7 +292,13 @@ void GraphicsBuffer::LoadImages()
 		"rank_sergeant",
 		"rank_captain",
 		"rank_colonel",
-		"rank_commander"
+		"rank_commander",
+		"battlescape/test_corner",
+		"battlescape/test_floor",
+		"battlescape/test_floor_1",
+		"battlescape/test_floor_2",
+		"battlescape/test_left",
+		"battlescape/test_top"
 	};
 	for (unsigned long index = 0; index < IMAGE_COUNT; ++index)
 		mImages[index].Load("./images/" + imageFiles[index] + ".xmg");

@@ -7,3 +7,4 @@
 #define ID_FILE_SAVE 1003
 #define ID_FILE_SAVEAS 1004
 #define ID_FILE_EXIT 1005
+#define ID_EDIT_COLOR 1006

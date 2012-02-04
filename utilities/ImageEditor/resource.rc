@@ -11,4 +11,8 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "E&xit\tCtrl+Q",               ID_FILE_EXIT
     END
+	POPUP "&Edit"
+	BEGIN
+		MENUITEM "&Color\tCtrl+C",				ID_EDIT_COLOR
+	END
 END
