@@ -1,5 +1,4 @@
 #include "ScreenManager.h"
-#include "../Error.h"
 #include "../Mouse/MouseEvents.h"
 #include "ScreenMainMenu.h"
 #include "ScreenTestControls.h"
@@ -8,23 +7,13 @@
 namespace XCom
 {
 
-ScreenManager* ScreenManager::mThis = 0;
-
 ScreenManager::ScreenManager()
 	: mActiveScreen(0)
 {
-	mThis = this;
 }
 
 ScreenManager::~ScreenManager()
 {
-	mThis = 0;
-}
-
-ScreenManager& ScreenManager::Get()
-{
-	CheckError(mThis == 0, 0, "", "Screen manager entity does not exist.");
-	return *mThis;
 }
 
 void ScreenManager::Render() const

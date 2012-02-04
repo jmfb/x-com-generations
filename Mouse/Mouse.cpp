@@ -1,13 +1,12 @@
 #include "Mouse.h"
-#include "../Error.h"
 #include "../Graphics/GraphicsBuffer.h"
+#include "../Application.h"
+#include "../constants.h"
 
 namespace XCom
 {
 
-Mouse* Mouse::mThis = 0;
-
-const unsigned char CURSOR_IMAGE[Mouse::CURSOR_SIZE] = {
+const unsigned char CURSOR_IMAGE[CURSOR_SIZE] = {
     1, 0, 0, 0, 0, 0, 0, 0, 0,
     1, 2, 0, 0, 0, 0, 0, 0, 0,
     1, 2, 3, 0, 0, 0, 0, 0, 0,
@@ -23,24 +22,13 @@ const unsigned char CURSOR_IMAGE[Mouse::CURSOR_SIZE] = {
     1, 0, 0, 0, 0, 0, 0, 0, 0,
 };
 
-Mouse::Mouse(unsigned long gameWidth, unsigned long gameHeight, unsigned long targetWidth, unsigned long targetHeight, HWND& windowHandle)
-	: mGameWidth(gameWidth), mGameHeight(gameHeight),
-	mTargetWidth(targetWidth), mTargetHeight(targetHeight),
-	mWindowHandle(windowHandle),
-	mVisible(true), mX(0), mY(0)
+Mouse::Mouse()
+	: mVisible(true), mX(0), mY(0)
 {
-	mThis = this;
 }
 
 Mouse::~Mouse()
 {
-	mThis = 0;
-}
-
-Mouse& Mouse::Get()
-{
-	CheckError(mThis == 0, 0, "", "Mouse entity does not exist.");
-	return *mThis;
 }
 
 void Mouse::Show(bool visible)
@@ -50,7 +38,7 @@ void Mouse::Show(bool visible)
 	{
 		//Restore the old position when showing
 		POINT pt = { mX, mY };
-		::ClientToScreen(mWindowHandle, &pt);
+		::ClientToScreen(Application::Get().GetWindowHandle(), &pt);
 		::SetCursorPos(pt.x, pt.y);
 	}
 	else
@@ -58,7 +46,7 @@ void Mouse::Show(bool visible)
 		//Store the current position when hiding
 		POINT pt = {0};
 		::GetCursorPos(&pt);
-		::ScreenToClient(mWindowHandle, &pt);
+		::ScreenToClient(Application::Get().GetWindowHandle(), &pt);
 		mX = pt.x;
 		mY = pt.y;
 	}
@@ -77,10 +65,10 @@ std::pair<unsigned long, unsigned long> Mouse::GetPosition() const
 {
 	POINT pt = {0};
 	::GetCursorPos(&pt);
-	::ScreenToClient(mWindowHandle, &pt);
+	::ScreenToClient(Application::Get().GetWindowHandle(), &pt);
 	return std::make_pair(
-		(pt.x * mGameWidth) / mTargetWidth,
-		mGameHeight - ((pt.y * mGameHeight) / mTargetHeight) - 1);
+		(pt.x * GAME_WIDTH) / CLIENT_WIDTH,
+		GAME_HEIGHT - ((pt.y * GAME_HEIGHT) / CLIENT_HEIGHT) - 1);
 }
 
 }

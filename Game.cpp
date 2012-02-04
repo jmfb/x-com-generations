@@ -1,28 +1,17 @@
 #include "Game.h"
-#include "Error.h"
 #include "Mouse/Mouse.h"
 #include "Screens/ScreenManager.h"
+#include "Application.h"
 
 namespace XCom
 {
 
-Game* Game::mThis = 0;
-
-Game::Game(const std::function<void()>& quit)
-	: mQuit(quit)
+Game::Game()
 {
-	mThis = this;
 }
 
 Game::~Game()
 {
-	mThis = 0;
-}
-
-Game& Game::Get()
-{
-	CheckError(mThis == 0, 0, "", "Game instance does not exist.");
-	return *mThis;
 }
 
 void Game::RenderScene()
@@ -33,7 +22,7 @@ void Game::RenderScene()
 
 void Game::Quit()
 {
-	mQuit();
+	Application::Get().Quit();
 }
 
 }

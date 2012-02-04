@@ -1,35 +1,36 @@
 #include "Application.h"
 #include "Error.h"
 #include "constants.h"
+#include "Mouse/MouseEvents.h"
+#include "IdleMap.h"
+#include "Screens/ScreenManager.h"
+#include "Game.h"
+#include "Graphics/GraphicsBuffer.h"
 
 namespace XCom
 {
 
-Application* Application::mThis = 0;
-
-Application::Application(HINSTANCE instance, char* command, int show)
-	: mInstance(instance), mCommandLine(command), mShowWindowCommand(show),
-	mWindowAtom(0), mWindowHandle(NULL), mWindowDC(NULL), mOpenGLContext(NULL),
-	mPaused(false),
-	mMouse(GAME_WIDTH, GAME_HEIGHT, CLIENT_WIDTH, CLIENT_HEIGHT, mWindowHandle),
-	mGraphicsBuffer(GAME_WIDTH, GAME_HEIGHT, CLIENT_WIDTH, CLIENT_HEIGHT,
-	[](unsigned char* data)
-	{
-		::glRasterPos2i(0, 0);
-		::glDrawPixels(CLIENT_WIDTH, CLIENT_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, data);
-	}),
-	mGame([&](){ ::PostMessage(mWindowHandle, WM_CLOSE, 0, 0); })
+Application::Application()
+	: mInstance(NULL),
+	mShowWindowCommand(0),
+	mWindowAtom(0),
+	mWindowHandle(NULL),
+	mWindowDC(NULL),
+	mOpenGLContext(NULL),
+	mPaused(false)
 {
-	mThis = this;
 }
 
 Application::~Application()
 {
-	mThis = 0;
 }
 
-int Application::Run()
+int Application::Run(HINSTANCE instance, char* command, int show)
 {
+	mInstance = instance;
+	mCommandLine = command;
+	mShowWindowCommand = show;
+	
 	int retval = ERROR_SUCCESS;
 	try
 	{
@@ -48,6 +49,22 @@ int Application::Run()
 		retval = Error::UNHANDLED_EXCEPTION;
 	}
 	return retval;
+}
+
+void Application::Quit()
+{
+	::PostMessage(mWindowHandle, WM_CLOSE, 0, 0);
+}
+
+void Application::DrawPixels(unsigned char* data)
+{
+	::glRasterPos2i(0, 0);
+	::glDrawPixels(CLIENT_WIDTH, CLIENT_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, data);
+}
+
+HWND Application::GetWindowHandle()
+{
+	return mWindowHandle;
 }
 
 void Application::CreateWindowAtom()
@@ -121,7 +138,7 @@ int Application::RunMessageLoop()
             else if (!mPaused)
             {
                 //render another frame
-				mIdleMap.OnIdle();
+				IdleMap::Get().OnIdle();
 				OnPaint(false);
 				
 				//NOTE: This doesn't seem necessary, but leaving in to
@@ -172,6 +189,24 @@ LRESULT Application::CallbackWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPAR
 		OnPaint(true);
         return 0;
 
+	case WM_KEYDOWN:
+		switch(wparam)
+		{
+		case VK_UP:
+			OnArrowKey(ARROW_UP);
+			return 0;
+		case VK_DOWN:
+			OnArrowKey(ARROW_DOWN);
+			return 0;
+		case VK_LEFT:
+			OnArrowKey(ARROW_LEFT);
+			return 0;
+		case VK_RIGHT:
+			OnArrowKey(ARROW_RIGHT);
+			return 0;
+		}
+		break;
+		
     case WM_CHAR:
 		OnKeyDown(static_cast<char>(wparam));
         return 0;
@@ -245,7 +280,7 @@ void Application::OnCreate(HWND hwnd)
 	::glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	
 	//Set the main menu screen
-	mScreenManager.Set(SCREEN_MAIN_MENU);
+	ScreenManager::Get().Set(SCREEN_MAIN_MENU);
 }
 
 void Application::OnSize()
@@ -272,8 +307,8 @@ bool Application::OnSetCursor(LPARAM lparam)
 void Application::OnPaint(bool validate)
 {
 	//Render the game screen and re-validate the window
-	mGame.RenderScene();
-	mGraphicsBuffer.Commit();
+	Game::Get().RenderScene();
+	GraphicsBuffer::Get().Commit();
     ::glFlush();
     ::SwapBuffers(::wglGetCurrentDC());
 	if (validate)
@@ -282,32 +317,37 @@ void Application::OnPaint(bool validate)
 
 void Application::OnKeyDown(char ch)
 {
-	mMouseEvents.OnKeyDown(ch);
+	MouseEvents::Get().OnKeyDown(ch);
+}
+
+void Application::OnArrowKey(ArrowKey key)
+{
+	MouseEvents::Get().OnArrowKey(key);
 }
 
 void Application::OnMouseMove(WPARAM wparam)
 {
-	mMouseEvents.OnMouseMove((wparam & MK_LBUTTON) == MK_LBUTTON, (wparam & MK_RBUTTON) == MK_RBUTTON);
+	MouseEvents::Get().OnMouseMove((wparam & MK_LBUTTON) == MK_LBUTTON, (wparam & MK_RBUTTON) == MK_RBUTTON);
 }
 
 void Application::OnLButtonDown()
 {
-	mMouseEvents.OnLButtonDown();
+	MouseEvents::Get().OnLButtonDown();
 }
 
 void Application::OnLButtonUp()
 {
-	mMouseEvents.OnLButtonUp();
+	MouseEvents::Get().OnLButtonUp();
 }
 
 void Application::OnRButtonDown()
 {
-	mMouseEvents.OnRButtonDown();
+	MouseEvents::Get().OnRButtonDown();
 }
 
 void Application::OnRButtonUp()
 {
-	mMouseEvents.OnRButtonUp();
+	MouseEvents::Get().OnRButtonUp();
 }
 
 void Application::OnDestroy()
@@ -322,7 +362,7 @@ void Application::OnDestroy()
 
 LRESULT __stdcall Application::StaticWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	return mThis->CallbackWindowProc(hwnd, msg, wparam, lparam);
+	return Application::Get().CallbackWindowProc(hwnd, msg, wparam, lparam);
 }
 
 }

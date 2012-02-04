@@ -106,6 +106,8 @@ public:
 
 
 BattleMapSection testSection;
+unsigned long gdx = 100;
+unsigned long gdy = 199;
 
 ScreenTestBattle::ScreenTestBattle()
 {
@@ -158,7 +160,33 @@ void ScreenTestBattle::Render() const
 		graphics.DrawPoint(x % GAME_WIDTH, x % GAME_HEIGHT);
 	}
 	
-	testSection.Render(100, 199);
+	testSection.Render(gdx, gdy);
+}
+
+void ScreenTestBattle::OnLeftButtonDown(unsigned long x, unsigned long y)
+{
+	BaseScreen::OnLeftButtonDown(x, y);
+	//TODO: click shit
+}
+
+void ScreenTestBattle::OnArrowKey(ArrowKey key)
+{
+	BaseScreen::OnArrowKey(key);
+	switch(key)
+	{
+	case ARROW_LEFT:
+		gdx -= 8;
+		break;
+	case ARROW_RIGHT:
+		gdx += 8;
+		break;
+	case ARROW_UP:
+		gdy += 8;
+		break;
+	case ARROW_DOWN:
+		gdy -= 8;
+		break;
+	}
 }
 
 }

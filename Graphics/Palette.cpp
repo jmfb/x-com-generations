@@ -1,5 +1,6 @@
 #include "Palette.h"
 #include "../Error.h"
+#include "../constants.h"
 #include <cstring>
 #include <fstream>
 
@@ -7,7 +8,7 @@ namespace XCom
 {
 
 const unsigned long PALETTE_ENTRIES = 256;
-const unsigned long PALETTE_SIZE = PALETTE_ENTRIES * Color::COLOR_BYTES;
+const unsigned long PALETTE_SIZE = PALETTE_ENTRIES * COLOR_BYTES;
 
 Palette::Palette()
 	: mData(0)
@@ -44,12 +45,12 @@ void Palette::Load(const std::string& file)
 
 void Palette::Move(unsigned long source, unsigned long size, unsigned long destination)
 {
-	::memmove(mData + destination * Color::COLOR_BYTES, mData + source * Color::COLOR_BYTES, size * Color::COLOR_BYTES);
+	::memmove(mData + destination * COLOR_BYTES, mData + source * COLOR_BYTES, size * COLOR_BYTES);
 }
 
 Color Palette::operator[](unsigned long index) const
 {
-	unsigned long position = index * Color::COLOR_BYTES;
+	unsigned long position = index * COLOR_BYTES;
 	return Color(mData[position] << 2, mData[position + 1] << 2, mData[position + 2] << 2);
 }
 

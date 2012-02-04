@@ -16,6 +16,9 @@ private:
 	friend class ScreenManager;
 	
 	virtual void Render() const;
+	
+	virtual void OnLeftButtonDown(unsigned long x, unsigned long y);
+	virtual void OnArrowKey(ArrowKey key);
 };
 
 }

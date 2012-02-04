@@ -1,7 +1,7 @@
 #pragma once
 #include "../Graphics/IGraphicsObject.h"
 #include "../Screens/BaseScreen.h"
-#include "../Graphics/Image.h"
+#include "../Graphics/ImageType.h"
 
 namespace XCom
 {

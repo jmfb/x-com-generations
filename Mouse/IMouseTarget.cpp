@@ -18,6 +18,11 @@ void IMouseTarget::OnKeyDown(char ch)
 	//nothing
 }
 
+void IMouseTarget::OnArrowKey(ArrowKey key)
+{
+	//nothing
+}
+
 void IMouseTarget::OnMouseMove(unsigned long x, unsigned long y, bool leftButton, bool rightButton)
 {
 	//nothing

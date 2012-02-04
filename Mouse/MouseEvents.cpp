@@ -1,33 +1,28 @@
 #include "MouseEvents.h"
-#include "../Error.h"
 #include "Mouse.h"
 
 namespace XCom
 {
 
-MouseEvents* MouseEvents::mThis = 0;
-
 MouseEvents::MouseEvents()
 	: mFocus(0)
 {
-	mThis = this;
 }
 
 MouseEvents::~MouseEvents()
 {
-	mThis = 0;
-}
-
-MouseEvents& MouseEvents::Get()
-{
-	CheckError(mThis == 0, 0, "", "Mouse Events entity does not exist.");
-	return *mThis;
 }
 
 void MouseEvents::OnKeyDown(char ch)
 {
 	if (mFocus)
 		mFocus->OnKeyDown(ch);
+}
+
+void MouseEvents::OnArrowKey(ArrowKey key)
+{
+	if (mFocus)
+		mFocus->OnArrowKey(key);
 }
 
 void MouseEvents::OnMouseMove(bool leftButton, bool rightButton)

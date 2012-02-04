@@ -1,16 +1,16 @@
 #pragma once
+#include "../Singleton.h"
 #include "IMouseTarget.h"
 #include <stack>
 
 namespace XCom
 {
 
-class MouseEvents
+class MouseEvents : public Singleton<MouseEvents>
 {
 public:
-	static MouseEvents& Get();
-
 	void OnKeyDown(char ch);
+	void OnArrowKey(ArrowKey key);
 	void OnMouseMove(bool leftButton, bool rightButton);
 	void OnLButtonDown();
 	void OnLButtonUp();
@@ -28,9 +28,7 @@ private:
 	
 	MouseEvents& operator=(const MouseEvents& rhs);
 	
-	friend class Application;
-	
-	static MouseEvents* mThis;
+	friend class Singleton<MouseEvents>;
 	
 	IMouseTarget* mFocus;
 	std::stack<IMouseTarget*> mStack;

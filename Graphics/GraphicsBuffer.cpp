@@ -1,5 +1,6 @@
 #include "GraphicsBuffer.h"
-#include "../Error.h"
+#include "../Application.h"
+#include "../constants.h"
 #include <cstring>
 #include <sstream>
 #include <iomanip>
@@ -7,22 +8,12 @@
 namespace XCom
 {
 
-GraphicsBuffer* GraphicsBuffer::mThis = 0;
-
-GraphicsBuffer::GraphicsBuffer(
-	unsigned long gameWidth,
-	unsigned long gameHeight,
-	unsigned long targetWidth,
-	unsigned long targetHeight,
-	const std::function<void(unsigned char*)>& commit)
-	: mGameWidth(gameWidth), mGameHeight(gameHeight), mSize(gameWidth * gameHeight * Color::COLOR_BYTES),
-	mTargetWidth(targetWidth), mTargetHeight(targetHeight),
-	mData(0), mScaledData(0),
-	mCommit(commit), mOperation(Set)
+GraphicsBuffer::GraphicsBuffer()
+	: mSize(GAME_WIDTH * GAME_HEIGHT * COLOR_BYTES),
+	mData(0), mScaledData(0), mOperation(Set)
 {
-	mThis = this;
 	mData = new unsigned char[mSize];
-	mScaledData = new unsigned char[mTargetWidth * mTargetHeight * Color::COLOR_BYTES];
+	mScaledData = new unsigned char[CLIENT_WIDTH * CLIENT_HEIGHT * COLOR_BYTES];
 	::memset(mData, 0, mSize);
 
 	//Load the standard 5 palettes
@@ -56,15 +47,8 @@ GraphicsBuffer::GraphicsBuffer(
 
 GraphicsBuffer::~GraphicsBuffer()
 {
-	mThis = 0;
 	delete [] mData;
 	delete [] mScaledData;
-}
-
-GraphicsBuffer& GraphicsBuffer::Get()
-{
-	CheckError(mThis == 0, 0, "", "GraphicsBuffer::Get called when there was no instance.");
-	return *mThis;
 }
 
 void GraphicsBuffer::SetBrush(const Color& color, PixelOperation operation)
@@ -87,10 +71,10 @@ void GraphicsBuffer::DrawVerticalLine(unsigned long x, unsigned long y, unsigned
 
 void GraphicsBuffer::DrawPoint(unsigned long x, unsigned long y)
 {
-	if (x < mGameWidth && y < mGameHeight)
+	if (x < GAME_WIDTH && y < GAME_HEIGHT)
 	{
-		unsigned long index = (x + (y * mGameWidth)) * Color::COLOR_BYTES;
-		for (unsigned long part = 0; part < Color::COLOR_BYTES; ++part)
+		unsigned long index = (x + (y * GAME_WIDTH)) * COLOR_BYTES;
+		for (unsigned long part = 0; part < COLOR_BYTES; ++part)
 			switch(mOperation)
 			{
 			case Set:
@@ -195,13 +179,13 @@ void GraphicsBuffer::DrawMaskedImage(
 		for (unsigned long iy = 0; iy < sourceHeight; ++iy)
 		{
 			if ((sourceX + ix) < imageWidth && (sourceY + iy) < imageHeight &&
-				(x + ix) < mGameWidth && (y - iy) < mGameHeight)
+				(x + ix) < GAME_WIDTH && (y - iy) < GAME_HEIGHT)
 			{
 				unsigned long sourceIndex = (sourceX + ix + (imageHeight - sourceY - iy - 1) * imageWidth) * 4;
 				if (image[sourceIndex + 3])
 				{
-					unsigned long destIndex = (x + ix + (y - iy) * mGameWidth) * Color::COLOR_BYTES;
-					::memcpy(mData + destIndex, image + sourceIndex, Color::COLOR_BYTES);
+					unsigned long destIndex = (x + ix + (y - iy) * GAME_WIDTH) * COLOR_BYTES;
+					::memcpy(mData + destIndex, image + sourceIndex, COLOR_BYTES);
 				}
 			}
 		}
@@ -216,7 +200,7 @@ void GraphicsBuffer::DrawBackground(
 {
 	DrawPaletteImage(x, y,
 		mBackgrounds[backgroundIndex].GetData(),
-		mGameWidth, mGameHeight, x, mGameHeight - y - 1,
+		GAME_WIDTH, GAME_HEIGHT, x, GAME_HEIGHT - y - 1,
 		width, height, paletteIndex);
 }
 
@@ -264,18 +248,18 @@ void GraphicsBuffer::DrawChar(
 
 void GraphicsBuffer::Commit()
 {
-	for (unsigned long dx = 0; dx < mTargetWidth; ++dx)
+	for (unsigned long dx = 0; dx < CLIENT_WIDTH; ++dx)
 	{
-		for (unsigned long dy = 0; dy < mTargetHeight; ++dy)
+		for (unsigned long dy = 0; dy < CLIENT_HEIGHT; ++dy)
 		{
-			unsigned long sx = (dx * mGameWidth) / mTargetWidth;
-			unsigned long sy = (dy * mGameHeight) / mTargetHeight;
-			unsigned long di = (dx + (dy * mTargetWidth)) * Color::COLOR_BYTES;
-			unsigned long si = (sx + (sy * mGameWidth)) * Color::COLOR_BYTES;
-			::memcpy(mScaledData + di, mData + si, Color::COLOR_BYTES);
+			unsigned long sx = (dx * GAME_WIDTH) / CLIENT_WIDTH;
+			unsigned long sy = (dy * GAME_HEIGHT) / CLIENT_HEIGHT;
+			unsigned long di = (dx + (dy * CLIENT_WIDTH)) * COLOR_BYTES;
+			unsigned long si = (sx + (sy * GAME_WIDTH)) * COLOR_BYTES;
+			::memcpy(mScaledData + di, mData + si, COLOR_BYTES);
 		}
 	}
-	mCommit(mScaledData);
+	Application::Get().DrawPixels(mScaledData);
     ::memset(mData, 0, mSize);
 }
 
@@ -287,12 +271,12 @@ const Palette& GraphicsBuffer::GetPalette(unsigned long index) const
 void GraphicsBuffer::LoadImages()
 {
 	std::string imageFiles[IMAGE_COUNT] = {
-		"rank_rookie",
-		"rank_squaddie",
-		"rank_sergeant",
-		"rank_captain",
-		"rank_colonel",
-		"rank_commander",
+		"rank/rookie",
+		"rank/squaddie",
+		"rank/sergeant",
+		"rank/captain",
+		"rank/colonel",
+		"rank/commander",
 		"battlescape/test_corner",
 		"battlescape/test_floor",
 		"battlescape/test_floor_1",

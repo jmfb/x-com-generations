@@ -1,24 +1,26 @@
 #pragma once
 #include "WindowsInclude.h"
-#include <string>
 #include <gl/gl.h>
-#include "Graphics/GraphicsBuffer.h"
-#include "Game.h"
-#include "Mouse/Mouse.h"
-#include "Mouse/MouseEvents.h"
-#include "IdleMap.h"
-#include "Screens/ScreenManager.h"
+#include "Singleton.h"
+#include "Mouse/ArrowKey.h"
+#include <string>
 
 namespace XCom
 {
 
-class Application
+class Application : public Singleton<Application>
 {
-public:
-	Application(HINSTANCE instance, char* command, int show);
+private:
+	Application();
 	~Application();
 	
-	int Run();
+	friend class Singleton<Application>;
+	
+public:
+	int Run(HINSTANCE instance, char* command, int show);
+	void Quit();
+	void DrawPixels(unsigned char* data);
+	HWND GetWindowHandle();
 	
 private:
 	void CreateWindowAtom();
@@ -31,6 +33,7 @@ private:
 	bool OnSetCursor(LPARAM lparam);
 	void OnPaint(bool validate);
 	void OnKeyDown(char ch);
+	void OnArrowKey(ArrowKey key);
 	void OnMouseMove(WPARAM wparam);
 	void OnLButtonDown();
 	void OnLButtonUp();
@@ -41,7 +44,6 @@ private:
 	static LRESULT __stdcall StaticWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 	
 private:
-	static Application* mThis;
 	HINSTANCE mInstance;
 	std::string mCommandLine;
 	int mShowWindowCommand;
@@ -50,12 +52,6 @@ private:
 	HDC mWindowDC;
     HGLRC mOpenGLContext;
 	bool mPaused;
-	Mouse mMouse;
-	MouseEvents mMouseEvents;
-	GraphicsBuffer mGraphicsBuffer;
-	Game mGame;
-	IdleMap mIdleMap;
-	ScreenManager mScreenManager;
 	
 private:
 	Application(const Application& rhs);

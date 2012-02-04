@@ -1,26 +1,15 @@
 #include "IdleMap.h"
-#include "Error.h"
 
 namespace XCom
 {
 
-IdleMap* IdleMap::mThis = 0;
-
 IdleMap::IdleMap()
 	: mNextId(1)
 {
-	mThis = this;
 }
 
 IdleMap::~IdleMap()
 {
-	mThis = 0;
-}
-
-IdleMap& IdleMap::Get()
-{
-	CheckError(mThis == 0, 0, "", "Idle map entity does not exist.");
-	return *mThis;
 }
 
 unsigned long IdleMap::Register(IdleHandler* handler)

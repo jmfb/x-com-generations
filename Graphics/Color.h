@@ -1,4 +1,5 @@
 #pragma once
+#include "../constants.h"
 #include <array>
 
 namespace XCom
@@ -13,11 +14,6 @@ public:
 	~Color();
 	
 	Color& operator=(const Color& rhs);
-	
-	enum
-	{
-		COLOR_BYTES = 3
-	};
 	
 	typedef std::array<unsigned char, COLOR_BYTES> ColorArray;
 	

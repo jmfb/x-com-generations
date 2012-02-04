@@ -6,7 +6,7 @@ int __stdcall WinMain(HINSTANCE instance, HINSTANCE previous, char* command, int
 {
 	try
 	{
-		return XCom::Application(instance, command, show).Run();
+		return XCom::Application::Get().Run(instance, command, show);
 	}
 	catch (const XCom::Error& error)
 	{

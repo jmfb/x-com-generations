@@ -1,19 +1,24 @@
 #pragma once
-#include <functional>
+#include "../Singleton.h"
 #include "Color.h"
 #include "Palette.h"
 #include "ColorScheme.h"
 #include "Background.h"
+#include "ImageType.h"
 #include "Image.h"
 
 namespace XCom
 {
 
-class GraphicsBuffer
+class GraphicsBuffer : public Singleton<GraphicsBuffer>
 {
+private:
+	GraphicsBuffer();
+	~GraphicsBuffer();
+
+	friend class Singleton<GraphicsBuffer>;
+
 public:
-	static GraphicsBuffer& Get();
-	
 	enum PixelOperation
 	{
 		Set,
@@ -76,39 +81,25 @@ public:
 	};
 	
 	const Palette& GetPalette(unsigned long index) const;
-	
-private:
-	GraphicsBuffer(
-		unsigned long gameWidth,
-		unsigned long gameHeight,
-		unsigned long targetWidth,
-		unsigned long targetHeight,
-		const std::function<void(unsigned char*)>& commit);
-	GraphicsBuffer(const GraphicsBuffer& rhs);
-	~GraphicsBuffer();
-	
-	GraphicsBuffer& operator=(const GraphicsBuffer& rhs);
 
 	void Commit();
+	
+private:
 	void LoadImages();
-	
-	friend class Application;
-	
-	static GraphicsBuffer* mThis;
 
-	unsigned long mGameWidth;
-	unsigned long mGameHeight;
+private:
 	unsigned long mSize;
-	unsigned long mTargetWidth;
-	unsigned long mTargetHeight;
 	unsigned char* mData;
 	unsigned char* mScaledData;
-	std::function<void(unsigned char*)> mCommit;
 	Color mColor;
 	PixelOperation mOperation;
 	Palette mPalettes[PALETTE_COUNT];
 	Background mBackgrounds[BACK_COUNT];
 	Image mImages[IMAGE_COUNT];
+
+private:	
+	GraphicsBuffer(const GraphicsBuffer& rhs);
+	GraphicsBuffer& operator=(const GraphicsBuffer& rhs);
 };
 
 }

@@ -1,30 +1,24 @@
 #pragma once
-#include <functional>
+#include "Singleton.h"
 
 namespace XCom
 {
 
-class Game
+class Game : public Singleton<Game>
 {
 public:
-	static Game& Get();
-	
+	void RenderScene();
 	void Quit();
 	
 private:
-	Game(const std::function<void()>& quit);
-	Game(const Game& rhs);
+	Game();
 	~Game();
+
+	friend class Singleton<Game>;
 	
+private:
+	Game(const Game& rhs);
 	Game& operator=(const Game& rhs);
-	
-	void RenderScene();
-	
-	friend class Application;
-	
-	static Game* mThis;
-	
-	std::function<void()> mQuit;
 };
 
 }
