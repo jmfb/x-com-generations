@@ -1,0 +1,247 @@
+<NotepadPlus>
+    <Project name="xcom">
+        <Folder name="background">
+            <File name="background\BACK01.dat" />
+            <File name="background\BACK02.dat" />
+            <File name="background\BACK03.dat" />
+            <File name="background\BACK04.dat" />
+            <File name="background\BACK05.dat" />
+            <File name="background\BACK06.dat" />
+            <File name="background\BACK07.dat" />
+            <File name="background\BACK08.dat" />
+            <File name="background\BACK09.dat" />
+            <File name="background\BACK10.dat" />
+            <File name="background\BACK11.dat" />
+            <File name="background\BACK12.dat" />
+            <File name="background\BACK13.dat" />
+            <File name="background\BACK14.dat" />
+            <File name="background\BACK15.dat" />
+            <File name="background\BACK16.dat" />
+            <File name="background\BACK17.dat" />
+        </Folder>
+        <Folder name="Controls">
+            <File name="Controls\ControlBackground.cpp" />
+            <File name="Controls\ControlBackground.h" />
+            <File name="Controls\ControlBar.cpp" />
+            <File name="Controls\ControlBar.h" />
+            <File name="Controls\ControlBorder.cpp" />
+            <File name="Controls\ControlBorder.h" />
+            <File name="Controls\ControlButton.cpp" />
+            <File name="Controls\ControlButton.h" />
+            <File name="Controls\ControlEdit.cpp" />
+            <File name="Controls\ControlEdit.h" />
+            <File name="Controls\ControlEllipsis.cpp" />
+            <File name="Controls\ControlEllipsis.h" />
+            <File name="Controls\ControlImage.cpp" />
+            <File name="Controls\ControlImage.h" />
+            <File name="Controls\ControlList.cpp" />
+            <File name="Controls\ControlList.h" />
+            <File name="Controls\ControlText.cpp" />
+            <File name="Controls\ControlText.h" />
+            <File name="Controls\ControlUpDown.cpp" />
+            <File name="Controls\ControlUpDown.h" />
+        </Folder>
+        <Folder name="Fonts">
+            <File name="Fonts\BaseFont.cpp" />
+            <File name="Fonts\BaseFont.h" />
+            <File name="Fonts\Font.cpp" />
+            <File name="Fonts\Font.h" />
+            <File name="Fonts\FontArrow.cpp" />
+            <File name="Fonts\FontArrow.h" />
+            <File name="Fonts\FontChar.cpp" />
+            <File name="Fonts\FontChar.h" />
+            <File name="Fonts\FontFactory.cpp" />
+            <File name="Fonts\FontFactory.h" />
+            <File name="Fonts\FontLarge.cpp" />
+            <File name="Fonts\FontLarge.h" />
+            <File name="Fonts\FontNormal.cpp" />
+            <File name="Fonts\FontNormal.h" />
+            <File name="Fonts\FontSmall.cpp" />
+            <File name="Fonts\FontSmall.h" />
+            <File name="Fonts\FontTime.cpp" />
+            <File name="Fonts\FontTime.h" />
+            <File name="Fonts\FontUpDown.cpp" />
+            <File name="Fonts\FontUpDown.h" />
+        </Folder>
+        <Folder name="Graphics">
+            <File name="Graphics\Background.cpp" />
+            <File name="Graphics\Background.h" />
+            <File name="Graphics\Color.cpp" />
+            <File name="Graphics\Color.h" />
+            <File name="Graphics\ColorScheme.cpp" />
+            <File name="Graphics\ColorScheme.h" />
+            <File name="Graphics\GraphicsBuffer.cpp" />
+            <File name="Graphics\GraphicsBuffer.h" />
+            <File name="Graphics\IGraphicsObject.h" />
+            <File name="Graphics\Image.cpp" />
+            <File name="Graphics\Image.h" />
+            <File name="Graphics\ImageType.h" />
+            <File name="Graphics\Palette.cpp" />
+            <File name="Graphics\Palette.h" />
+        </Folder>
+        <Folder name="images">
+            <Folder name="base">
+                <Folder name="bridges">
+                    <File name="images\base\bridges\horizontal.xmg" />
+                    <File name="images\base\bridges\vertical.xmg" />
+                </Folder>
+                <Folder name="construction">
+                    <File name="images\base\construction\cross.xmg" />
+                    <File name="images\base\construction\hangar.xmg" />
+                    <File name="images\base\construction\octagon.xmg" />
+                    <File name="images\base\construction\square.xmg" />
+                </Folder>
+                <Folder name="facilities">
+                    <File name="images\base\facilities\access_lift.xmg" />
+                    <File name="images\base\facilities\alien_containment.xmg" />
+                    <File name="images\base\facilities\fusion_ball_defences.xmg" />
+                    <File name="images\base\facilities\general_stores.xmg" />
+                    <File name="images\base\facilities\grav_shield.xmg" />
+                    <File name="images\base\facilities\hangar.xmg" />
+                    <File name="images\base\facilities\hyper_wave_decoder.xmg" />
+                    <File name="images\base\facilities\laboratory.xmg" />
+                    <File name="images\base\facilities\large_radar_system.xmg" />
+                    <File name="images\base\facilities\laser_defences.xmg" />
+                    <File name="images\base\facilities\living_quarters.xmg" />
+                    <File name="images\base\facilities\mind_shield.xmg" />
+                    <File name="images\base\facilities\missile_defences.xmg" />
+                    <File name="images\base\facilities\plasma_defences.xmg" />
+                    <File name="images\base\facilities\psionic_laboratory.xmg" />
+                    <File name="images\base\facilities\small_radar_system.xmg" />
+                    <File name="images\base\facilities\workshop.xmg" />
+                </Folder>
+                <Folder name="preview">
+                    <File name="images\base\preview\background.xmg" />
+                    <File name="images\base\preview\construction_1x1.xmg" />
+                    <File name="images\base\preview\construction_2x2.xmg" />
+                    <File name="images\base\preview\facility_1x1.xmg" />
+                    <File name="images\base\preview\facility_2x2.xmg" />
+                </Folder>
+                <Folder name="shapes">
+                    <File name="images\base\shapes\cross.xmg" />
+                    <File name="images\base\shapes\octagon.xmg" />
+                    <File name="images\base\shapes\square.xmg" />
+                </Folder>
+                <File name="images\base\background.xmg" />
+            </Folder>
+            <Folder name="battlescape">
+                <File name="images\battlescape\test_corner.xmg" />
+                <File name="images\battlescape\test_floor.xmg" />
+                <File name="images\battlescape\test_floor_1.xmg" />
+                <File name="images\battlescape\test_floor_2.xmg" />
+                <File name="images\battlescape\test_left.xmg" />
+                <File name="images\battlescape\test_top.xmg" />
+            </Folder>
+            <Folder name="craft">
+                <Folder name="weapon">
+                    <File name="images\craft\weapon\avalanche.xmg" />
+                    <File name="images\craft\weapon\cannon.xmg" />
+                    <File name="images\craft\weapon\fusion_ball.xmg" />
+                    <File name="images\craft\weapon\laser_beam.xmg" />
+                    <File name="images\craft\weapon\plasma_beam.xmg" />
+                    <File name="images\craft\weapon\stingray.xmg" />
+                </Folder>
+                <File name="images\craft\avenger.xmg" />
+                <File name="images\craft\firestorm.xmg" />
+                <File name="images\craft\interceptor.xmg" />
+                <File name="images\craft\lightning.xmg" />
+                <File name="images\craft\skyranger.xmg" />
+            </Folder>
+            <Folder name="equipment">
+                <File name="images\equipment\crew.xmg" />
+                <File name="images\equipment\items.xmg" />
+                <File name="images\equipment\tank.xmg" />
+            </Folder>
+            <Folder name="rank">
+                <File name="images\rank\captain.xmg" />
+                <File name="images\rank\colonel.xmg" />
+                <File name="images\rank\commander.xmg" />
+                <File name="images\rank\rookie.xmg" />
+                <File name="images\rank\sergeant.xmg" />
+                <File name="images\rank\squaddie.xmg" />
+            </Folder>
+        </Folder>
+        <Folder name="Mouse">
+            <File name="Mouse\ArrowKey.h" />
+            <File name="Mouse\IMouseTarget.cpp" />
+            <File name="Mouse\IMouseTarget.h" />
+            <File name="Mouse\Mouse.cpp" />
+            <File name="Mouse\Mouse.h" />
+            <File name="Mouse\MouseEvents.cpp" />
+            <File name="Mouse\MouseEvents.h" />
+        </Folder>
+        <Folder name="palettes">
+            <File name="palettes\backpals.dat" />
+            <File name="palettes\palette_0.dat" />
+            <File name="palettes\palette_1.dat" />
+            <File name="palettes\palette_2.dat" />
+            <File name="palettes\palette_3.dat" />
+            <File name="palettes\palette_4.dat" />
+        </Folder>
+        <Folder name="Screens">
+            <File name="Screens\BaseScreen.cpp" />
+            <File name="Screens\BaseScreen.h" />
+            <File name="Screens\ScreenMainMenu.cpp" />
+            <File name="Screens\ScreenMainMenu.h" />
+            <File name="Screens\ScreenManager.cpp" />
+            <File name="Screens\ScreenManager.h" />
+            <File name="Screens\ScreenTestBattle.cpp" />
+            <File name="Screens\ScreenTestBattle.h" />
+            <File name="Screens\ScreenTestControls.cpp" />
+            <File name="Screens\ScreenTestControls.h" />
+            <File name="Screens\ScreenType.h" />
+        </Folder>
+        <Folder name="utilities">
+            <Folder name="ImageEditor">
+                <File name="utilities\ImageEditor\Image.cpp" />
+                <File name="utilities\ImageEditor\Image.h" />
+                <File name="utilities\ImageEditor\main.cpp" />
+                <File name="utilities\ImageEditor\makefile" />
+                <File name="utilities\ImageEditor\resource.h" />
+                <File name="utilities\ImageEditor\resource.rc" />
+            </Folder>
+            <Folder name="UnitTest">
+                <File name="utilities\UnitTest\main.cpp" />
+                <File name="utilities\UnitTest\makefile" />
+                <File name="utilities\UnitTest\ErrorTest.cpp" />
+            </Folder>
+        </Folder>
+        <File name="Application.cpp" />
+        <File name="Application.h" />
+        <File name="constants.h" />
+        <File name="DateTime.cpp" />
+        <File name="DateTime.h" />
+        <File name="Error.cpp" />
+        <File name="Error.h" />
+        <File name="Game.cpp" />
+        <File name="Game.h" />
+        <File name="IdleHandler.cpp" />
+        <File name="IdleHandler.h" />
+        <File name="IdleMap.cpp" />
+        <File name="IdleMap.h" />
+        <File name="main.cpp" />
+        <File name="makefile" />
+        <File name="Singleton.h" />
+        <File name="WindowsInclude.h" />
+        <Folder name="UnitTest">
+            <File name="UnitTest\ITestClass.h" />
+            <File name="UnitTest\ITestClassFactory.h" />
+            <File name="UnitTest\ITestMethod.h" />
+            <File name="UnitTest\ITestMethodFactory.h" />
+            <File name="UnitTest\ITestRun.h" />
+            <File name="UnitTest\TestAssert.h" />
+            <File name="UnitTest\TestClass.h" />
+            <File name="UnitTest\TestClassFactory.h" />
+            <File name="UnitTest\TestClassRegister.h" />
+            <File name="UnitTest\TestException.h" />
+            <File name="UnitTest\TestMethod.h" />
+            <File name="UnitTest\TestMethodFactory.h" />
+            <File name="UnitTest\TestMethodRegister.h" />
+            <File name="UnitTest\TestRepository.h" />
+            <File name="UnitTest\TestResult.h" />
+            <File name="UnitTest\TestRunner.h" />
+            <File name="UnitTest\TestRunWriter.h" />
+            <File name="UnitTest\UnitTest.h" />
+        </Folder>
+    </Project>
+</NotepadPlus>

@@ -29,8 +29,14 @@ public:
 	{
 		UNHANDLED_EXCEPTION = 0xC0000005
 	};
-	
+
+	const std::string& GetFile() const;
+	unsigned long GetLine() const;
 	unsigned long GetCode() const;
+	const std::string& GetFunction() const;
+	const std::string& GetLocation() const;
+	const std::string& GetDescription() const;
+
 	void Report() const;
 	std::string ToString() const;
 	

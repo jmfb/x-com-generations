@@ -48,9 +48,34 @@ Error& Error::operator=(const Error& rhs)
 	return *this;
 }
 
+const std::string& Error::GetFile() const
+{
+	return mFile;
+}
+
+unsigned long Error::GetLine() const
+{
+	return mLine;
+}
+
 unsigned long Error::GetCode() const
 {
 	return mCode;
+}
+
+const std::string& Error::GetFunction() const
+{
+	return mFunction;
+}
+
+const std::string& Error::GetLocation() const
+{
+	return mLocation;
+}
+
+const std::string& Error::GetDescription() const
+{
+	return mDescription;
 }
 
 void Error::Report() const
@@ -66,7 +91,7 @@ std::string Error::ToString() const
 	out << "File:     " << mFile << "(" << mLine << ")" << std::endl;
 	if (mCode != 0)
 		out << "Code:     " << mCode
-			<< "(0x"
+			<< " (0x"
 			<< std::setw(8)
 			<< std::setfill('0')
 			<< std::hex
