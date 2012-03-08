@@ -8,51 +8,51 @@ template <typename R>
 class ReturnValue
 {
 public:
-    ReturnValue()
+	ReturnValue()
 		: mValue(R())
 	{
 	}
 	
-    void Set(const Any& value)
+	void Set(const Any& value)
 	{
 		mValue = value.GetValue<R>();
 	}
-    R Get()
+	R Get()
 	{
 		return mValue;
 	}
-    static void SetDefaultValue(Any& value)
+	static void SetDefaultValue(Any& value)
 	{
 		value = R();
 	}
 private:
-    R mValue;
+	R mValue;
 };
 
 template <typename R>
 class ReturnValue<R&>
 {
 public:
-    ReturnValue()
+	ReturnValue()
 		: mValue(&mDefaultValue)
 	{
 	}
 	
-    void Set(const Any& value)
+	void Set(const Any& value)
 	{
 		mValue = &value.GetValue<R&>();
 	}
-    R& Get()
+	R& Get()
 	{
 		return *mValue;
 	}
-    static void SetDefaultValue(Any& value)
+	static void SetDefaultValue(Any& value)
 	{
 		value = static_cast<R&>(mDefaultValue);
 	}
 private:
-    static R mDefaultValue;
-    R* mValue;
+	static R mDefaultValue;
+	R* mValue;
 };
 
 template <typename R>
@@ -62,26 +62,26 @@ template <typename R>
 class ReturnValue<const R&>
 {
 public:
-    ReturnValue()
+	ReturnValue()
 		: mValue(&mDefaultValue)
 	{
 	}
 	
-    void Set(const Any& value)
+	void Set(const Any& value)
 	{
 		mValue = &value.GetValue<const R&>();
 	}
-    const R& Get()
+	const R& Get()
 	{
 		return *mValue;
 	}
-    static void SetDefaultValue(Any& value)
+	static void SetDefaultValue(Any& value)
 	{
 		value = static_cast<const R&>(mDefaultValue);
 	}
 private:
-    static R mDefaultValue;
-    const R* mValue;
+	static R mDefaultValue;
+	const R* mValue;
 };
 
 template <typename R>
@@ -91,10 +91,10 @@ template <>
 class ReturnValue<void>
 {
 public:
-    void Set(const Any& value)
+	void Set(const Any& value)
 	{
 	}
-    static void SetDefaultValue(Any& value)
+	static void SetDefaultValue(Any& value)
 	{
 	}
 };

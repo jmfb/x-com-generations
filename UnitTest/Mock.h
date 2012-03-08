@@ -28,13 +28,13 @@ template <typename T>
 class Mock
 {
 public:
-    Mock();
+	Mock();
 	Mock(const Mock<T>& rhs) = delete;
 	Mock(Mock<T>&& rhs) = delete;
 	Mock& operator=(const Mock<T>& rhs) = delete;
 	Mock& operator=(Mock<T>&& rhs) = delete;
 	
-    std::shared_ptr<T> GetObject()
+	std::shared_ptr<T> GetObject()
 	{
 		return std::shared_ptr<T>(mTable.GetInterfacePtr<T>(), [](T*){});
 	}
@@ -45,16 +45,16 @@ public:
 
 	//NOTE: Could create a SetupDestructor function, but I don't see the mock usage.
 
-    void Verify()
-    {
+	void Verify()
+	{
 		bool failed = false;
 		std::ostringstream out;
 		out << "Mock<" << TypeName<T>::Get() << ">::Verify: the following setups were not matched." << std::endl;
-        for (auto mapIter = mCallMap.begin(), mapEnd = mCallMap.end(); mapIter != mapEnd; ++mapIter)
+		for (auto mapIter = mCallMap.begin(), mapEnd = mCallMap.end(); mapIter != mapEnd; ++mapIter)
 		{
-            for (auto listIter = mapIter->second.begin(), listEnd = mapIter->second.end(); listIter != listEnd; ++listIter)
+			for (auto listIter = mapIter->second.begin(), listEnd = mapIter->second.end(); listIter != listEnd; ++listIter)
 			{
-                if (listIter->mExpectedCalls != listIter->mActualCalls)
+				if (listIter->mExpectedCalls != listIter->mActualCalls)
 				{
 					failed = true;
 					out << "Offset " << mapIter->first << " with signature " << mCallSignature[mapIter->first]
@@ -66,7 +66,7 @@ public:
 		}
 		if (failed)
 			throw TestException(out.str());
-    }
+	}
 
 	void NotImplemented(unsigned long index)
 	{
@@ -75,11 +75,11 @@ public:
 		throw TestException(out.str());
 	}
 
-    template <typename TResult, typename... TArgs>
-    void Invoke(unsigned long index, ReturnValue<TResult>& returnValue, TArgs... args)
-    {
-        auto mapIter = mCallMap.find(index);
-        if (mapIter == mCallMap.end())
+	template <typename TResult, typename... TArgs>
+	void Invoke(unsigned long index, ReturnValue<TResult>& returnValue, TArgs... args)
+	{
+		auto mapIter = mCallMap.find(index);
+		if (mapIter == mCallMap.end())
 			throw TestException("Mock<T>::Invoke: Invalid callback index.");
 
 		ArgumentList arguments;
@@ -87,13 +87,13 @@ public:
 
 		for (auto listIter = mapIter->second.begin(), last = mapIter->second.end(); listIter != last; ++listIter)
 		{
-            if (listIter->mArguments == arguments)
-            {
-                ++listIter->mActualCalls;
-                listIter->mThrowValue.Throw();
-                returnValue.Set(listIter->mReturnValue);
-                return;
-            }
+			if (listIter->mArguments == arguments)
+			{
+				++listIter->mActualCalls;
+				listIter->mThrowValue.Throw();
+				returnValue.Set(listIter->mReturnValue);
+				return;
+			}
 		}
 			
 		std::ostringstream out;
@@ -101,7 +101,7 @@ public:
 			<< index << " with signature " << mCallSignature[index] << " and arguments:" << std::endl
 			<< FormatArgumentList(arguments);
 		throw TestException(out.str());
-    }
+	}
 
 private:
 	static std::string FormatArgumentList(const std::vector<Any>& arguments)
@@ -117,8 +117,8 @@ private:
 	}
 
 private:
-    VirtualTable mTable;
-    std::map<unsigned long, std::list<CallData>> mCallMap;
+	VirtualTable mTable;
+	std::map<unsigned long, std::list<CallData>> mCallMap;
 	std::map<unsigned long, std::string> mCallSignature;
 };
 

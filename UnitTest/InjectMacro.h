@@ -25,12 +25,12 @@
 //				  The arguments have to be pointers because interfaces will have pure virtual functions.
 //
 // Example:
-//  namespace UnitTest
-//  {
+//	namespace UnitTest
+//	{
 //		// Inject IFoo interface using Foo class instance based with default constructor.
 //		INJECT(IFoo, Foo, Instance, ());
 //		// Inject IBar interface using Bar class singleton based with two instances of IFoo injected for constructor arguments.
-//  	INJECT(IBar, Bar, Singleton, (IFoo*, IFoo*));
+//		INJECT(IBar, Bar, Singleton, (IFoo*, IFoo*));
 //	}
 //
 // NOTE: The INJECT definitions must occur with the UnitTest namespace since they produce speicializations of that class.

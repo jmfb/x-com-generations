@@ -10,7 +10,7 @@ namespace UnitTest
 class CallData
 {
 public:
-    CallData(unsigned long offset)
+	CallData(unsigned long offset)
 		: mOffset(offset), mExpectedCalls(1), mActualCalls(0)
 	{
 	}
@@ -32,26 +32,26 @@ public:
 		}
 		return *this;
 	}
-    
+	
 	template <typename A>
 	CallData& operator()(A argument)
 	{
 		mArguments.push_back(Any(argument));
 		return *this;
 	}
-    template <typename R>
+	template <typename R>
 	CallData& DefaultReturnValue()
 	{
 		ReturnValue<R>::SetDefaultValue(mReturnValue);
 		return *this;
 	}
 	
-    unsigned long mOffset;
-    std::vector<Any> mArguments;
-    unsigned long mExpectedCalls;
-    unsigned long mActualCalls;
-    Any mThrowValue;
-    Any mReturnValue;
+	unsigned long mOffset;
+	std::vector<Any> mArguments;
+	unsigned long mExpectedCalls;
+	unsigned long mActualCalls;
+	Any mThrowValue;
+	Any mReturnValue;
 };
 
 }

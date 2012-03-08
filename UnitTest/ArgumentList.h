@@ -8,7 +8,7 @@ namespace UnitTest
 class ArgumentList : public std::vector<Any>
 {
 public:
-    ArgumentList() = default;
+	ArgumentList() = default;
 	ArgumentList(const ArgumentList& rhs) = default;
 	ArgumentList(ArgumentList&& rhs) = default;
 	ArgumentList& operator=(const ArgumentList& rhs) = default;
@@ -20,11 +20,11 @@ public:
 		return *this;
 	}
 	
-    ArgumentList(const Any& value)
+	ArgumentList(const Any& value)
 	{
 		push_back(value);
 	}
-    ArgumentList& operator()(const Any& value)
+	ArgumentList& operator()(const Any& value)
 	{
 		push_back(value);
 		return *this;

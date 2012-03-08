@@ -13,12 +13,12 @@ namespace UnitTest
 // Example:
 //	IFactory* factory = GetFactory();
 //
-//  //Resolve an interface via previous calls to Register or RegisterObject.
-//  std::shared_ptr<IFoo> foo = factory->Resolve<IFoo>();
+//	//Resolve an interface via previous calls to Register or RegisterObject.
+//	std::shared_ptr<IFoo> foo = factory->Resolve<IFoo>();
 //
-//  //Register a mock instance that will be returned on subsequent calls to Resolve.
-//  MockBar mockBar;
-//  factory->RegisterObject<IBar>(mockBar);
+//	//Register a mock instance that will be returned on subsequent calls to Resolve.
+//	MockBar mockBar;
+//	factory->RegisterObject<IBar>(mockBar);
 class IFactory
 {
 private:

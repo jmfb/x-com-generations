@@ -13,33 +13,33 @@ namespace UnitTest
 class OffsetHelper
 {
 public:
-    OffsetHelper()
+	OffsetHelper()
 		: mValid(false), mOffset(0)
-    {
+	{
 		mTable.SetObject(this);
-    }
+	}
 	
 	OffsetHelper(const OffsetHelper& rhs) = delete;
 	OffsetHelper(OffsetHelper&& rhs) = delete;
 	OffsetHelper& operator=(const OffsetHelper& rhs) = delete;
 	OffsetHelper& operator=(OffsetHelper&& rhs) = delete;
 	
-    template <typename T>
-    unsigned long GetOffset(T function);
+	template <typename T>
+	unsigned long GetOffset(T function);
 
-    template <typename T>
-    unsigned long GetOffsetDestructor();
+	template <typename T>
+	unsigned long GetOffsetDestructor();
 	
-    void SetOffset(unsigned long offset)
-    {
-        mValid = true;
-        mOffset = offset;
-    }
+	void SetOffset(unsigned long offset)
+	{
+		mValid = true;
+		mOffset = offset;
+	}
 
 private:
-    VirtualTable mTable;
-    bool mValid;
-    unsigned long mOffset;
+	VirtualTable mTable;
+	bool mValid;
+	unsigned long mOffset;
 };
 
 template <unsigned long I>

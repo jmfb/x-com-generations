@@ -12,8 +12,8 @@ namespace UnitTest
 //
 // Example:
 //	typedef TupleFromFunctionArgumentList<std::function<void(IFoo*,IBar*)>>::Type TupleType;
-//  //is equivalent to
-//  typedef std::tuple<IFoo, IBar> TupleType;
+//	//is equivalent to
+//	typedef std::tuple<IFoo, IBar> TupleType;
 template <typename... TArgs>
 class TupleFromFunctionArgumentList
 {
