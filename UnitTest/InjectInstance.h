@@ -26,8 +26,12 @@ public:
 	
 	virtual ~InjectInstance()
 	{
+//The following "seemingly" unused variable reference is required for automatic registration.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-value"
 		mAutoRegister;
 	}
+#pragma GCC diagnostic pop
 	
 	static std::shared_ptr<T> Resolve()
 	{

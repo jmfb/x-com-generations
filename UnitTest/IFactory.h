@@ -50,6 +50,14 @@ public:
 			return new std::shared_ptr<T>(&object, [](T*){});
 		});
 	}
+	template <typename T>
+	void RegisterObject(std::shared_ptr<T> object)
+	{
+		DoRegister(typeid(T), [&]() -> void*
+		{
+			return new std::shared_ptr<T>(object);
+		});
+	}
 	
 	template <typename T>
 	std::shared_ptr<T> Resolve() const

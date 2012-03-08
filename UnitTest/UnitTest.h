@@ -5,5 +5,8 @@
 #include "TestRunWriter.h"
 #include "TestAssert.h"
 #include "TestResult.h"
+#include "Factory.h"
+#include "InjectMacro.h"
+#include "Mock.h"
 
 using UnitTest::Assert;
