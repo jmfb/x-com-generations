@@ -224,11 +224,29 @@
         <File name="Singleton.h" />
         <File name="WindowsInclude.h" />
         <Folder name="UnitTest">
+            <File name="UnitTest\Any.h" />
+            <File name="UnitTest\ArgumentList.h" />
+            <File name="UnitTest\CallData.h" />
+            <File name="UnitTest\Const.h" />
+            <File name="UnitTest\Factory.h" />
+            <File name="UnitTest\ForcedCast.h" />
+            <File name="UnitTest\FunctionHelper.h" />
+            <File name="UnitTest\IFactory.h" />
+            <File name="UnitTest\Inject.h" />
+            <File name="UnitTest\InjectInstance.h" />
+            <File name="UnitTest\InjectMacro.h" />
+            <File name="UnitTest\InjectRegister.h" />
+            <File name="UnitTest\InjectSingleton.h" />
             <File name="UnitTest\ITestClass.h" />
             <File name="UnitTest\ITestClassFactory.h" />
             <File name="UnitTest\ITestMethod.h" />
             <File name="UnitTest\ITestMethodFactory.h" />
             <File name="UnitTest\ITestRun.h" />
+            <File name="UnitTest\Mock.h" />
+            <File name="UnitTest\OffsetHelper.h" />
+            <File name="UnitTest\PackParameters.h" />
+            <File name="UnitTest\ReturnValue.h" />
+            <File name="UnitTest\SetupData.h" />
             <File name="UnitTest\TestAssert.h" />
             <File name="UnitTest\TestClass.h" />
             <File name="UnitTest\TestClassFactory.h" />
@@ -241,7 +259,10 @@
             <File name="UnitTest\TestResult.h" />
             <File name="UnitTest\TestRunner.h" />
             <File name="UnitTest\TestRunWriter.h" />
+            <File name="UnitTest\TupleFromFunctionArgumentList.h" />
+            <File name="UnitTest\TypeName.h" />
             <File name="UnitTest\UnitTest.h" />
+            <File name="UnitTest\VirtualTable.h" />
         </Folder>
     </Project>
 </NotepadPlus>
