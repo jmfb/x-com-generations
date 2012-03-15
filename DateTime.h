@@ -1,26 +1,23 @@
 #pragma once
-#include "WindowsInclude.h"
+#include "IDateTimeUtility.h"
+#include "IDateTime.h"
 
 namespace XCom
 {
 
-class DateTime
+class DateTime : public IDateTime
 {
 public:
-	DateTime();
-	DateTime(const DateTime& rhs);
-	~DateTime();
+	DateTime(IDateTimeUtilityPtr dateTimeUtility);
 	
-	DateTime& operator=(const DateTime& rhs);
+	virtual void SetNow();
+	virtual bool TestInterval(unsigned long interval);
+
+	std::chrono::high_resolution_clock::time_point GetValue() const;
 	
-	void SetNow();
-	unsigned long GetElapsedTime() const;
-	bool TestInterval(unsigned long interval);
-
-	unsigned long GetTimeOfDay() const;
-
 private:
-	SYSTEMTIME mValue;	
+	IDateTimeUtilityPtr mDateTimeUtility;
+	std::chrono::high_resolution_clock::time_point mValue;	
 };
 
 }

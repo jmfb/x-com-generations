@@ -2,6 +2,7 @@
 #include "../Mouse/MouseEvents.h"
 #include "../Mouse/Mouse.h"
 #include "../Fonts/Font.h"
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -9,6 +10,7 @@ namespace XCom
 ControlEdit::ControlEdit()
 	: mParent(0), mWidth(0), mStyle(EDIT_NORMAL), mId(0), mInEdit(false), mCursorBlink(false)
 {
+	mLastCursorBlink = UnitTest::Inject<IDateTime>::Resolve();
 }
 
 ControlEdit::~ControlEdit()
@@ -92,7 +94,7 @@ void ControlEdit::OnKeyDown(char ch)
 void ControlEdit::Render() const
 {
 	ControlText::Render();
-	if (mInEdit && mLastCursorBlink.TestInterval(250))
+	if (mInEdit && mLastCursorBlink->TestInterval(250))
 		mCursorBlink = !mCursorBlink;
 	if (mInEdit && mCursorBlink)
 		Font(mFont).Render(GetRightEdge(), mY, "*", ColorScheme::Get(mScheme));

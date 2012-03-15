@@ -3,6 +3,7 @@
 #include "../Mouse/MouseEvents.h"
 #include "../Mouse/Mouse.h"
 #include "../Graphics/GraphicsBuffer.h"
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -12,6 +13,7 @@ ControlButton::ControlButton()
 	mInterval(0), mScheme(SCHEME_WHITE), mFont(FONT_NORMAL),
 	mPushed(false), mDeep(false)
 {
+	mLastRepeat = UnitTest::Inject<IDateTime>::Resolve();
 }
 
 ControlButton::~ControlButton()
@@ -59,7 +61,7 @@ void ControlButton::SetPushed(bool pushed)
 {
 	mPushed = pushed;
 	if (mPushed)
-		mLastRepeat.SetNow();
+		mLastRepeat->SetNow();
 }
 
 void ControlButton::SetDeep()
@@ -80,7 +82,7 @@ void ControlButton::Repeat(unsigned long interval)
 
 void ControlButton::OnIdle()
 {
-	if (mInterval > 0 && mPushed && mLastRepeat.TestInterval(mInterval))
+	if (mInterval > 0 && mPushed && mLastRepeat->TestInterval(mInterval))
 		mParent->OnButton(mId);
 }
 

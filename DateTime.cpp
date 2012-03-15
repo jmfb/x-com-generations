@@ -3,54 +3,33 @@
 namespace XCom
 {
 
-const unsigned long MAX_TIME_OF_DAY = 24 * 60 * 60 * 1000;
-
-DateTime::DateTime()
+DateTime::DateTime(IDateTimeUtilityPtr dateTimeUtility)
+	: mDateTimeUtility(dateTimeUtility)
 {
-	SetNow();
-}
-
-DateTime::DateTime(const DateTime& rhs)
-	: mValue(rhs.mValue)
-{
-}
-
-DateTime::~DateTime()
-{
-}
-
-DateTime& DateTime::operator=(const DateTime& rhs)
-{
-	if (this != &rhs)
-		mValue = rhs.mValue;
-	return *this;
+	mValue = mDateTimeUtility->GetNow();
 }
 
 void DateTime::SetNow()
 {
-	::GetLocalTime(&mValue);
-}
-
-unsigned long DateTime::GetElapsedTime() const
-{
-	unsigned long start = GetTimeOfDay();
-	unsigned long end = DateTime().GetTimeOfDay();
-	return end < start ? MAX_TIME_OF_DAY - start + end : end - start;
+	mValue = mDateTimeUtility->GetNow();
 }
 
 bool DateTime::TestInterval(unsigned long interval)
 {
-	if (GetElapsedTime() >= interval)
+	auto now = mDateTimeUtility->GetNow();
+	auto duration = now - mValue;
+	auto in_ms = std::chrono::duration_cast<std::chrono::milliseconds>(duration);
+	if (in_ms.count() >= interval)
 	{
-		SetNow();
+		mValue = now;
 		return true;
 	}
 	return false;
 }
 
-unsigned long DateTime::GetTimeOfDay() const
+std::chrono::high_resolution_clock::time_point DateTime::GetValue() const
 {
-	return (((((mValue.wHour * 60) + mValue.wMinute) * 60) + mValue.wSecond) * 1000) + mValue.wMilliseconds;
+	return mValue;
 }
 
 }

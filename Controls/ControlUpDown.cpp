@@ -2,6 +2,7 @@
 #include "../Fonts/Font.h"
 #include "../Mouse/MouseEvents.h"
 #include "../Mouse/Mouse.h"
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -9,6 +10,7 @@ namespace XCom
 ControlUpDown::ControlUpDown()
 	: mParent(0), mX(0), mY(0), mId(0), mEnabled(false), mState(STATE_NONE)
 {
+	mLastUpdate = UnitTest::Inject<IDateTime>::Resolve();
 }
 
 ControlUpDown::~ControlUpDown()
@@ -38,7 +40,7 @@ bool ControlUpDown::HitTest(unsigned long x, unsigned long y) const
 
 void ControlUpDown::OnMouseMove(unsigned long x, unsigned long y, bool leftButton, bool rightButton)
 {
-	if (leftButton && mLastUpdate.TestInterval(100))
+	if (leftButton && mLastUpdate->TestInterval(100))
 		OnLeftButtonDown(x, y);
 }
 
@@ -47,13 +49,13 @@ void ControlUpDown::OnLeftButtonDown(unsigned long x, unsigned long y)
 	if (x < mX + 11)
 	{
 		mState = STATE_UP;
-		mLastUpdate.SetNow();
+		mLastUpdate->SetNow();
 		mParent->OnButton(mId);
 	}
 	else if (x > mX + 11)
 	{
 		mState = STATE_DOWN;
-		mLastUpdate.SetNow();
+		mLastUpdate->SetNow();
 		mParent->OnButton(mId);
 	}
 	else
@@ -81,7 +83,7 @@ void ControlUpDown::OnIdle()
 		auto pos = Mouse::Get().GetPosition();
 		if (HitTest(pos.first, pos.second) && MouseEvents::Get().HasFocus(this))
 		{
-			if (mLastUpdate.TestInterval(100))
+			if (mLastUpdate->TestInterval(100))
 				mParent->OnButton(mId);
 		}
 		else

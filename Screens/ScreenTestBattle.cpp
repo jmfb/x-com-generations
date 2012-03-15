@@ -1,8 +1,9 @@
 #include "ScreenTestBattle.h"
 #include "../Graphics/GraphicsBuffer.h"
 #include "../constants.h"
-#include "../DateTime.h"
+#include "../IDateTime.h"
 #include "../IdleHandler.h"
+#include "../FactoryInject.h"
 #include <vector>
 
 namespace XCom
@@ -16,6 +17,7 @@ public:
 	BattleMapSquare()
 		: mCurrentFrame(0)
 	{
+		mLastFrame = UnitTest::Inject<IDateTime>::Resolve();
 	}
 
 	//Load the square stuffs
@@ -27,7 +29,7 @@ public:
 	
 	virtual void OnIdle()
 	{
-		if (mLastFrame.TestInterval(100))
+		if (mLastFrame->TestInterval(100))
 			mCurrentFrame = (mCurrentFrame + 1) % mFrames.size();
 	}
 	
@@ -44,7 +46,7 @@ public:
 	}
 	
 private:
-	DateTime mLastFrame;
+	IDateTimePtr mLastFrame;
 	unsigned long mCurrentFrame;
 	std::vector<ImageType> mFrames;
 };

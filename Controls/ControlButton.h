@@ -5,7 +5,7 @@
 #include "../Screens/BaseScreen.h"
 #include "../Graphics/ColorScheme.h"
 #include "../Fonts/FontFactory.h"
-#include "../DateTime.h"
+#include "../IDateTime.h"
 #include <string>
 
 namespace XCom
@@ -54,7 +54,7 @@ private:
 	unsigned long mWidth;
 	unsigned long mHeight;
 	unsigned long mInterval;
-	DateTime mLastRepeat;
+	IDateTimePtr mLastRepeat;
 	std::string mText;
 	ColorSchemeType mScheme;
 	FontType mFont;

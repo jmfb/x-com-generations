@@ -1,6 +1,8 @@
 #include <windows.h>
 #include "Application.h"
 #include "Error.h"
+#include <exception>
+#include <iostream>
 
 int __stdcall WinMain(HINSTANCE instance, HINSTANCE previous, char* command, int show)
 {
@@ -12,6 +14,10 @@ int __stdcall WinMain(HINSTANCE instance, HINSTANCE previous, char* command, int
 	{
 		error.Report();
 		return error.GetCode();
+	}
+	catch (const std::exception& error)
+	{
+		std::cout << error.what() << std::endl;
 	}
 	catch (...)
 	{

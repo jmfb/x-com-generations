@@ -4,7 +4,7 @@
 #include "../Screens/BaseScreen.h"
 #include "../Fonts/FontFactory.h"
 #include "../Graphics/ColorScheme.h"
-#include "../DateTime.h"
+#include "../IDateTime.h"
 #include <string>
 
 namespace XCom
@@ -46,7 +46,7 @@ private:
 	EditStyle mStyle;
 	unsigned long mId;
 	bool mInEdit;
-	mutable DateTime mLastCursorBlink;
+	mutable IDateTimePtr mLastCursorBlink;
 	mutable bool mCursorBlink;
 	
 private:

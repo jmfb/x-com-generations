@@ -4,7 +4,7 @@
 #include "../IdleHandler.h"
 #include "../Screens/BaseScreen.h"
 #include "../Graphics/ColorScheme.h"
-#include "../DateTime.h"
+#include "../IDateTime.h"
 
 namespace XCom
 {
@@ -49,7 +49,7 @@ private:
 	ColorScheme mInverse;
 	bool mEnabled;
 	UpDownState mState;
-	DateTime mLastUpdate;
+	IDateTimePtr mLastUpdate;
 	
 private:
 	ControlUpDown(const ControlUpDown& rhs);

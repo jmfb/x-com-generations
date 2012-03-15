@@ -2,6 +2,9 @@
 #include <typeinfo>
 #include <functional>
 #include <memory>
+#include <sstream>
+#include "TestException.h"
+#include "TypeName.h"
 
 namespace UnitTest
 {
@@ -64,11 +67,17 @@ public:
 	{
 		void* result = DoResolve(typeid(T));
 		if (result == 0)
-			throw std::bad_typeid();
+		{
+			std::ostringstream out;
+			out << "IFactory::Resolve: Could not resolve type " << TypeName<T>::Get();
+			throw TestException(out.str());
+		}
 		std::shared_ptr<std::shared_ptr<T>> pointer;
 		pointer.reset(reinterpret_cast<std::shared_ptr<T>*>(result));
 		return *pointer;
 	}
 };
+
+typedef std::shared_ptr<IFactory> IFactoryPtr;
 
 }

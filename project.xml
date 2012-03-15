@@ -204,6 +204,8 @@
                 <File name="utilities\UnitTest\main.cpp" />
                 <File name="utilities\UnitTest\makefile" />
                 <File name="utilities\UnitTest\ErrorTest.cpp" />
+                <File name="utilities\UnitTest\DateTimeTest.cpp" />
+                <File name="utilities\UnitTest\DateTimeUtilityTest.cpp" />
             </Folder>
         </Folder>
         <File name="Application.cpp" />
@@ -264,5 +266,11 @@
             <File name="UnitTest\UnitTest.h" />
             <File name="UnitTest\VirtualTable.h" />
         </Folder>
+        <File name="IDateTimeUtility.h" />
+        <File name="DateTimeUtility.cpp" />
+        <File name="DateTimeUtility.h" />
+        <File name="IDateTime.h" />
+        <File name="FactoryInject.cpp" />
+        <File name="FactoryInject.h" />
     </Project>
 </NotepadPlus>

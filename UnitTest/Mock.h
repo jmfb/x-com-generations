@@ -42,7 +42,7 @@ public:
 	template <typename TFunction, typename... TParams>
 	auto Setup(TFunction function, TParams... params) ->
 		SetupData<decltype(GetFunctionResult(function))>;
-
+		
 	//NOTE: Could create a SetupDestructor function, but I don't see the mock usage.
 
 	void Verify()
@@ -274,6 +274,8 @@ inline auto Mock<T>::Setup(TFunction function, TParams... params) ->
 	mCallSignature[offset] = TypeName<TFunction>::Get();
 	
 	auto& callList = mCallMap[offset];
+	if (ArgumentCount == 0)
+		callList.clear();
 	callList.push_back(callData);
 	return SetupData<Result>(callList.back());
 }
