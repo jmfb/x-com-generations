@@ -1,7 +1,7 @@
 #include "Game.h"
-#include "Mouse/Mouse.h"
 #include "Screens/ScreenManager.h"
 #include "Application.h"
+#include "FactoryInject.h"
 
 namespace XCom
 {
@@ -17,7 +17,7 @@ Game::~Game()
 void Game::RenderScene()
 {
 	ScreenManager::Get().Render();
-	Mouse::Get().Render();
+	UnitTest::Inject<IMouse>::Resolve()->Render();
 }
 
 void Game::Quit()

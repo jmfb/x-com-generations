@@ -1,33 +1,31 @@
 #pragma once
 #include "../WindowsInclude.h"
-#include "../Singleton.h"
-#include <utility>
-#include <array>
+#include "IMouse.h"
+#include "../System/ISystem.h"
 
 namespace XCom
 {
 
-class Mouse : public Singleton<Mouse>
+class Mouse : public IMouse
 {
-private:
-	Mouse();
+public:
+	Mouse(ISystemPtr system);
+	Mouse(const Mouse& rhs) = delete;
 	~Mouse();
 
-	friend class Singleton<Mouse>;
+	Mouse& operator=(const Mouse& rhs) = delete;
+	
+	virtual void Show(bool visible);
+	virtual void Render();
+	virtual Position GetPosition() const;
 
-public:
-	void Show(bool visible);
-	void Render();
-	std::pair<unsigned long, unsigned long> GetPosition() const;
-
+	bool GetVisible() const;
+	Position GetPreviousPosition() const;
+	
 private:
+	ISystemPtr mSystem;
 	bool mVisible;
-	unsigned long mX;
-	unsigned long mY;
-
-private:	
-	Mouse(const Mouse& rhs);
-	Mouse& operator=(const Mouse& rhs);
+	Position mPreviousPosition;
 };
 
 }

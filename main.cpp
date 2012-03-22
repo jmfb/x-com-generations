@@ -18,6 +18,7 @@ int __stdcall WinMain(HINSTANCE instance, HINSTANCE previous, char* command, int
 	catch (const std::exception& error)
 	{
 		std::cout << error.what() << std::endl;
+		return -1;
 	}
 	catch (...)
 	{

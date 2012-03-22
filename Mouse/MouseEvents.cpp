@@ -1,5 +1,6 @@
 #include "MouseEvents.h"
 #include "Mouse.h"
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -29,7 +30,7 @@ void MouseEvents::OnMouseMove(bool leftButton, bool rightButton)
 {
 	if (mFocus)
 	{
-		auto pos = Mouse::Get().GetPosition();
+		auto pos = UnitTest::Inject<IMouse>::Resolve()->GetPosition();
 		mFocus->OnMouseMove(pos.first, pos.second, leftButton, rightButton);
 	}
 }
@@ -38,7 +39,7 @@ void MouseEvents::OnLButtonDown()
 {
 	if (mFocus)
 	{
-		auto pos = Mouse::Get().GetPosition();
+		auto pos = UnitTest::Inject<IMouse>::Resolve()->GetPosition();
 		mFocus->OnLeftButtonDown(pos.first, pos.second);
 	}
 }
@@ -47,7 +48,7 @@ void MouseEvents::OnLButtonUp()
 {
 	if (mFocus)
 	{
-		auto pos = Mouse::Get().GetPosition();
+		auto pos = UnitTest::Inject<IMouse>::Resolve()->GetPosition();
 		mFocus->OnLeftButtonUp(pos.first, pos.second);
 	}
 }
@@ -56,7 +57,7 @@ void MouseEvents::OnRButtonDown()
 {
 	if (mFocus)
 	{
-		auto pos = Mouse::Get().GetPosition();
+		auto pos = UnitTest::Inject<IMouse>::Resolve()->GetPosition();
 		mFocus->OnRightButtonDown(pos.first, pos.second);
 	}
 }
@@ -65,7 +66,7 @@ void MouseEvents::OnRButtonUp()
 {
 	if (mFocus)
 	{
-		auto pos = Mouse::Get().GetPosition();
+		auto pos = UnitTest::Inject<IMouse>::Resolve()->GetPosition();
 		mFocus->OnRightButtonUp(pos.first, pos.second);
 	}
 }

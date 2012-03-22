@@ -117,7 +117,7 @@ void ControlButton::OnLeftButtonDown(unsigned long x, unsigned long y)
 	{
 		SetPushed(true);
 		MouseEvents::Get().CaptureFocus(this);
-		Mouse::Get().Show(false);
+		UnitTest::Inject<IMouse>::Resolve()->Show(false);
 	}
 	else if (!mPushed)
 	{
@@ -132,7 +132,7 @@ void ControlButton::OnLeftButtonUp(unsigned long x, unsigned long y)
 	{
 		SetPushed(false);
 		MouseEvents::Get().ReleaseFocus();
-		Mouse::Get().Show(true);
+		UnitTest::Inject<IMouse>::Resolve()->Show(true);
 		mParent->OnButton(mId);
 	}
 }

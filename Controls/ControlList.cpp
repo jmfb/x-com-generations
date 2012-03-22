@@ -3,6 +3,7 @@
 #include "../Mouse/Mouse.h"
 #include "../Mouse/MouseEvents.h"
 #include "../Fonts/Font.h"
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -118,7 +119,7 @@ void ControlList::OnLeftButtonDown(unsigned long x, unsigned long y)
 void ControlList::Render() const
 {
 	GraphicsBuffer& graphics = GraphicsBuffer::Get();
-	auto position = Mouse::Get().GetPosition();
+	auto position = UnitTest::Inject<IMouse>::Resolve()->GetPosition();
 	unsigned long row = (mY - position.second) / 8;
 	if (MouseEvents::Get().HasFocus(this) && 
 		(position.first - mX) < GetColWidth() &&

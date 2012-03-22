@@ -22,8 +22,8 @@ const unsigned char CURSOR_IMAGE[CURSOR_SIZE] = {
     1, 0, 0, 0, 0, 0, 0, 0, 0,
 };
 
-Mouse::Mouse()
-	: mVisible(true), mX(0), mY(0)
+Mouse::Mouse(ISystemPtr system)
+	: mSystem(system), mVisible(true), mPreviousPosition(0, 0)
 {
 }
 
@@ -35,21 +35,9 @@ void Mouse::Show(bool visible)
 {
 	mVisible = visible;
 	if (visible)
-	{
-		//Restore the old position when showing
-		POINT pt = { mX, mY };
-		::ClientToScreen(Application::Get().GetWindowHandle(), &pt);
-		::SetCursorPos(pt.x, pt.y);
-	}
+		mSystem->SetCursorPosition(mSystem->ConvertPositionFromClient(Application::Get().GetWindowHandle(), mPreviousPosition));
 	else
-	{
-		//Store the current position when hiding
-		POINT pt = {0};
-		::GetCursorPos(&pt);
-		::ScreenToClient(Application::Get().GetWindowHandle(), &pt);
-		mX = pt.x;
-		mY = pt.y;
-	}
+		mPreviousPosition = mSystem->ConvertPositionToClient(Application::Get().GetWindowHandle(), mSystem->GetCursorPosition());
 }
 
 void Mouse::Render()
@@ -61,14 +49,22 @@ void Mouse::Render()
 	}
 }
 
-std::pair<unsigned long, unsigned long> Mouse::GetPosition() const
+Position Mouse::GetPosition() const
 {
-	POINT pt = {0};
-	::GetCursorPos(&pt);
-	::ScreenToClient(Application::Get().GetWindowHandle(), &pt);
+	auto position = mSystem->ConvertPositionToClient(Application::Get().GetWindowHandle(), mSystem->GetCursorPosition());
 	return std::make_pair(
-		(pt.x * GAME_WIDTH) / CLIENT_WIDTH,
-		GAME_HEIGHT - ((pt.y * GAME_HEIGHT) / CLIENT_HEIGHT) - 1);
+		(position.first * GAME_WIDTH) / CLIENT_WIDTH,
+		GAME_HEIGHT - ((position.second * GAME_HEIGHT) / CLIENT_HEIGHT) - 1);
+}
+
+bool Mouse::GetVisible() const
+{
+	return mVisible;
+}
+
+Position Mouse::GetPreviousPosition() const
+{
+	return mPreviousPosition;
 }
 
 }

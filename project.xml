@@ -169,6 +169,7 @@
             <File name="Mouse\Mouse.h" />
             <File name="Mouse\MouseEvents.cpp" />
             <File name="Mouse\MouseEvents.h" />
+            <File name="Mouse\IMouse.h" />
         </Folder>
         <Folder name="palettes">
             <File name="palettes\backpals.dat" />
@@ -272,5 +273,10 @@
         <File name="IDateTime.h" />
         <File name="FactoryInject.cpp" />
         <File name="FactoryInject.h" />
+        <Folder name="System">
+            <File name="System\ISystem.h" />
+            <File name="System\System.cpp" />
+            <File name="System\System.h" />
+        </Folder>
     </Project>
 </NotepadPlus>

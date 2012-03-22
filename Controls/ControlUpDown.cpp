@@ -80,7 +80,7 @@ void ControlUpDown::OnIdle()
 {
 	if (mEnabled && mState != STATE_NONE)
 	{
-		auto pos = Mouse::Get().GetPosition();
+		auto pos = UnitTest::Inject<IMouse>::Resolve()->GetPosition();
 		if (HitTest(pos.first, pos.second) && MouseEvents::Get().HasFocus(this))
 		{
 			if (mLastUpdate->TestInterval(100))
