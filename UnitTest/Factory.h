@@ -1,5 +1,6 @@
 #pragma once
 #include <typeinfo>
+#include <typeindex>
 #include <functional>
 #include <map>
 #include "IFactory.h"
@@ -23,36 +24,23 @@ public:
 private:
 	virtual void DoRegister(const std::type_info& type, std::function<void*()> resolver)
 	{
-		mMap[&type] = resolver;
+		mMap[type] = resolver;
 	}
 	
 	virtual void DoUnregister(const std::type_info& type)
 	{
-		mMap.erase(&type);
+		mMap.erase(type);
 	}
 	
 	virtual void* DoResolve(const std::type_info& type) const
 	{
-		auto iter = mMap.find(&type);
+		auto iter = mMap.find(type);
 		if (iter == mMap.end())
-			return 0;
+			return nullptr;
 		return (iter->second)();
 	}
 
-	// TypeInfoCompare predicate class.  Used to compare two std::type_info
-	// pointers via the before member function.  This is needed because
-	// std::type_info is not copyable and typeid(T) is not gauranteed to always
-	// return an instance of std::type_info with the same address.
-	class TypeInfoCompare
-	{
-	public:
-		bool operator()(const std::type_info* lhs, const std::type_info* rhs) const
-		{
-			return lhs->before(*rhs);
-		}
-	};
-
-	std::map<const std::type_info*, std::function<void*()>, TypeInfoCompare> mMap;
+	std::map<std::type_index, std::function<void*()>> mMap;
 };
 
 // Inject<IFactory> specialization that returns the Factory class as a singleton.

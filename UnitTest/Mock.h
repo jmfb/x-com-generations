@@ -41,7 +41,7 @@ public:
 	
 	template <typename TFunction, typename... TParams>
 	auto Setup(TFunction function, TParams... params) ->
-		SetupData<decltype(GetFunctionResult(function))>;
+		SetupData<decltype(GetFunctionResult(function)), decltype(GetFunctionCallback(function))>;
 		
 	//NOTE: Could create a SetupDestructor function, but I don't see the mock usage.
 
@@ -90,6 +90,7 @@ public:
 			if (listIter->mArguments == arguments)
 			{
 				++listIter->mActualCalls;
+				listIter->DoCallback(args...);
 				listIter->mThrowValue.Throw();
 				returnValue.Set(listIter->mReturnValue);
 				return;
@@ -242,7 +243,7 @@ class MockSetupCheckParameters<std::tuple<>>
 template <typename T>
 template <typename TFunction, typename... TParams>
 inline auto Mock<T>::Setup(TFunction function, TParams... params) ->
-	SetupData<decltype(GetFunctionResult(function))>
+	SetupData<decltype(GetFunctionResult(function)), decltype(GetFunctionCallback(function))>
 {
 	static_assert(std::is_member_function_pointer<TFunction>::value,
 		"First argument to Mock<T>::Setup must be a member function pointer.");
@@ -251,6 +252,7 @@ inline auto Mock<T>::Setup(TFunction function, TParams... params) ->
 	typedef typename FunctionHelper::Result Result;
 	typedef typename FunctionHelper::Class Class;
 	typedef typename FunctionHelper::ArgsTuple ArgsTuple;
+	typedef decltype(GetFunctionCallback(function)) CallbackFunctionType;
 	static_assert(std::is_base_of<Class, T>::value,
 		"Function must be a member of T or a base.");
 
@@ -277,7 +279,7 @@ inline auto Mock<T>::Setup(TFunction function, TParams... params) ->
 	if (ArgumentCount == 0)
 		callList.clear();
 	callList.push_back(callData);
-	return SetupData<Result>(callList.back());
+	return SetupData<Result, CallbackFunctionType>(callList.back());
 }
 
 }

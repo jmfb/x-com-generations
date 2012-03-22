@@ -4,55 +4,78 @@
 namespace UnitTest
 {
 
-template <typename R>
+template <typename R, typename... TArgs>
 class SetupData
 {
+};
+
+template <typename R, typename... TArgs>
+class SetupData<R, std::function<void(TArgs...)>>
+{
 public:
+	typedef std::function<void(TArgs...)> CallbackFunctionType;
+	typedef SetupData<R, CallbackFunctionType> ThisType;
+	
 	SetupData(CallData& callData)
 		: mCallData(callData)
 	{
 	}
 	
-	SetupData<R>& Returns(R returnValue)
+	ThisType& Returns(R returnValue)
 	{
 		mCallData.mReturnValue.Set<R>(returnValue);
 		return *this;
 	}
-	SetupData<R>& Expects(unsigned long count)
+	ThisType& Expects(unsigned long count)
 	{
 		mCallData.mExpectedCalls = count;
 		return *this;
 	}
 	template <typename E>
-	SetupData<R>& Throws(E exception)
+	ThisType& Throws(E exception)
 	{
 		mCallData.mThrowValue = exception;
 		return *this;
+	}	
+	ThisType& Callback(CallbackFunctionType callback)
+	{
+		mCallData.Callback(callback);
+		return *this;
 	}
+	
 private:
 	CallData& mCallData;
 };
 
-template <>
-class SetupData<void>
+template <typename... TArgs>
+class SetupData<void, std::function<void(TArgs...)>>
 {
 public:
+	typedef std::function<void(TArgs...)> CallbackFunctionType;
+	typedef SetupData<void, CallbackFunctionType> ThisType;
+
 	SetupData(CallData& callData)
 		: mCallData(callData)
 	{
 	}
 	
-	SetupData<void>& Expects(unsigned long count)
+	ThisType& Expects(unsigned long count)
 	{
 		mCallData.mExpectedCalls = count;
 		return *this;
 	}
 	template <typename E>
-	SetupData<void>& Throws(E exception)
+	ThisType& Throws(E exception)
 	{
 		mCallData.mThrowValue = exception;
 		return *this;
 	}
+	ThisType& Callback(CallbackFunctionType callback)
+	{
+		mCallData.Callback(callback);
+		return *this;
+	}
+	
 private:
 	CallData& mCallData;
 };

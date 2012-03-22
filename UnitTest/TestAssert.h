@@ -21,12 +21,12 @@ public:
 	}
 	static void IsNull(void* value, const std::string& message = "")
 	{
-		if (value != 0)
+		if (value != nullptr)
 			TestException::Raise("Assert.IsNull", message);
 	}
 	static void IsNotNull(void* value, const std::string& message = "")
 	{
-		if (value == 0)
+		if (value == nullptr)
 			TestException::Raise("Assert.IsNotNull", message);
 	}
 	template <typename T1, typename T2>

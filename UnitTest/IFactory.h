@@ -66,7 +66,7 @@ public:
 	std::shared_ptr<T> Resolve() const
 	{
 		void* result = DoResolve(typeid(T));
-		if (result == 0)
+		if (result == nullptr)
 		{
 			std::ostringstream out;
 			out << "IFactory::Resolve: Could not resolve type " << TypeName<T>::Get();
