@@ -1,7 +1,5 @@
 #pragma once
-#include "../WindowsInclude.h"
 #include "IMouse.h"
-#include "../System/ISystem.h"
 #include "../UnitTest/UnitTest.h"
 
 namespace XCom

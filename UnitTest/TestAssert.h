@@ -1,7 +1,10 @@
 #pragma once
 #include <string>
 #include <memory>
+#include <functional>
+#include <exception>
 #include "TestException.h"
+#include "../Error.h"
 
 namespace UnitTest
 {
@@ -49,11 +52,37 @@ public:
 	{
 		TestException::Raise("Assert.Inconclusive", message);
 	}
+	static void Throws(std::function<void()> action, const std::string& expectedMessage, const std::string& message = "")
+	{
+		try
+		{
+			action();
+		}
+		catch (const TestException& error)
+		{
+			//re-throw test exceptions (the action has already failed for another testing reason - do not hide that exception)
+			throw;
+		}
+		catch (const XCom::Error& error)
+		{
+			if (error.GetDescription() == expectedMessage)
+				return;
+			TestException::Raise("Assert.Throws", "expected", expectedMessage, "actual", error.GetDescription(), message);
+		}
+		catch (const std::exception& error)
+		{
+			TestException::Raise("Assert.Throws", "expected", expectedMessage, "actual(std::exception)", error.what(), message);
+		}
+		catch (...)
+		{
+			TestException::Raise("Assert.Throws", "expected", expectedMessage, "actual(...)", "unhandled exception", message);
+		}
+		TestException::Raise("Assert.Throws", "expected", expectedMessage, "actual", "No exception was thrown.", message);
+	}
 	//TODO: AreSame
 	//TODO: AreNotSame
 	//TODO: StringAssert helpers
 	//TODO: CollectionAssert helpers
-	//TODO: Throws helpers
 };
 
 static const UnitTest::TestAssert Assert = UnitTest::TestAssert();

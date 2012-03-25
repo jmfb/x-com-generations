@@ -14,7 +14,7 @@ namespace UnitTest
 	INJECT(XCom::IDateTime, XCom::DateTime, Instance, (XCom::IDateTimeUtility*));
 	INJECT(XCom::ISystem, XCom::System, Instance, ());
 	INJECT(XCom::IMouse, XCom::Mouse, Singleton, (IFactory*));
-	INJECT(XCom::IMouseEvents, XCom::MouseEvents, Singleton, ());
+	INJECT(XCom::IMouseEvents, XCom::MouseEvents, Singleton, (IFactory*));
 	INJECT(XCom::IApplication, XCom::Application, Singleton, ());
 	INJECT(XCom::IGraphicsBuffer, XCom::GraphicsBuffer, Singleton, ());
 }

@@ -1,8 +1,9 @@
 #pragma once
-#include "../Singleton.h"
-#include "IMouseTarget.h"
 #include <stack>
 #include "IMouseEvents.h"
+#include "IMouseTarget.h"
+#include "IMouse.h"
+#include "../UnitTest/UnitTest.h"
 
 namespace XCom
 {
@@ -10,7 +11,7 @@ namespace XCom
 class MouseEvents : public IMouseEvents
 {
 public:
-	MouseEvents();
+	MouseEvents(UnitTest::IFactoryPtr factory);
 	MouseEvents(const MouseEvents& rhs) = delete;
 	~MouseEvents();
 	
@@ -28,7 +29,13 @@ public:
 	virtual void ReleaseFocus();
 	virtual bool HasFocus(const IMouseTarget* target) const;
 	
+	IMouseTarget* GetFocus() const;
+	void SetFocus(IMouseTarget* focus);
+	const std::stack<IMouseTarget*>& GetStack() const;
+	std::stack<IMouseTarget*>& GetStack();
+	
 private:
+	IMousePtr mMouse;
 	IMouseTarget* mFocus;
 	std::stack<IMouseTarget*> mStack;
 };

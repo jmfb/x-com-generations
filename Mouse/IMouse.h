@@ -1,6 +1,6 @@
 #pragma once
-#include "../System/ISystem.h"
 #include <memory>
+#include "../System/ISystem.h"
 
 namespace XCom
 {
@@ -8,6 +8,10 @@ namespace XCom
 class IMouse
 {
 public:
+	virtual ~IMouse()
+	{
+	}
+	
 	virtual void Show(bool visible) = 0;
 	virtual void Render() = 0;
 	virtual Position GetPosition() const = 0;

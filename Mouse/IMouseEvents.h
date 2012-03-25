@@ -1,7 +1,7 @@
 #pragma once
+#include <memory>
 #include "ArrowKey.h"
 #include "IMouseTarget.h"
-#include <memory>
 
 namespace XCom
 {

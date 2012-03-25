@@ -1,9 +1,7 @@
 #include "Mouse.h"
-#include "../Graphics/GraphicsBuffer.h"
-#include "../Application.h"
+#include "../Graphics/IGraphicsBuffer.h"
+#include "../IApplication.h"
 #include "../constants.h"
-#include "../FactoryInject.h"
-#include <iostream>
 
 namespace XCom
 {

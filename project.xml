@@ -210,6 +210,7 @@
                 <File name="utilities\UnitTest\DateTimeTest.cpp" />
                 <File name="utilities\UnitTest\DateTimeUtilityTest.cpp" />
                 <File name="utilities\UnitTest\MouseTest.cpp" />
+                <File name="utilities\UnitTest\MouseEventsTest.cpp" />
             </Folder>
         </Folder>
         <File name="Application.cpp" />
