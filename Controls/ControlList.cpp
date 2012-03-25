@@ -118,16 +118,16 @@ void ControlList::OnLeftButtonDown(unsigned long x, unsigned long y)
 
 void ControlList::Render() const
 {
-	GraphicsBuffer& graphics = GraphicsBuffer::Get();
+	auto graphics = UnitTest::Inject<IGraphicsBuffer>::Resolve();
 	auto position = UnitTest::Inject<IMouse>::Resolve()->GetPosition();
 	unsigned long row = (mY - position.second) / 8;
-	if (MouseEvents::Get().HasFocus(this) && 
+	if (UnitTest::Inject<IMouseEvents>::Resolve()->HasFocus(this) && 
 		(position.first - mX) < GetColWidth() &&
 		row < mMaxRows &&
 		(row + mScrollPos) < mList.size())
 	{
-		graphics.SetBrush(mSelected, GraphicsBuffer::Or);
-		graphics.DrawRect(mX, mY - row * 8, GetColWidth(), 8);
+		graphics->SetBrush(mSelected, IGraphicsBuffer::Or);
+		graphics->DrawRect(mX, mY - row * 8, GetColWidth(), 8);
 	}
 	
 	Font font(FONT_NORMAL);

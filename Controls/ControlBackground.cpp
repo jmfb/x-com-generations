@@ -1,6 +1,7 @@
 #include "ControlBackground.h"
 #include "../Graphics/GraphicsBuffer.h"
 #include "../constants.h"
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -26,7 +27,7 @@ void ControlBackground::Init(
 
 void ControlBackground::Render() const
 {
-	GraphicsBuffer::Get().DrawBackground(0, GAME_HEIGHT - 1, GAME_WIDTH, GAME_HEIGHT, mBackground, mPaletteIndex);
+	UnitTest::Inject<IGraphicsBuffer>::Resolve()->DrawBackground(0, GAME_HEIGHT - 1, GAME_WIDTH, GAME_HEIGHT, mBackground, mPaletteIndex);
 }
 
 }

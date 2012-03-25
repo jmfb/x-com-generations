@@ -22,7 +22,7 @@ void Game::RenderScene()
 
 void Game::Quit()
 {
-	Application::Get().Quit();
+	UnitTest::Inject<IApplication>::Resolve()->Quit();
 }
 
 }

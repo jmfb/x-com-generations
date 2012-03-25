@@ -1,5 +1,6 @@
 #include "ControlImage.h"
 #include "../Graphics/GraphicsBuffer.h"
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -31,7 +32,7 @@ void ControlImage::SetImage(ImageType image)
 
 void ControlImage::Render() const
 {
-	GraphicsBuffer::Get().DrawImageFromFile(mX, mY, mImage);
+	UnitTest::Inject<IGraphicsBuffer>::Resolve()->DrawImageFromFile(mX, mY, mImage);
 }
 
 }

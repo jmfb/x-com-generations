@@ -1,6 +1,7 @@
 #include "BaseScreen.h"
 #include "../Mouse/MouseEvents.h"
 #include <algorithm>
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -75,14 +76,14 @@ void BaseScreen::DoModal(BaseScreen* parent, long param)
 	mParent = parent;
 	mParent->OnKillFocus();
 	mParent->AddObject(this);
-	MouseEvents::Get().CaptureFocus(this);
+	UnitTest::Inject<IMouseEvents>::Resolve()->CaptureFocus(this);
 	OnSetFocus(param);
 }
 
 void BaseScreen::EndModal(long param)
 {
 	OnKillFocus();
-	MouseEvents::Get().ReleaseFocus();
+	UnitTest::Inject<IMouseEvents>::Resolve()->ReleaseFocus();
 	mParent->RemoveObject(this);
 	mParent->OnSetFocus(param);
 }

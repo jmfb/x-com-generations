@@ -5,6 +5,7 @@
 #include <sstream>
 #include "TestException.h"
 #include "TypeName.h"
+#include "Mock.h"
 
 namespace UnitTest
 {
@@ -54,11 +55,11 @@ public:
 		});
 	}
 	template <typename T>
-	void RegisterObject(std::shared_ptr<T> object)
+	void RegisterObject(Mock<T>& mockObject)
 	{
 		DoRegister(typeid(T), [&]() -> void*
 		{
-			return new std::shared_ptr<T>(object);
+			return new std::shared_ptr<T>(mockObject.GetObject().get(), [](T*){});
 		});
 	}
 	

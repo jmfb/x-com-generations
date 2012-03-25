@@ -2,6 +2,7 @@
 #include "../WindowsInclude.h"
 #include "IMouse.h"
 #include "../System/ISystem.h"
+#include "../UnitTest/UnitTest.h"
 
 namespace XCom
 {
@@ -9,7 +10,7 @@ namespace XCom
 class Mouse : public IMouse
 {
 public:
-	Mouse(ISystemPtr system);
+	Mouse(UnitTest::IFactoryPtr factory);
 	Mouse(const Mouse& rhs) = delete;
 	~Mouse();
 
@@ -20,10 +21,12 @@ public:
 	virtual Position GetPosition() const;
 
 	bool GetVisible() const;
+	void SetVisible(bool visible);
 	Position GetPreviousPosition() const;
+	void SetPreviousPosition(const Position& position);
 	
 private:
-	ISystemPtr mSystem;
+	UnitTest::IFactoryPtr mFactory;
 	bool mVisible;
 	Position mPreviousPosition;
 };

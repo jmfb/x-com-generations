@@ -3,6 +3,7 @@
 #include "ScreenMainMenu.h"
 #include "ScreenTestControls.h"
 #include "ScreenTestBattle.h"
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -27,13 +28,13 @@ void ScreenManager::Set(ScreenType type, long param)
 	if (mActiveScreen)
 	{
 		mActiveScreen->OnKillFocus();
-		MouseEvents::Get().ReleaseFocus();
+		UnitTest::Inject<IMouseEvents>::Resolve()->ReleaseFocus();
 	}
 	
 	mActiveScreen = FindScreen(type);
 	if (mActiveScreen)
 	{
-		MouseEvents::Get().CaptureFocus(mActiveScreen);
+		UnitTest::Inject<IMouseEvents>::Resolve()->CaptureFocus(mActiveScreen);
 		mActiveScreen->OnSetFocus(param);
 	}
 }

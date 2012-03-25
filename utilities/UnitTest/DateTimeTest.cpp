@@ -10,6 +10,9 @@ std::ostream& operator<<(std::ostream& out, std::chrono::high_resolution_clock::
 	return out << buffer;
 }
 
+namespace XCom
+{
+
 TEST_CLASS(DateTimeTest)
 {
 public:
@@ -20,10 +23,10 @@ public:
 	TEST_METHOD(Constructor)
 	{
 		auto now = std::chrono::high_resolution_clock::now();
-		UnitTest::Mock<XCom::IDateTimeUtility> mockUtility;
-		mockUtility.Setup(&XCom::IDateTimeUtility::GetNow).Returns(now);
+		UnitTest::Mock<IDateTimeUtility> mockUtility;
+		mockUtility.Setup(&IDateTimeUtility::GetNow).Returns(now);
 		
-		XCom::DateTime dateTime(mockUtility.GetObject());
+		DateTime dateTime(mockUtility.GetObject());
 		Assert.AreEqual(now, dateTime.GetValue(), "Value");
 		
 		mockUtility.Verify();
@@ -33,14 +36,14 @@ public:
 	{
 		auto now = std::chrono::high_resolution_clock::now();
 		auto then = now + std::chrono::milliseconds(10);
-		UnitTest::Mock<XCom::IDateTimeUtility> mockUtility;
-		mockUtility.Setup(&XCom::IDateTimeUtility::GetNow).Returns(now);
+		UnitTest::Mock<IDateTimeUtility> mockUtility;
+		mockUtility.Setup(&IDateTimeUtility::GetNow).Returns(now);
 		
-		XCom::DateTime dateTime(mockUtility.GetObject());
+		DateTime dateTime(mockUtility.GetObject());
 		Assert.AreEqual(now, dateTime.GetValue(), "Value(now)");
 		mockUtility.Verify();
 		
-		mockUtility.Setup(&XCom::IDateTimeUtility::GetNow).Returns(then);
+		mockUtility.Setup(&IDateTimeUtility::GetNow).Returns(then);
 		dateTime.SetNow();
 		Assert.AreEqual(then, dateTime.GetValue(), "Value(then)");
 		mockUtility.Verify();
@@ -51,14 +54,14 @@ public:
 		const unsigned long interval = 100;
 		auto now = std::chrono::high_resolution_clock::now();
 		auto then = now + std::chrono::milliseconds(interval);
-		UnitTest::Mock<XCom::IDateTimeUtility> mockUtility;
-		mockUtility.Setup(&XCom::IDateTimeUtility::GetNow).Returns(now);
+		UnitTest::Mock<IDateTimeUtility> mockUtility;
+		mockUtility.Setup(&IDateTimeUtility::GetNow).Returns(now);
 		
-		XCom::DateTime dateTime(mockUtility.GetObject());
+		DateTime dateTime(mockUtility.GetObject());
 		Assert.AreEqual(now, dateTime.GetValue(), "Value(before)");
 		mockUtility.Verify();
 		
-		mockUtility.Setup(&XCom::IDateTimeUtility::GetNow).Returns(then);
+		mockUtility.Setup(&IDateTimeUtility::GetNow).Returns(then);
 		bool result = dateTime.TestInterval(interval);
 		Assert.IsTrue(result, "result");
 		Assert.AreEqual(then, dateTime.GetValue(), "Value(after)");
@@ -70,17 +73,19 @@ public:
 		const unsigned long interval = 100;
 		auto now = std::chrono::high_resolution_clock::now();
 		auto then = now + std::chrono::milliseconds(interval - 1);
-		UnitTest::Mock<XCom::IDateTimeUtility> mockUtility;
-		mockUtility.Setup(&XCom::IDateTimeUtility::GetNow).Returns(now);
+		UnitTest::Mock<IDateTimeUtility> mockUtility;
+		mockUtility.Setup(&IDateTimeUtility::GetNow).Returns(now);
 		
-		XCom::DateTime dateTime(mockUtility.GetObject());
+		DateTime dateTime(mockUtility.GetObject());
 		Assert.AreEqual(now, dateTime.GetValue(), "Value(before)");
 		mockUtility.Verify();
 		
-		mockUtility.Setup(&XCom::IDateTimeUtility::GetNow).Returns(then);
+		mockUtility.Setup(&IDateTimeUtility::GetNow).Returns(then);
 		bool result = dateTime.TestInterval(interval);
 		Assert.IsFalse(result, "result");
 		Assert.AreEqual(now, dateTime.GetValue(), "Value(after)");
 		mockUtility.Verify();
 	}
 };
+
+}

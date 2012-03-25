@@ -2,6 +2,7 @@
 #include "../WindowsInclude.h"
 #include <utility>
 #include <memory>
+#include <iostream>
 
 namespace XCom
 {
@@ -20,4 +21,9 @@ public:
 
 typedef std::shared_ptr<ISystem> ISystemPtr;
 
+}
+
+inline std::ostream& operator<<(std::ostream& out, const XCom::Position& rhs)
+{
+	return out << "{" << rhs.first << "," << rhs.second << "}";
 }

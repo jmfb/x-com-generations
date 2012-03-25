@@ -1,5 +1,6 @@
 #include "ControlBar.h"
 #include "../Graphics/GraphicsBuffer.h"
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -42,17 +43,17 @@ void ControlBar::SetClearColor(const Color& clear)
 
 void ControlBar::Render() const
 {
-	GraphicsBuffer& graphics = GraphicsBuffer::Get();
-	graphics.SetBrush(mBorder);
-	graphics.DrawHorizontalLine(mX, mY, mWidth);
-	graphics.DrawHorizontalLine(mX, mY - mHeight + 1, mWidth);
-	graphics.DrawVerticalLine(mX + mWidth - 1, mY, mHeight);
-	graphics.SetBrush(mFill);
-	graphics.DrawRect(mX, mY - 1, mPosition, mHeight - 2);
+	auto graphics = UnitTest::Inject<IGraphicsBuffer>::Resolve();
+	graphics->SetBrush(mBorder);
+	graphics->DrawHorizontalLine(mX, mY, mWidth);
+	graphics->DrawHorizontalLine(mX, mY - mHeight + 1, mWidth);
+	graphics->DrawVerticalLine(mX + mWidth - 1, mY, mHeight);
+	graphics->SetBrush(mFill);
+	graphics->DrawRect(mX, mY - 1, mPosition, mHeight - 2);
 	if (!mIsClear)
 	{
-		graphics.SetBrush(mClear);
-		graphics.DrawRect(mX + mPosition, mY - 1, mWidth - mPosition - 1, mHeight - 2);
+		graphics->SetBrush(mClear);
+		graphics->DrawRect(mX + mPosition, mY - 1, mWidth - mPosition - 1, mHeight - 2);
 	}
 }
 

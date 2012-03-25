@@ -1,5 +1,6 @@
 #include "FontChar.h"
 #include "../Graphics/GraphicsBuffer.h"
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -47,7 +48,7 @@ const unsigned char* FontChar::GetData() const
 
 void FontChar::Render(unsigned long x, unsigned long y, const ColorScheme& scheme) const
 {
-	GraphicsBuffer::Get().DrawChar(scheme, x, y, mData, mWidth, mHeight);
+	UnitTest::Inject<IGraphicsBuffer>::Resolve()->DrawChar(scheme, x, y, mData, mWidth, mHeight);
 }
 
 }

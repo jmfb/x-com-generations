@@ -6,34 +6,29 @@
 #include "Background.h"
 #include "ImageType.h"
 #include "Image.h"
+#include "IGraphicsBuffer.h"
 
 namespace XCom
 {
 
-class GraphicsBuffer : public Singleton<GraphicsBuffer>
+class GraphicsBuffer : public IGraphicsBuffer
 {
-private:
+public:
 	GraphicsBuffer();
+	GraphicsBuffer(const GraphicsBuffer& rhs) = delete;
 	~GraphicsBuffer();
 
-	friend class Singleton<GraphicsBuffer>;
-
-public:
-	enum PixelOperation
-	{
-		Set,
-		Or
-	};
+	GraphicsBuffer& operator=(const GraphicsBuffer& rhs) = delete;
 	
-	void SetBrush(const Color& color, PixelOperation operation = Set);
+	virtual void SetBrush(const Color& color, PixelOperation operation = Set);
 	
-	void DrawHorizontalLine(unsigned long x, unsigned long y, unsigned long cx);
-	void DrawVerticalLine(unsigned long x, unsigned long y, unsigned long cy);
-	void DrawPoint(unsigned long x, unsigned long y);
-	void DrawFrame(unsigned long x, unsigned long y, unsigned long cx, unsigned long cy);
-	void DrawRect(unsigned long x, unsigned long y, unsigned long cx, unsigned long cy);
+	virtual void DrawHorizontalLine(unsigned long x, unsigned long y, unsigned long cx);
+	virtual void DrawVerticalLine(unsigned long x, unsigned long y, unsigned long cy);
+	virtual void DrawPoint(unsigned long x, unsigned long y);
+	virtual void DrawFrame(unsigned long x, unsigned long y, unsigned long cx, unsigned long cy);
+	virtual void DrawRect(unsigned long x, unsigned long y, unsigned long cx, unsigned long cy);
 	
-	void DrawImage(
+	virtual void DrawImage(
 		unsigned long x, unsigned long y,
 		const unsigned char* image,
 		unsigned long imageWidth, unsigned long imageHeight,
@@ -41,24 +36,24 @@ public:
 		unsigned long width, unsigned long height,
 		unsigned long paletteIndex, unsigned long paletteOffset);
 	
-	void DrawImageFromFile(
+	virtual void DrawImageFromFile(
 		unsigned long x, unsigned long y,
 		ImageType imageIndex);
 	
-	void DrawMaskedImage(
+	virtual void DrawMaskedImage(
 		unsigned long x, unsigned long y,
 		const unsigned char* image,
 		unsigned long imageWidth, unsigned long imageHeight,
 		unsigned long sourceX, unsigned long sourceY,
 		unsigned long sourceWidth, unsigned long sourceHeight);
 	
-	void DrawBackground(
+	virtual void DrawBackground(
 		unsigned long x, unsigned long y,
 		unsigned long width, unsigned long height,
 		BackgroundType backgroundIndex,
 		unsigned long paletteIndex);
 	
-	void DrawPaletteImage(
+	virtual void DrawPaletteImage(
 		unsigned long x, unsigned long y,
 		const unsigned char* image,
 		unsigned long imageWidth, unsigned long imageHeight,
@@ -66,12 +61,19 @@ public:
 		unsigned long sourceWidth, unsigned long sourceHeight,
 		unsigned long paletteIndex);
 	
-	void DrawChar(
+	virtual void DrawChar(
 		const ColorScheme& scheme,
 		unsigned long x, unsigned long y,
 		const unsigned char* image,
 		unsigned long width, unsigned long height);
 	
+	virtual const Palette& GetPalette(unsigned long index) const;
+
+	virtual void Commit();
+
+private:
+	void LoadImages();
+
 	enum
 	{
 		NORMAL_PALETTE_COUNT = 5,
@@ -79,15 +81,7 @@ public:
 		SPECIAL_PALETTE_COUNT = 8,
 		PALETTE_COUNT = NORMAL_PALETTE_COUNT + BACK_PALETTE_COUNT + SPECIAL_PALETTE_COUNT
 	};
-	
-	const Palette& GetPalette(unsigned long index) const;
 
-	void Commit();
-	
-private:
-	void LoadImages();
-
-private:
 	unsigned long mSize;
 	unsigned char* mData;
 	unsigned char* mScaledData;
@@ -96,10 +90,6 @@ private:
 	Palette mPalettes[PALETTE_COUNT];
 	Background mBackgrounds[BACK_COUNT];
 	Image mImages[IMAGE_COUNT];
-
-private:	
-	GraphicsBuffer(const GraphicsBuffer& rhs);
-	GraphicsBuffer& operator=(const GraphicsBuffer& rhs);
 };
 
 }

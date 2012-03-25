@@ -78,6 +78,7 @@
             <File name="Graphics\ImageType.h" />
             <File name="Graphics\Palette.cpp" />
             <File name="Graphics\Palette.h" />
+            <File name="Graphics\IGraphicsBuffer.h" />
         </Folder>
         <Folder name="images">
             <Folder name="base">
@@ -170,6 +171,7 @@
             <File name="Mouse\MouseEvents.cpp" />
             <File name="Mouse\MouseEvents.h" />
             <File name="Mouse\IMouse.h" />
+            <File name="Mouse\IMouseEvents.h" />
         </Folder>
         <Folder name="palettes">
             <File name="palettes\backpals.dat" />
@@ -207,6 +209,7 @@
                 <File name="utilities\UnitTest\ErrorTest.cpp" />
                 <File name="utilities\UnitTest\DateTimeTest.cpp" />
                 <File name="utilities\UnitTest\DateTimeUtilityTest.cpp" />
+                <File name="utilities\UnitTest\MouseTest.cpp" />
             </Folder>
         </Folder>
         <File name="Application.cpp" />
@@ -278,5 +281,6 @@
             <File name="System\System.cpp" />
             <File name="System\System.h" />
         </Folder>
+        <File name="IApplication.h" />
     </Project>
 </NotepadPlus>

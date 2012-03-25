@@ -116,7 +116,7 @@ void ControlButton::OnLeftButtonDown(unsigned long x, unsigned long y)
 	if (!mDeep)
 	{
 		SetPushed(true);
-		MouseEvents::Get().CaptureFocus(this);
+		UnitTest::Inject<IMouseEvents>::Resolve()->CaptureFocus(this);
 		UnitTest::Inject<IMouse>::Resolve()->Show(false);
 	}
 	else if (!mPushed)
@@ -131,7 +131,7 @@ void ControlButton::OnLeftButtonUp(unsigned long x, unsigned long y)
 	if (!mDeep && mPushed)
 	{
 		SetPushed(false);
-		MouseEvents::Get().ReleaseFocus();
+		UnitTest::Inject<IMouseEvents>::Resolve()->ReleaseFocus();
 		UnitTest::Inject<IMouse>::Resolve()->Show(true);
 		mParent->OnButton(mId);
 	}
@@ -143,21 +143,21 @@ void ControlButton::RenderButton() const
 	if (mPushed)
 		scheme = scheme.GetInverse();
 	
-    GraphicsBuffer& graphics = GraphicsBuffer::Get();
-	graphics.SetBrush(scheme[COLOR_LIGHTER]);
-    graphics.DrawHorizontalLine(mX, mY, mWidth - 1);
-    graphics.DrawVerticalLine(mX, mY, mHeight);
-	graphics.SetBrush(scheme[COLOR_LIGHT]);
-    graphics.DrawHorizontalLine(mX + 1, mY - 1, mWidth - 3);
-    graphics.DrawVerticalLine(mX + 1, mY - 1, mHeight - 2);
-	graphics.SetBrush(scheme[COLOR_LIGHTDARK]);
-    graphics.DrawRect(mX + 2, mY - 2, mWidth - 4, mHeight - 4);
-	graphics.SetBrush(scheme[COLOR_DARK]);
-    graphics.DrawHorizontalLine(mX + 2, mY - mHeight + 2, mWidth - 3);
-    graphics.DrawVerticalLine(mX + mWidth - 2, mY - 1, mHeight - 2);
-	graphics.SetBrush(scheme[COLOR_DARKER]);
-    graphics.DrawHorizontalLine(mX + 1, mY - mHeight + 1, mWidth - 1);
-    graphics.DrawVerticalLine(mX + mWidth - 1, mY, mHeight);
+    auto graphics = UnitTest::Inject<IGraphicsBuffer>::Resolve();
+	graphics->SetBrush(scheme[COLOR_LIGHTER]);
+    graphics->DrawHorizontalLine(mX, mY, mWidth - 1);
+    graphics->DrawVerticalLine(mX, mY, mHeight);
+	graphics->SetBrush(scheme[COLOR_LIGHT]);
+    graphics->DrawHorizontalLine(mX + 1, mY - 1, mWidth - 3);
+    graphics->DrawVerticalLine(mX + 1, mY - 1, mHeight - 2);
+	graphics->SetBrush(scheme[COLOR_LIGHTDARK]);
+    graphics->DrawRect(mX + 2, mY - 2, mWidth - 4, mHeight - 4);
+	graphics->SetBrush(scheme[COLOR_DARK]);
+    graphics->DrawHorizontalLine(mX + 2, mY - mHeight + 2, mWidth - 3);
+    graphics->DrawVerticalLine(mX + mWidth - 2, mY - 1, mHeight - 2);
+	graphics->SetBrush(scheme[COLOR_DARKER]);
+    graphics->DrawHorizontalLine(mX + 1, mY - mHeight + 1, mWidth - 1);
+    graphics->DrawVerticalLine(mX + mWidth - 1, mY, mHeight);
 }
 
 }

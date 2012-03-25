@@ -42,7 +42,7 @@ public:
 	
 	void Render(unsigned long x, unsigned long y) const
 	{
-		GraphicsBuffer::Get().DrawImageFromFile(x, y, mFrames[mCurrentFrame]);
+		UnitTest::Inject<IGraphicsBuffer>::Resolve()->DrawImageFromFile(x, y, mFrames[mCurrentFrame]);
 	}
 	
 private:
@@ -155,11 +155,11 @@ ScreenTestBattle::~ScreenTestBattle()
 
 void ScreenTestBattle::Render() const
 {
-	GraphicsBuffer& graphics = GraphicsBuffer::Get();
-	graphics.SetBrush(Color(0, 0, 255));
+	auto graphics = UnitTest::Inject<IGraphicsBuffer>::Resolve();
+	graphics->SetBrush(Color(0, 0, 255));
 	for (unsigned long x = 0; x < 5 * GAME_WIDTH; ++x)
 	{
-		graphics.DrawPoint(x % GAME_WIDTH, x % GAME_HEIGHT);
+		graphics->DrawPoint(x % GAME_WIDTH, x % GAME_HEIGHT);
 	}
 	
 	testSection.Render(gdx, gdy);

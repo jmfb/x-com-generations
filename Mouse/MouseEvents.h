@@ -2,34 +2,33 @@
 #include "../Singleton.h"
 #include "IMouseTarget.h"
 #include <stack>
+#include "IMouseEvents.h"
 
 namespace XCom
 {
 
-class MouseEvents : public Singleton<MouseEvents>
+class MouseEvents : public IMouseEvents
 {
 public:
-	void OnKeyDown(char ch);
-	void OnArrowKey(ArrowKey key);
-	void OnMouseMove(bool leftButton, bool rightButton);
-	void OnLButtonDown();
-	void OnLButtonUp();
-	void OnRButtonDown();
-	void OnRButtonUp();
-	
-	void CaptureFocus(IMouseTarget* target);
-	void ReleaseFocus();
-	bool HasFocus(const IMouseTarget* target) const;
-	
-private:
 	MouseEvents();
-	MouseEvents(const MouseEvents& rhs);
+	MouseEvents(const MouseEvents& rhs) = delete;
 	~MouseEvents();
 	
-	MouseEvents& operator=(const MouseEvents& rhs);
+	MouseEvents& operator=(const MouseEvents& rhs) = delete;
+
+	virtual void OnKeyDown(char ch);
+	virtual void OnArrowKey(ArrowKey key);
+	virtual void OnMouseMove(bool leftButton, bool rightButton);
+	virtual void OnLButtonDown();
+	virtual void OnLButtonUp();
+	virtual void OnRButtonDown();
+	virtual void OnRButtonUp();
+
+	virtual void CaptureFocus(IMouseTarget* target);
+	virtual void ReleaseFocus();
+	virtual bool HasFocus(const IMouseTarget* target) const;
 	
-	friend class Singleton<MouseEvents>;
-	
+private:
 	IMouseTarget* mFocus;
 	std::stack<IMouseTarget*> mStack;
 };

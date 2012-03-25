@@ -21,6 +21,11 @@ public:
 		RegisterObject<IFactory>(*this);
 	}
 	
+	IFactoryPtr operator&()
+	{
+		return Resolve<IFactory>();
+	}
+	
 private:
 	virtual void DoRegister(const std::type_info& type, std::function<void*()> resolver)
 	{

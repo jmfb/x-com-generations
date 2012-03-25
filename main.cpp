@@ -3,12 +3,13 @@
 #include "Error.h"
 #include <exception>
 #include <iostream>
+#include "FactoryInject.h"
 
 int __stdcall WinMain(HINSTANCE instance, HINSTANCE previous, char* command, int show)
 {
 	try
 	{
-		return XCom::Application::Get().Run(instance, command, show);
+		return UnitTest::Inject<XCom::IApplication>::Resolve()->Run(instance, command, show);
 	}
 	catch (const XCom::Error& error)
 	{

@@ -40,7 +40,7 @@ void ControlEdit::BeginEdit()
 	if (!mInEdit)
 	{
 		mInEdit = true;
-		MouseEvents::Get().CaptureFocus(this);
+		UnitTest::Inject<IMouseEvents>::Resolve()->CaptureFocus(this);
 		UnitTest::Inject<IMouse>::Resolve()->Show(false);
 	}
 }
@@ -77,7 +77,7 @@ void ControlEdit::OnKeyDown(char ch)
 			
 		//Enter - finish editing and notify parent
 		case VK_RETURN:
-			MouseEvents::Get().ReleaseFocus();
+			UnitTest::Inject<IMouseEvents>::Resolve()->ReleaseFocus();
 			UnitTest::Inject<IMouse>::Resolve()->Show(true);
 			mInEdit = false;
 			mParent->OnButton(mId);

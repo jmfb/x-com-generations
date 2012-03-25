@@ -6,6 +6,7 @@
 #include "Screens/ScreenManager.h"
 #include "Game.h"
 #include "Graphics/GraphicsBuffer.h"
+#include "FactoryInject.h"
 
 namespace XCom
 {
@@ -62,7 +63,7 @@ void Application::DrawPixels(unsigned char* data)
 	::glDrawPixels(CLIENT_WIDTH, CLIENT_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, data);
 }
 
-HWND Application::GetWindowHandle()
+HWND Application::GetWindowHandle() const
 {
 	return mWindowHandle;
 }
@@ -308,7 +309,7 @@ void Application::OnPaint(bool validate)
 {
 	//Render the game screen and re-validate the window
 	Game::Get().RenderScene();
-	GraphicsBuffer::Get().Commit();
+	UnitTest::Inject<IGraphicsBuffer>::Resolve()->Commit();
     ::glFlush();
     ::SwapBuffers(::wglGetCurrentDC());
 	if (validate)
@@ -317,37 +318,37 @@ void Application::OnPaint(bool validate)
 
 void Application::OnKeyDown(char ch)
 {
-	MouseEvents::Get().OnKeyDown(ch);
+	UnitTest::Inject<IMouseEvents>::Resolve()->OnKeyDown(ch);
 }
 
 void Application::OnArrowKey(ArrowKey key)
 {
-	MouseEvents::Get().OnArrowKey(key);
+	UnitTest::Inject<IMouseEvents>::Resolve()->OnArrowKey(key);
 }
 
 void Application::OnMouseMove(WPARAM wparam)
 {
-	MouseEvents::Get().OnMouseMove((wparam & MK_LBUTTON) == MK_LBUTTON, (wparam & MK_RBUTTON) == MK_RBUTTON);
+	UnitTest::Inject<IMouseEvents>::Resolve()->OnMouseMove((wparam & MK_LBUTTON) == MK_LBUTTON, (wparam & MK_RBUTTON) == MK_RBUTTON);
 }
 
 void Application::OnLButtonDown()
 {
-	MouseEvents::Get().OnLButtonDown();
+	UnitTest::Inject<IMouseEvents>::Resolve()->OnLButtonDown();
 }
 
 void Application::OnLButtonUp()
 {
-	MouseEvents::Get().OnLButtonUp();
+	UnitTest::Inject<IMouseEvents>::Resolve()->OnLButtonUp();
 }
 
 void Application::OnRButtonDown()
 {
-	MouseEvents::Get().OnRButtonDown();
+	UnitTest::Inject<IMouseEvents>::Resolve()->OnRButtonDown();
 }
 
 void Application::OnRButtonUp()
 {
-	MouseEvents::Get().OnRButtonUp();
+	UnitTest::Inject<IMouseEvents>::Resolve()->OnRButtonUp();
 }
 
 void Application::OnDestroy()
@@ -362,7 +363,7 @@ void Application::OnDestroy()
 
 LRESULT __stdcall Application::StaticWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	return Application::Get().CallbackWindowProc(hwnd, msg, wparam, lparam);
+	return UnitTest::Inject<IApplication>::Resolve()->CallbackWindowProc(hwnd, msg, wparam, lparam);
 }
 
 }

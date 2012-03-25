@@ -4,29 +4,30 @@
 #include "Singleton.h"
 #include "Mouse/ArrowKey.h"
 #include <string>
+#include "IApplication.h"
 
 namespace XCom
 {
 
-class Application : public Singleton<Application>
+class Application : public IApplication
 {
-private:
-	Application();
-	~Application();
-	
-	friend class Singleton<Application>;
-	
 public:
-	int Run(HINSTANCE instance, char* command, int show);
-	void Quit();
-	void DrawPixels(unsigned char* data);
-	HWND GetWindowHandle();
+	Application();
+	Application(const Application& rhs) = delete;
+	~Application();
+
+	Application& operator=(const Application& rhs) = delete;
+	
+	virtual int Run(HINSTANCE instance, char* command, int show);
+	virtual void Quit();
+	virtual void DrawPixels(unsigned char* data);
+	virtual HWND GetWindowHandle() const;
+	virtual LRESULT CallbackWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 	
 private:
 	void CreateWindowAtom();
 	void CreateWindowHandle();
 	int RunMessageLoop();
-	LRESULT CallbackWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 	
 	void OnCreate(HWND hwnd);
 	void OnSize();
@@ -52,10 +53,6 @@ private:
 	HDC mWindowDC;
     HGLRC mOpenGLContext;
 	bool mPaused;
-	
-private:
-	Application(const Application& rhs);
-	Application& operator=(const Application& rhs);
 };
 
 }

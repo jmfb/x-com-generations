@@ -4,6 +4,7 @@
 #include <cstring>
 #include <sstream>
 #include <iomanip>
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -259,7 +260,7 @@ void GraphicsBuffer::Commit()
 			::memcpy(mScaledData + di, mData + si, COLOR_BYTES);
 		}
 	}
-	Application::Get().DrawPixels(mScaledData);
+	UnitTest::Inject<IApplication>::Resolve()->DrawPixels(mScaledData);
     ::memset(mData, 0, mSize);
 }
 

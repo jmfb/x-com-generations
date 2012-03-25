@@ -2,6 +2,7 @@
 #include "GraphicsBuffer.h"
 #include "../Error.h"
 #include <algorithm>
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -13,7 +14,7 @@ ColorScheme::ColorScheme()
 
 ColorScheme::ColorScheme(unsigned long palette, unsigned long index, unsigned long size)
 {
-	const Palette& p = GraphicsBuffer::Get().GetPalette(palette);
+	const Palette& p = UnitTest::Inject<IGraphicsBuffer>::Resolve()->GetPalette(palette);
 	switch(size)
 	{
 	case 5:
