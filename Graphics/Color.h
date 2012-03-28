@@ -17,7 +17,7 @@ public:
 	
 	typedef std::array<unsigned char, COLOR_BYTES> ColorArray;
 	
-	void Set(unsigned char red, unsigned char green, unsigned blue);
+	void Set(unsigned char red, unsigned char green, unsigned char blue);
 	
 	const ColorArray& GetData() const;
 	

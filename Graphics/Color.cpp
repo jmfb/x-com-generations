@@ -29,7 +29,7 @@ Color& Color::operator=(const Color& rhs)
 	return *this;
 }
 
-void Color::Set(unsigned char red, unsigned char green, unsigned blue)
+void Color::Set(unsigned char red, unsigned char green, unsigned char blue)
 {
 	mData[0] = red;
 	mData[1] = green;
