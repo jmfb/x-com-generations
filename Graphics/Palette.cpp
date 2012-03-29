@@ -17,23 +17,9 @@ Palette::Palette()
 	::memset(mData, 0, PALETTE_SIZE);
 }
 
-Palette::Palette(const Palette& rhs)
-	: mData(0)
-{
-	mData = new unsigned char[PALETTE_SIZE];
-	::memcpy(mData, rhs.mData, PALETTE_SIZE);
-}
-
 Palette::~Palette()
 {
 	delete [] mData;
-}
-
-Palette& Palette::operator=(const Palette& rhs)
-{
-	if (this != &rhs)
-		::memcpy(mData, rhs.mData, PALETTE_SIZE);
-	return *this;
 }
 
 void Palette::Load(const std::string& file)

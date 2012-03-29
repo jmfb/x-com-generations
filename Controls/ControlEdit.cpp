@@ -93,11 +93,12 @@ void ControlEdit::OnKeyDown(char ch)
 
 void ControlEdit::Render() const
 {
+    auto graphics = UnitTest::Inject<IGraphicsBuffer>::Resolve();
 	ControlText::Render();
 	if (mInEdit && mLastCursorBlink->TestInterval(250))
 		mCursorBlink = !mCursorBlink;
 	if (mInEdit && mCursorBlink)
-		Font(mFont).Render(GetRightEdge(), mY, "*", ColorScheme::Get(mScheme));
+		Font(mFont).Render(GetRightEdge(), mY, "*", ColorScheme::Get(graphics, mScheme));
 }
 
 }

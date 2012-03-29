@@ -1,23 +1,22 @@
 #pragma once
-#include "Color.h"
-#include <string>
+#include "IPalette.h"
 
 namespace XCom
 {
 
-class Palette
+class Palette : public IPalette
 {
 public:
 	Palette();
-	Palette(const Palette& rhs);
+	Palette(const Palette& rhs) = delete;
 	~Palette();
 	
-	Palette& operator=(const Palette& rhs);
+	Palette& operator=(const Palette& rhs) = delete;
 	
-	void Load(const std::string& file);
-	void Move(unsigned long source, unsigned long size, unsigned long destination);
+	virtual void Load(const std::string& file);
+	virtual void Move(unsigned long source, unsigned long size, unsigned long destination);
 	
-	Color operator[](unsigned long index) const;
+	virtual Color operator[](unsigned long index) const;
 	
 private:
 	unsigned char* mData;

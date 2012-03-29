@@ -1,6 +1,7 @@
 #include "ControlEllipsis.h"
 #include "../Fonts/Font.h"
 #include <string>
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -37,13 +38,14 @@ void ControlEllipsis::Render() const
 {
 	if (mEnabled)
 	{
+		auto graphics = UnitTest::Inject<IGraphicsBuffer>::Resolve();
 		unsigned long leftEdge = mBuddy->GetRightEdge();
 		Font font(mBuddy->GetFont());
 		font.Render(
 			leftEdge - 1,
 			mBuddy->GetY(),
 			std::string((mRightEdge - leftEdge) / (font.Measure(".") - 1), '.'),
-			ColorScheme::Get(mScheme));
+			ColorScheme::Get(graphics, mScheme));
 	}
 }
 

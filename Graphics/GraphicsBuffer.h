@@ -1,7 +1,7 @@
 #pragma once
 #include "../Singleton.h"
 #include "Color.h"
-#include "Palette.h"
+#include "IPalette.h"
 #include "ColorScheme.h"
 #include "Background.h"
 #include "ImageType.h"
@@ -67,7 +67,7 @@ public:
 		const unsigned char* image,
 		unsigned long width, unsigned long height);
 	
-	virtual const Palette& GetPalette(unsigned long index) const;
+	virtual const IPalette& GetPalette(unsigned long index) const;
 
 	virtual void Commit();
 
@@ -87,7 +87,7 @@ private:
 	unsigned char* mScaledData;
 	Color mColor;
 	PixelOperation mOperation;
-	Palette mPalettes[PALETTE_COUNT];
+	IPalettePtr mPalettes[PALETTE_COUNT];
 	Background mBackgrounds[BACK_COUNT];
 	Image mImages[IMAGE_COUNT];
 };

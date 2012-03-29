@@ -154,7 +154,7 @@ void ControlList::Render() const
 				break;
 			}
 			
-			font.Render(textX, textY, rowData[column].mText, ColorScheme::Get(rowData[column].mScheme));
+			font.Render(textX, textY, rowData[column].mText, ColorScheme::Get(graphics, rowData[column].mScheme));
 			x += columnData.mWidth;
 		}
 	}

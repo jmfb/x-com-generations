@@ -1,6 +1,7 @@
 #include "ControlText.h"
 #include "../Fonts/Font.h"
 #include "../constants.h"
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -90,7 +91,8 @@ const std::string& ControlText::GetText() const
 
 void ControlText::Render() const
 {
-	Font(mFont).Render(mX, mY, mText, ColorScheme::Get(mScheme));
+    auto graphics = UnitTest::Inject<IGraphicsBuffer>::Resolve();
+	Font(mFont).Render(mX, mY, mText, ColorScheme::Get(graphics, mScheme));
 }
 
 }

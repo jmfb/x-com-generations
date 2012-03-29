@@ -1,0 +1,18 @@
+#pragma once
+
+namespace XCom
+{
+
+enum ColorSchemeType
+{
+	SCHEME_WHITE,
+	SCHEME_AQUA,
+	SCHEME_GREEN,
+	SCHEME_BLUE,
+	SCHEME_DARK_YELLOW,
+	SCHEME_PURPLE,
+	SCHEME_YELLOW,
+	SCHEME_LIGHT_MAGENTA
+};
+
+}

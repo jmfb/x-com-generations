@@ -1,13 +1,14 @@
 #pragma once
 #include "Color.h"
-#include "ColorScheme.h"
-#include "Palette.h"
+#include "IPalette.h"
 #include "ImageType.h"
 #include "Background.h"
 #include <memory>
 
 namespace XCom
 {
+
+class ColorScheme;
 
 class IGraphicsBuffer
 {
@@ -69,7 +70,7 @@ public:
 		const unsigned char* image,
 		unsigned long width, unsigned long height) = 0;
 	
-	virtual const Palette& GetPalette(unsigned long index) const = 0;
+	virtual const IPalette& GetPalette(unsigned long index) const = 0;
 
 	virtual void Commit() = 0;
 };

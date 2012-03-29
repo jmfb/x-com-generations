@@ -68,6 +68,16 @@ public:
 		color.Set(red, green, blue);
 		AssertColor(red, green, blue, color);
 	}
+	
+	TEST_METHOD(EqualityTrue)
+	{
+		Assert.IsTrue(Color(1, 2, 3) == Color(1, 2, 3));
+	}
+	
+	TEST_METHOD(EqualityFalse)
+	{
+		Assert.IsFalse(Color(1, 2, 3) == Color(2, 3, 4));
+	}
 };
 
 }

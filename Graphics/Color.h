@@ -1,6 +1,7 @@
 #pragma once
 #include "../constants.h"
 #include <array>
+#include <iostream>
 
 namespace XCom
 {
@@ -21,8 +22,19 @@ public:
 	
 	const ColorArray& GetData() const;
 	
+	bool operator==(const Color& rhs) const;
+	
 private:
 	ColorArray mData;
 };
 
+}
+
+inline std::ostream& operator<<(std::ostream& out, const XCom::Color& rhs)
+{
+	auto data = rhs.GetData();
+	return out << "{R:" << static_cast<unsigned long>(data[0])
+		<< ",G:" << static_cast<unsigned long>(data[1])
+		<< ",B:" << static_cast<unsigned long>(data[2])
+		<< "}";
 }

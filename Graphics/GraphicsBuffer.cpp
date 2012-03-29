@@ -18,21 +18,23 @@ GraphicsBuffer::GraphicsBuffer()
 	::memset(mData, 0, mSize);
 
 	//Load the standard 5 palettes
-	mPalettes[0].Load("./palettes/palette_0.dat");
-	mPalettes[1].Load("./palettes/palette_1.dat");
-	mPalettes[2].Load("./palettes/palette_2.dat");
-	mPalettes[3].Load("./palettes/palette_3.dat");
-	mPalettes[4].Load("./palettes/palette_4.dat");
+	for (unsigned long index = 0; index < PALETTE_COUNT; ++index)
+		mPalettes[index] = UnitTest::Inject<IPalette>::Resolve();
+	mPalettes[0]->Load("./palettes/palette_0.dat");
+	mPalettes[1]->Load("./palettes/palette_1.dat");
+	mPalettes[2]->Load("./palettes/palette_2.dat");
+	mPalettes[3]->Load("./palettes/palette_3.dat");
+	mPalettes[4]->Load("./palettes/palette_4.dat");
 	
 	//Load the back palette
-	mPalettes[5].Load("./palettes/backpals.dat");
+	mPalettes[5]->Load("./palettes/backpals.dat");
 	
 	//The back palette contains 8 color bars that should be located at
 	//position 224 for some of the background images
 	for (unsigned long index = 0; index < 8; ++index)
 	{
-		mPalettes[6 + index] = mPalettes[5];
-		mPalettes[6 + index].Move(index * 16, 16, 224);
+		mPalettes[6 + index]->Load("./palettes/backpals.dat");
+		mPalettes[6 + index]->Move(index * 16, 16, 224);
 	}
 	
 	//Load the background images (files are numbered sequentially)
@@ -144,7 +146,7 @@ void GraphicsBuffer::DrawImage(
 				unsigned long sourceIndex = sourceX + ix + ((imageHeight - sourceY - iy - 1) * imageWidth);
 				if (image[sourceIndex])
 				{
-					SetBrush(mPalettes[paletteIndex][image[sourceIndex] + paletteOffset], Set);
+					SetBrush((*mPalettes[paletteIndex])[image[sourceIndex] + paletteOffset], Set);
 					DrawPoint(x + ix, y - iy);
 				}
 			}
@@ -220,7 +222,7 @@ void GraphicsBuffer::DrawPaletteImage(
 			if ((sourceX + ix) < imageWidth && (sourceY + iy) < imageHeight)
 			{
 				unsigned long sourceIndex = sourceX + ix + (imageHeight - sourceY - iy - 1) * imageWidth;
-				SetBrush(mPalettes[paletteIndex][image[sourceIndex]], Set);
+				SetBrush((*mPalettes[paletteIndex])[image[sourceIndex]], Set);
 				DrawPoint(x + ix, y - iy);
 			}
 		}
@@ -264,9 +266,9 @@ void GraphicsBuffer::Commit()
     ::memset(mData, 0, mSize);
 }
 
-const Palette& GraphicsBuffer::GetPalette(unsigned long index) const
+const IPalette& GraphicsBuffer::GetPalette(unsigned long index) const
 {
-	return mPalettes[index];
+	return *mPalettes[index];
 }
 
 void GraphicsBuffer::LoadImages()

@@ -46,7 +46,7 @@ void ControlBorder::SetScheme(ColorSchemeType scheme)
 void ControlBorder::Render() const
 {
 	auto graphics = UnitTest::Inject<IGraphicsBuffer>::Resolve();
-	const ColorScheme& scheme = ColorScheme::Get(mScheme);
+	const ColorScheme& scheme = ColorScheme::Get(graphics, mScheme);
 	graphics->SetBrush(scheme[COLOR_BASE]);
 	graphics->DrawFrame(mX, mY, mWidth, mHeight);
 	graphics->DrawFrame(mX + 4, mY - 4, mWidth - 8, mHeight - 8);

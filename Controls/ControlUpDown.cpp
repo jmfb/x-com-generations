@@ -23,11 +23,12 @@ void ControlUpDown::Init(
 	ColorSchemeType scheme,
 	unsigned long id)
 {
+    auto graphics = UnitTest::Inject<IGraphicsBuffer>::Resolve();
 	mParent = parent;
 	mX = x;
 	mY = y;
 	mId = id;
-	mScheme = ColorScheme::Get(scheme);
+	mScheme = ColorScheme::Get(graphics, scheme);
 	mInverse = mScheme.GetInverse();
 	mEnabled = false;
 	mState = STATE_NONE;

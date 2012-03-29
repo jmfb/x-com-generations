@@ -79,6 +79,9 @@
             <File name="Graphics\Palette.cpp" />
             <File name="Graphics\Palette.h" />
             <File name="Graphics\IGraphicsBuffer.h" />
+            <File name="Graphics\IPalette.h" />
+            <File name="Graphics\ColorSchemeIndex.h" />
+            <File name="Graphics\ColorSchemeType.h" />
         </Folder>
         <Folder name="images">
             <Folder name="base">
@@ -211,6 +214,8 @@
                 <File name="utilities\UnitTest\DateTimeUtilityTest.cpp" />
                 <File name="utilities\UnitTest\MouseTest.cpp" />
                 <File name="utilities\UnitTest\MouseEventsTest.cpp" />
+                <File name="utilities\UnitTest\ColorTest.cpp" />
+                <File name="utilities\UnitTest\ColorSchemeTest.cpp" />
             </Folder>
         </Folder>
         <File name="Application.cpp" />

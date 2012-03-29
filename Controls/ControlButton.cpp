@@ -91,7 +91,8 @@ void ControlButton::Render() const
 	RenderButton();
 
 	//Draw the text on the button centered horizontally and vertically
-	ColorScheme scheme = ColorScheme::Get(mScheme);
+	auto graphics = UnitTest::Inject<IGraphicsBuffer>::Resolve();
+	ColorScheme scheme = ColorScheme::Get(graphics, mScheme);
 	if (mPushed)
 		scheme = scheme.GetInverse();
 	Font font(mFont);
@@ -139,11 +140,12 @@ void ControlButton::OnLeftButtonUp(unsigned long x, unsigned long y)
 
 void ControlButton::RenderButton() const
 {
-	ColorScheme scheme = ColorScheme::Get(mScheme);
+    auto graphics = UnitTest::Inject<IGraphicsBuffer>::Resolve();
+
+	ColorScheme scheme = ColorScheme::Get(graphics, mScheme);
 	if (mPushed)
 		scheme = scheme.GetInverse();
 	
-    auto graphics = UnitTest::Inject<IGraphicsBuffer>::Resolve();
 	graphics->SetBrush(scheme[COLOR_LIGHTER]);
     graphics->DrawHorizontalLine(mX, mY, mWidth - 1);
     graphics->DrawVerticalLine(mX, mY, mHeight);

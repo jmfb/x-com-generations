@@ -41,4 +41,9 @@ const Color::ColorArray& Color::GetData() const
 	return mData;
 }
 
+bool Color::operator==(const Color& rhs) const
+{
+	return mData == rhs.mData;
+}
+
 }
