@@ -2,6 +2,11 @@
 #include "../../UnitTest/UnitTest.h"
 #include <set>
 
+inline std::ostream& operator<<(std::ostream& out, const XCom::IPalette& rhs)
+{
+	return out << "IPalette(" << &rhs << ")";
+}
+
 namespace XCom
 {
 
@@ -12,7 +17,6 @@ public:
 	{
 	}
 
-#if 0
 	static void InitializeTests()
 	{
 		const Color color(1, 2, 3);
@@ -31,7 +35,6 @@ public:
 		mockGraphics.Verify();
 		mockPalette.Verify();
 	}
-#endif
 	
 	TEST_METHOD(DefaultConstructor)
 	{
@@ -141,7 +144,6 @@ public:
 		Assert.AreEqual(colors[0], inverse[COLOR_DARKER], "COLOR_DARKER");
 	}
 
-#if 0	
 	TEST_METHOD(GetValid)
 	{
 		UnitTest::Mock<IGraphicsBuffer> mockGraphics;
@@ -174,7 +176,6 @@ public:
 			"Bad color scheme index.");
 		mockGraphics.Verify();
 	}
-#endif
 };
 
 }

@@ -3,6 +3,7 @@
 #include "GraphicsBuffer.h"
 #include <fstream>
 #include <cstring>
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -43,15 +44,15 @@ Image& Image::operator=(const Image& rhs)
 void Image::Load(const std::string& file)
 {
 	FreeImage();
-	std::ifstream in(file.c_str(), std::ios::binary);
-	CheckError(!in.is_open(), 0, file, "Could not load image file.");
-	in.read(reinterpret_cast<char*>(&mWidth), sizeof(mWidth));
-	in.read(reinterpret_cast<char*>(&mHeight), sizeof(mHeight));
+	auto in = UnitTest::Inject<IBinaryFile>::Resolve();
+	in->Open(file);
+	in->Read(&mWidth, sizeof(mWidth));
+	in->Read(&mHeight, sizeof(mHeight));
 	unsigned long size = mWidth * mHeight * 4;
 	if (size > 0)
 	{
 		mImage = new unsigned char[size];
-		in.read(reinterpret_cast<char*>(mImage), size);
+		in->Read(mImage, size);
 	}
 }
 

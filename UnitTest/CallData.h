@@ -41,12 +41,6 @@ public:
 		mArguments.push_back(Any(argument));
 		return *this;
 	}
-	template <typename R>
-	CallData& DefaultReturnValue()
-	{
-		ReturnValue<R>::SetDefaultValue(mReturnValue);
-		return *this;
-	}
 	
 	class CallbackBase
 	{

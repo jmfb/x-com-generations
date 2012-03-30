@@ -110,6 +110,11 @@ public:
 		if (mContent)
 			mContent->Throw();
 	}
+	
+	bool IsNull() const
+	{
+		return !mContent;
+	}
 
 private:
 	class Placeholder
@@ -183,11 +188,13 @@ private:
 		}
 		virtual void Throw() const
 		{
-			throw mValue;
+			std::ostringstream out;
+			out << "Cannot re-throw " << TypeName<T>::Get() << "& type.";
+			throw TestException(out.str());
 		}
 		virtual bool IsEqual(const Placeholder* rhs) const
 		{
-			return mValue == dynamic_cast<const Holder<T&>*>(rhs)->mValue;
+			return &mValue == &dynamic_cast<const Holder<T&>*>(rhs)->mValue;
 		}
 		virtual bool IsMatchAny() const
 		{

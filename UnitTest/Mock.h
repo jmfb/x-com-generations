@@ -271,7 +271,6 @@ inline auto Mock<T>::Setup(TFunction function, TParams... params) ->
 	
 	CallData callData(offset);
 	PackParameters<ArgsTuple, 0, TParams...>::Pack(callData, params...);
-	callData.DefaultReturnValue<Result>();
 	
 	mCallSignature[offset] = TypeName<TFunction>::Get();
 	
