@@ -216,6 +216,7 @@
                 <File name="utilities\UnitTest\MouseEventsTest.cpp" />
                 <File name="utilities\UnitTest\ColorTest.cpp" />
                 <File name="utilities\UnitTest\ColorSchemeTest.cpp" />
+                <File name="utilities\UnitTest\BinaryFileTest.cpp" />
             </Folder>
         </Folder>
         <File name="Application.cpp" />
@@ -286,6 +287,9 @@
             <File name="System\ISystem.h" />
             <File name="System\System.cpp" />
             <File name="System\System.h" />
+            <File name="System\BinaryFile.cpp" />
+            <File name="System\BinaryFile.h" />
+            <File name="System\IBinaryFile.h" />
         </Folder>
         <File name="IApplication.h" />
     </Project>

@@ -46,8 +46,8 @@ void Image::Load(const std::string& file)
 	FreeImage();
 	auto in = UnitTest::Inject<IBinaryFile>::Resolve();
 	in->Open(file);
-	in->Read(&mWidth, sizeof(mWidth));
-	in->Read(&mHeight, sizeof(mHeight));
+	in->Read(mWidth);
+	in->Read(mHeight);
 	unsigned long size = mWidth * mHeight * 4;
 	if (size > 0)
 	{
