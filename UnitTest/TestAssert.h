@@ -22,12 +22,12 @@ public:
 		if (condition)
 			TestException::Raise("Assert.IsFalse", message);
 	}
-	static void IsNull(void* value, const std::string& message = "")
+	static void IsNull(const void* value, const std::string& message = "")
 	{
 		if (value != nullptr)
 			TestException::Raise("Assert.IsNull", message);
 	}
-	static void IsNotNull(void* value, const std::string& message = "")
+	static void IsNotNull(const void* value, const std::string& message = "")
 	{
 		if (value == nullptr)
 			TestException::Raise("Assert.IsNotNull", message);

@@ -90,7 +90,7 @@ public:
 			if (listIter->mArguments == arguments)
 			{
 				++listIter->mActualCalls;
-				listIter->DoCallback(args...);
+				listIter->DoCallback<TArgs...>(args...);
 				listIter->mThrowValue.Throw();
 				returnValue.Set(listIter->mReturnValue);
 				return;
@@ -175,7 +175,8 @@ public:
 	static TResult Placeholder(TClass* pThis, TArgs... args)
 	{
 		ReturnValue<TResult> returnValue;
-		VirtualTable::GetObjectFromThis<Mock<TClass>>(pThis)->Invoke(IOffset, returnValue, args...);
+		VirtualTable::GetObjectFromThis<Mock<TClass>>(pThis)->
+			template Invoke<TResult, TArgs...>(IOffset, returnValue, args...);
 		return returnValue.Get();
 	}
 };
@@ -187,7 +188,8 @@ public:
 	static void Placeholder(TClass* pThis, TArgs... args)
 	{
 		ReturnValue<void> returnValue;
-		VirtualTable::GetObjectFromThis<Mock<TClass>>(pThis)->Invoke(IOffset, returnValue, args...);
+		VirtualTable::GetObjectFromThis<Mock<TClass>>(pThis)->
+			template Invoke<void, TArgs...>(IOffset, returnValue, args...);
 	}
 };
 

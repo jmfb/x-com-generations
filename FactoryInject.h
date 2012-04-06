@@ -9,6 +9,7 @@
 #include "Graphics/GraphicsBuffer.h"
 #include "Graphics/Palette.h"
 #include "System/BinaryFile.h"
+#include "Graphics/Image.h"
 
 namespace UnitTest
 {
@@ -21,4 +22,5 @@ namespace UnitTest
 	INJECT(XCom::IGraphicsBuffer, XCom::GraphicsBuffer, Singleton, ());
 	INJECT(XCom::IPalette, XCom::Palette, Instance, ());
 	INJECT(XCom::IBinaryFile, XCom::BinaryFile, Instance, ());
+	INJECT(XCom::IImage, XCom::Image, Instance, (IFactory*));
 }

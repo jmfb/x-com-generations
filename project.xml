@@ -82,6 +82,7 @@
             <File name="Graphics\IPalette.h" />
             <File name="Graphics\ColorSchemeIndex.h" />
             <File name="Graphics\ColorSchemeType.h" />
+            <File name="Graphics\IImage.h" />
         </Folder>
         <Folder name="images">
             <Folder name="base">
@@ -217,6 +218,7 @@
                 <File name="utilities\UnitTest\ColorTest.cpp" />
                 <File name="utilities\UnitTest\ColorSchemeTest.cpp" />
                 <File name="utilities\UnitTest\BinaryFileTest.cpp" />
+                <File name="utilities\UnitTest\ImageTest.cpp" />
             </Folder>
         </Folder>
         <File name="Application.cpp" />

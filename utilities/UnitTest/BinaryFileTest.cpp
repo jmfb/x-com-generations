@@ -84,15 +84,15 @@ public:
 		Assert.AreEqual(std::string(buffer), std::string(input));
 	}
 	
-	TEST_METHOD(ReadUnsignedLongNotOpen)
+	TEST_METHOD(ReadLongNotOpen)
 	{
 		BinaryFile file;
 		unsigned long data = 0;
-		Assert.Throws([&]{ file.Read(data); },
+		Assert.Throws([&]{ file.ReadLong(data); },
 			"Must call Open before Read.");
 	}
 	
-	TEST_METHOD(ReadUnsignedLongValid)
+	TEST_METHOD(ReadLongValid)
 	{
 		const std::string filename = ".\\BinaryFileTestReadUnsignedLongValid.bin";
 		char buffer[4] = { 4, 3, 2, 1 };
@@ -101,7 +101,7 @@ public:
 		BinaryFile file;
 		file.Open(filename);
 		unsigned long data = 0;
-		file.Read(data);
+		file.ReadLong(data);
 		Assert.AreEqual(value, data);
 	}
 };

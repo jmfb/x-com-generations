@@ -14,7 +14,7 @@ public:
 	
 	virtual void Open(const std::string& filename) = 0;
 	virtual void Read(void* data, unsigned long size) = 0;
-	virtual void Read(unsigned long& data) = 0;
+	virtual void ReadLong(unsigned long& data) = 0;
 };
 
 typedef std::shared_ptr<IBinaryFile> IBinaryFilePtr;

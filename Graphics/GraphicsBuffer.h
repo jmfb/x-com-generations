@@ -5,7 +5,7 @@
 #include "ColorScheme.h"
 #include "Background.h"
 #include "ImageType.h"
-#include "Image.h"
+#include "IImage.h"
 #include "IGraphicsBuffer.h"
 
 namespace XCom
@@ -89,7 +89,7 @@ private:
 	PixelOperation mOperation;
 	IPalettePtr mPalettes[PALETTE_COUNT];
 	Background mBackgrounds[BACK_COUNT];
-	Image mImages[IMAGE_COUNT];
+	IImagePtr mImages[IMAGE_COUNT];
 };
 
 }

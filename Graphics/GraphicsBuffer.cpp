@@ -158,14 +158,14 @@ void GraphicsBuffer::DrawImageFromFile(
 	unsigned long x, unsigned long y,
 	ImageType imageIndex)
 {
-	const Image& image = mImages[imageIndex];
-	if (image.GetData())
+	auto image = mImages[imageIndex];
+	if (image->GetData())
 		DrawMaskedImage(
 			x, y,
-			image.GetData(),
-			image.GetWidth(), image.GetHeight(),
+			image->GetData(),
+			image->GetWidth(), image->GetHeight(),
 			0, 0,
-			image.GetWidth(), image.GetHeight());
+			image->GetWidth(), image->GetHeight());
 }
 
 //Source image is a 4-byte pixel where the bytes are r, g, b, and the mask(0,1)
@@ -288,7 +288,10 @@ void GraphicsBuffer::LoadImages()
 		"battlescape/test_top"
 	};
 	for (unsigned long index = 0; index < IMAGE_COUNT; ++index)
-		mImages[index].Load("./images/" + imageFiles[index] + ".xmg");
+	{
+		mImages[index] = UnitTest::Inject<IImage>::Resolve();
+		mImages[index]->Load("./images/" + imageFiles[index] + ".xmg");
+	}
 }
 
 }

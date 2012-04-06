@@ -1,22 +1,12 @@
 #include "Image.h"
-#include "../Error.h"
-#include "GraphicsBuffer.h"
-#include <fstream>
-#include <cstring>
-#include "../FactoryInject.h"
+#include "../System/IBinaryFile.h"
 
 namespace XCom
 {
 
-Image::Image()
-	: mWidth(0), mHeight(0), mImage(0)
+Image::Image(UnitTest::IFactoryPtr factory)
+	: mFactory(factory), mWidth(0), mHeight(0), mImage(0)
 {
-}
-
-Image::Image(const Image& rhs)
-	: mWidth(0), mHeight(0), mImage(0)
-{
-	operator=(rhs);
 }
 
 Image::~Image()
@@ -24,30 +14,13 @@ Image::~Image()
 	FreeImage();
 }
 
-Image& Image::operator=(const Image& rhs)
-{
-	if (this != &rhs)
-	{
-		FreeImage();
-		mWidth = rhs.mWidth;
-		mHeight = rhs.mHeight;
-		if (rhs.mImage)
-		{
-			unsigned long size = mWidth * mHeight * 4;
-			mImage = new unsigned char[size];
-			::memcpy(mImage, rhs.mImage, size);
-		}
-	}
-	return *this;
-}
-
 void Image::Load(const std::string& file)
 {
 	FreeImage();
-	auto in = UnitTest::Inject<IBinaryFile>::Resolve();
+	auto in = mFactory->Resolve<IBinaryFile>();
 	in->Open(file);
-	in->Read(mWidth);
-	in->Read(mHeight);
+	in->ReadLong(mWidth);
+	in->ReadLong(mHeight);
 	unsigned long size = mWidth * mHeight * 4;
 	if (size > 0)
 	{

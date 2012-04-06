@@ -16,7 +16,7 @@ public:
 
 	virtual void Open(const std::string& filename);
 	virtual void Read(void* data, unsigned long size);
-	virtual void Read(unsigned long& data);
+	virtual void ReadLong(unsigned long& data);
 	
 private:
 	std::ifstream mIn;

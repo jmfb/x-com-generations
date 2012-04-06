@@ -27,7 +27,7 @@ void BinaryFile::Read(void* data, unsigned long size)
 	mIn.read(reinterpret_cast<char*>(data), size);
 }
 
-void BinaryFile::Read(unsigned long& data)
+void BinaryFile::ReadLong(unsigned long& data)
 {
 	CheckError(!mIn.is_open(), 0, "", "Must call Open before Read.");
 

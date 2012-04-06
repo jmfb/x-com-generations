@@ -1,28 +1,30 @@
 #pragma once
-#include <string>
+#include "IImage.h"
+#include "../UnitTest/UnitTest.h"
 
 namespace XCom
 {
 
-class Image
+class Image : public IImage
 {
 public:
-	Image();
-	Image(const Image& rhs);
+	Image(UnitTest::IFactoryPtr factory);
+	Image(const Image& rhs) = delete;
 	~Image();
 	
-	Image& operator=(const Image& rhs);
+	Image& operator=(const Image& rhs) = delete;
 	
-	void Load(const std::string& file);
+	virtual void Load(const std::string& file);
 
-	unsigned long GetWidth() const;
-	unsigned long GetHeight() const;
-	const unsigned char* GetData() const;
+	virtual unsigned long GetWidth() const;
+	virtual unsigned long GetHeight() const;
+	virtual const unsigned char* GetData() const;
 	
 private:
 	void FreeImage();
 	
 private:
+	UnitTest::IFactoryPtr mFactory;
 	unsigned long mWidth;
 	unsigned long mHeight;
 	unsigned char* mImage;
