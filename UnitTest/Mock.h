@@ -261,7 +261,7 @@ inline auto Mock<T>::Setup(TFunction function, TParams... params) ->
 	constexpr unsigned long ArgumentCount = std::tuple_size<ArgsTuple>::value;
 	constexpr unsigned long ParametersCount = std::tuple_size<std::tuple<TParams...>>::value;
 	static_assert(ArgumentCount == ParametersCount,
-		"Incorrect number of expected parameters for given funciton.");
+		"Incorrect number of expected parameters for given function.");
 	
 	static_assert(MockSetupCheckParameters<ArgsTuple, TParams...>::value,
 		"Parameters are not convertible to the function arguments.");

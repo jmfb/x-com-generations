@@ -39,7 +39,6 @@ public:
 		mMockFile.Setup(&IBinaryFile::ReadLong, UnitTest::Any::Match)
 			.Callback([](unsigned long& value)
 			{
-				std::cout << "Callback(ReadLong) Empty" << std::endl;
 				value = 0;
 			})
 			.Expects(2);
@@ -66,7 +65,6 @@ public:
 			.Callback([&](unsigned long& value)
 			{
 				value = nextValue.front();
-				std::cout << "Callback(ReadLong): value = " << value << std::endl;
 				nextValue.pop();
 			})
 			.Expects(2);
