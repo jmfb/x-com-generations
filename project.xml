@@ -68,21 +68,21 @@
             <File name="Graphics\Background.h" />
             <File name="Graphics\Color.cpp" />
             <File name="Graphics\Color.h" />
+            <File name="Graphics\ColorSchemeIndex.h" />
+            <File name="Graphics\ColorSchemeType.h" />
             <File name="Graphics\ColorScheme.cpp" />
             <File name="Graphics\ColorScheme.h" />
+            <File name="Graphics\IGraphicsBuffer.h" />
             <File name="Graphics\GraphicsBuffer.cpp" />
             <File name="Graphics\GraphicsBuffer.h" />
             <File name="Graphics\IGraphicsObject.h" />
+            <File name="Graphics\IImage.h" />
             <File name="Graphics\Image.cpp" />
             <File name="Graphics\Image.h" />
             <File name="Graphics\ImageType.h" />
+            <File name="Graphics\IPalette.h" />
             <File name="Graphics\Palette.cpp" />
             <File name="Graphics\Palette.h" />
-            <File name="Graphics\IGraphicsBuffer.h" />
-            <File name="Graphics\IPalette.h" />
-            <File name="Graphics\ColorSchemeIndex.h" />
-            <File name="Graphics\ColorSchemeType.h" />
-            <File name="Graphics\IImage.h" />
         </Folder>
         <Folder name="images">
             <Folder name="base">
@@ -170,12 +170,12 @@
             <File name="Mouse\ArrowKey.h" />
             <File name="Mouse\IMouseTarget.cpp" />
             <File name="Mouse\IMouseTarget.h" />
+            <File name="Mouse\IMouse.h" />
             <File name="Mouse\Mouse.cpp" />
             <File name="Mouse\Mouse.h" />
+            <File name="Mouse\IMouseEvents.h" />
             <File name="Mouse\MouseEvents.cpp" />
             <File name="Mouse\MouseEvents.h" />
-            <File name="Mouse\IMouse.h" />
-            <File name="Mouse\IMouseEvents.h" />
         </Folder>
         <Folder name="palettes">
             <File name="palettes\backpals.dat" />
@@ -198,46 +198,14 @@
             <File name="Screens\ScreenTestControls.h" />
             <File name="Screens\ScreenType.h" />
         </Folder>
-        <Folder name="utilities">
-            <Folder name="ImageEditor">
-                <File name="utilities\ImageEditor\Image.cpp" />
-                <File name="utilities\ImageEditor\Image.h" />
-                <File name="utilities\ImageEditor\main.cpp" />
-                <File name="utilities\ImageEditor\makefile" />
-                <File name="utilities\ImageEditor\resource.h" />
-                <File name="utilities\ImageEditor\resource.rc" />
-            </Folder>
-            <Folder name="UnitTest">
-                <File name="utilities\UnitTest\main.cpp" />
-                <File name="utilities\UnitTest\makefile" />
-                <File name="utilities\UnitTest\ErrorTest.cpp" />
-                <File name="utilities\UnitTest\DateTimeTest.cpp" />
-                <File name="utilities\UnitTest\DateTimeUtilityTest.cpp" />
-                <File name="utilities\UnitTest\MouseTest.cpp" />
-                <File name="utilities\UnitTest\MouseEventsTest.cpp" />
-                <File name="utilities\UnitTest\ColorTest.cpp" />
-                <File name="utilities\UnitTest\ColorSchemeTest.cpp" />
-                <File name="utilities\UnitTest\BinaryFileTest.cpp" />
-                <File name="utilities\UnitTest\ImageTest.cpp" />
-            </Folder>
+        <Folder name="System">
+            <File name="System\ISystem.h" />
+            <File name="System\System.cpp" />
+            <File name="System\System.h" />
+            <File name="System\IBinaryFile.h" />
+            <File name="System\BinaryFile.cpp" />
+            <File name="System\BinaryFile.h" />
         </Folder>
-        <File name="Application.cpp" />
-        <File name="Application.h" />
-        <File name="constants.h" />
-        <File name="DateTime.cpp" />
-        <File name="DateTime.h" />
-        <File name="Error.cpp" />
-        <File name="Error.h" />
-        <File name="Game.cpp" />
-        <File name="Game.h" />
-        <File name="IdleHandler.cpp" />
-        <File name="IdleHandler.h" />
-        <File name="IdleMap.cpp" />
-        <File name="IdleMap.h" />
-        <File name="main.cpp" />
-        <File name="makefile" />
-        <File name="Singleton.h" />
-        <File name="WindowsInclude.h" />
         <Folder name="UnitTest">
             <File name="UnitTest\Any.h" />
             <File name="UnitTest\ArgumentList.h" />
@@ -279,20 +247,52 @@
             <File name="UnitTest\UnitTest.h" />
             <File name="UnitTest\VirtualTable.h" />
         </Folder>
+        <Folder name="utilities">
+            <Folder name="ImageEditor">
+                <File name="utilities\ImageEditor\Image.cpp" />
+                <File name="utilities\ImageEditor\Image.h" />
+                <File name="utilities\ImageEditor\main.cpp" />
+                <File name="utilities\ImageEditor\makefile" />
+                <File name="utilities\ImageEditor\resource.h" />
+                <File name="utilities\ImageEditor\resource.rc" />
+            </Folder>
+            <Folder name="UnitTest">
+                <File name="utilities\UnitTest\main.cpp" />
+                <File name="utilities\UnitTest\makefile" />
+                <File name="utilities\UnitTest\ErrorTest.cpp" />
+                <File name="utilities\UnitTest\DateTimeTest.cpp" />
+                <File name="utilities\UnitTest\DateTimeUtilityTest.cpp" />
+                <File name="utilities\UnitTest\MouseTest.cpp" />
+                <File name="utilities\UnitTest\MouseEventsTest.cpp" />
+                <File name="utilities\UnitTest\ColorTest.cpp" />
+                <File name="utilities\UnitTest\ColorSchemeTest.cpp" />
+                <File name="utilities\UnitTest\BinaryFileTest.cpp" />
+                <File name="utilities\UnitTest\ImageTest.cpp" />
+            </Folder>
+        </Folder>
+        <File name="IApplication.h" />
+        <File name="Application.cpp" />
+        <File name="Application.h" />
+        <File name="constants.h" />
+        <File name="IDateTime.h" />
+        <File name="DateTime.cpp" />
+        <File name="DateTime.h" />
         <File name="IDateTimeUtility.h" />
         <File name="DateTimeUtility.cpp" />
         <File name="DateTimeUtility.h" />
-        <File name="IDateTime.h" />
+        <File name="Error.cpp" />
+        <File name="Error.h" />
+        <File name="Game.cpp" />
+        <File name="Game.h" />
+        <File name="IdleHandler.cpp" />
+        <File name="IdleHandler.h" />
+        <File name="IdleMap.cpp" />
+        <File name="IdleMap.h" />
+        <File name="Singleton.h" />
+        <File name="WindowsInclude.h" />
         <File name="FactoryInject.cpp" />
         <File name="FactoryInject.h" />
-        <Folder name="System">
-            <File name="System\ISystem.h" />
-            <File name="System\System.cpp" />
-            <File name="System\System.h" />
-            <File name="System\BinaryFile.cpp" />
-            <File name="System\BinaryFile.h" />
-            <File name="System\IBinaryFile.h" />
-        </Folder>
-        <File name="IApplication.h" />
+        <File name="main.cpp" />
+        <File name="makefile" />
     </Project>
 </NotepadPlus>
