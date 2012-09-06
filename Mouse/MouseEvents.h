@@ -3,7 +3,7 @@
 #include "IMouseEvents.h"
 #include "IMouseTarget.h"
 #include "IMouse.h"
-#include "../UnitTest/UnitTest.h"
+#include <UnitTest/UnitTest.h>
 
 namespace XCom
 {

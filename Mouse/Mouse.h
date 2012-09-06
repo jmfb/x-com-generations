@@ -1,6 +1,6 @@
 #pragma once
 #include "IMouse.h"
-#include "../UnitTest/UnitTest.h"
+#include <UnitTest/UnitTest.h>
 
 namespace XCom
 {

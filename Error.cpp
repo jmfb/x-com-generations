@@ -30,7 +30,7 @@ Error::Error(const Error& rhs)
 {
 }
 
-Error::~Error()
+Error::~Error() throw()
 {
 }
 
@@ -97,7 +97,7 @@ std::string Error::ToString() const
 			<< std::hex
 			<< std::setiosflags(std::ios::right | std::ios::uppercase)
 			<< mCode
-			<< std::resetiosflags(std::ios::right | std::ios::uppercase)		
+			<< std::resetiosflags(std::ios::right | std::ios::uppercase)
 			<< ")" << std::endl;
 	if (!mFunction.empty())
 		out << "Function: " << mFunction << std::endl;
@@ -178,4 +178,10 @@ std::string Error::GetDisplayErrorDescription(unsigned long code)
     }
 }
 
+const char* Error::what() const throw()
+{
+	return mDescription.c_str();
 }
+
+}
+

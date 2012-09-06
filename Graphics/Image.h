@@ -1,6 +1,6 @@
 #pragma once
 #include "IImage.h"
-#include "../UnitTest/UnitTest.h"
+#include <UnitTest/UnitTest.h>
 
 namespace XCom
 {

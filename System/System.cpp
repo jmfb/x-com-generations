@@ -25,14 +25,14 @@ void System::SetCursorPosition(const Position& position) const
 
 Position System::ConvertPositionToClient(WindowHandle handle, const Position& position) const
 {
-	POINT point = { position.first, position.second };
+	POINT point = { static_cast<long>(position.first), static_cast<long>(position.second) };
 	::ScreenToClient(handle, &point);
 	return std::make_pair(point.x, point.y);
 }
 
 Position System::ConvertPositionFromClient(WindowHandle handle, const Position& position) const
 {
-	POINT point = { position.first, position.second };
+	POINT point = { static_cast<long>(position.first), static_cast<long>(position.second) };
 	::ClientToScreen(handle, &point);
 	return std::make_pair(point.x, point.y);
 }

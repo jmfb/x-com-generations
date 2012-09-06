@@ -1,0 +1,372 @@
+<Project name="x-com-generations">
+	<Settings>
+		<Standard>c++11</Standard>
+		<Subsystem>windows</Subsystem>
+		<Warnings>all</Warnings>
+		<WarningsAsErrors>True</WarningsAsErrors>
+		<OptimizationLevel>4</OptimizationLevel>
+		<DebugInfo>False</DebugInfo>
+		<Multithreaded>True</Multithreaded>
+		<OutputFolder>output</OutputFolder>
+		<OutputFileName>xcom.exe</OutputFileName>
+		<IncludeDirectories>
+			<IncludeDirectory>c:\save\code\</IncludeDirectory>
+		</IncludeDirectories>
+		<Libraries>
+			<Library>opengl32</Library>
+			<Library>gdi32</Library>
+		</Libraries>
+	</Settings>
+	<Files>
+		<Folder name="Classes">
+			<Folder name="Controls">
+				<Folder name="ControlBackground">
+					<File>Controls\ControlBackground.h</File>
+					<File>Controls\ControlBackground.cpp</File>
+				</Folder>
+				<Folder name="ControlBar">
+					<File>Controls\ControlBar.h</File>
+					<File>Controls\ControlBar.cpp</File>
+				</Folder>
+				<Folder name="ControlBorder">
+					<File>Controls\ControlBorder.h</File>
+					<File>Controls\ControlBorder.cpp</File>
+				</Folder>
+				<Folder name="ControlButton">
+					<File>Controls\ControlButton.h</File>
+					<File>Controls\ControlButton.cpp</File>
+				</Folder>
+				<Folder name="ControlEdit">
+					<File>Controls\ControlEdit.h</File>
+					<File>Controls\ControlEdit.cpp</File>
+				</Folder>
+				<Folder name="ControlEllipse">
+					<File>Controls\ControlEllipsis.h</File>
+					<File>Controls\ControlEllipsis.cpp</File>
+				</Folder>
+				<Folder name="ControlImage">
+					<File>Controls\ControlImage.h</File>
+					<File>Controls\ControlImage.cpp</File>
+				</Folder>
+				<Folder name="ControlList">
+					<File>Controls\ControlList.h</File>
+					<File>Controls\ControlList.cpp</File>
+				</Folder>
+				<Folder name="ControlText">
+					<File>Controls\ControlText.h</File>
+					<File>Controls\ControlText.cpp</File>
+				</Folder>
+				<Folder name="ControlUpDown">
+					<File>Controls\ControlUpDown.h</File>
+					<File>Controls\ControlUpDown.cpp</File>
+				</Folder>
+			</Folder>
+			<Folder name="Fonts">
+				<Folder name="BaseFont">
+					<File>Fonts\BaseFont.h</File>
+					<File>Fonts\BaseFont.cpp</File>
+				</Folder>
+				<Folder name="Font">
+					<File>Fonts\Font.h</File>
+					<File>Fonts\Font.cpp</File>
+				</Folder>
+				<Folder name="FontArrow">
+					<File>Fonts\FontArrow.h</File>
+					<File>Fonts\FontArrow.cpp</File>
+				</Folder>
+				<Folder name="FontChar">
+					<File>Fonts\FontChar.h</File>
+					<File>Fonts\FontChar.cpp</File>
+				</Folder>
+				<Folder name="FontFactory">
+					<File>Fonts\FontFactory.h</File>
+					<File>Fonts\FontFactory.cpp</File>
+				</Folder>
+				<Folder name="FontLarge">
+					<File>Fonts\FontLarge.h</File>
+					<File>Fonts\FontLarge.cpp</File>
+				</Folder>
+				<Folder name="FontNormal">
+					<File>Fonts\FontNormal.h</File>
+					<File>Fonts\FontNormal.cpp</File>
+				</Folder>
+				<Folder name="FontSmall">
+					<File>Fonts\FontSmall.h</File>
+					<File>Fonts\FontSmall.cpp</File>
+				</Folder>
+				<Folder name="FontTime">
+					<File>Fonts\FontTime.h</File>
+					<File>Fonts\FontTime.cpp</File>
+				</Folder>
+				<Folder name="FontUpDown">
+					<File>Fonts\FontUpDown.h</File>
+					<File>Fonts\FontUpDown.cpp</File>
+				</Folder>
+			</Folder>
+			<Folder name="Graphics">
+				<Folder name="Background">
+					<File>Graphics\Background.h</File>
+					<File>Graphics\Background.cpp</File>
+				</Folder>
+				<Folder name="Color">
+					<File>Graphics\Color.h</File>
+					<File>Graphics\Color.cpp</File>
+					<File>Graphics\Color.Test.cpp</File>
+				</Folder>
+				<Folder name="ColorScheme">
+					<File>Graphics\ColorScheme.h</File>
+					<File>Graphics\ColorScheme.cpp</File>
+					<File>Graphics\ColorScheme.Test.cpp</File>
+				</Folder>
+				<Folder name="ColorSchemeIndex">
+					<File>Graphics\ColorSchemeIndex.h</File>
+				</Folder>
+				<Folder name="ColorSchemeType">
+					<File>Graphics\ColorSchemeType.h</File>
+				</Folder>
+				<Folder name="GraphicsBuffer">
+					<File>Graphics\IGraphicsBuffer.h</File>
+					<File>Graphics\GraphicsBuffer.h</File>
+					<File>Graphics\GraphicsBuffer.cpp</File>
+				</Folder>
+				<Folder name="Image">
+					<File>Graphics\IImage.h</File>
+					<File>Graphics\Image.h</File>
+					<File>Graphics\Image.cpp</File>
+					<File>Graphics\Image.Test.cpp</File>
+				</Folder>
+				<Folder name="ImageType">
+					<File>Graphics\ImageType.h</File>
+				</Folder>
+				<Folder name="Palette">
+					<File>Graphics\IPalette.h</File>
+					<File>Graphics\Palette.h</File>
+					<File>Graphics\Palette.cpp</File>
+				</Folder>
+				<Folder name="IGraphicsObject">
+					<File>Graphics\IGraphicsObject.h</File>
+				</Folder>
+			</Folder>
+			<Folder name="Mouse">
+				<Folder name="ArrowKey">
+					<File>Mouse\ArrowKey.h</File>
+				</Folder>
+				<Folder name="Mouse">
+					<File>Mouse\IMouse.h</File>
+					<File>Mouse\Mouse.h</File>
+					<File>Mouse\Mouse.cpp</File>
+					<File>Mouse\Mouse.Test.cpp</File>
+				</Folder>
+				<Folder name="MouseEvents">
+					<File>Mouse\IMouseEvents.h</File>
+					<File>Mouse\MouseEvents.h</File>
+					<File>Mouse\MouseEvents.cpp</File>
+					<File>Mouse\MouseEvents.Test.cpp</File>
+				</Folder>
+				<Folder name="IMouseTarget">
+					<File>Mouse\IMouseTarget.h</File>
+					<File>Mouse\IMouseTarget.cpp</File>
+				</Folder>
+			</Folder>
+			<Folder name="Screens">
+				<Folder name="BaseScreen">
+					<File>Screens\BaseScreen.h</File>
+					<File>Screens\BaseScreen.cpp</File>
+				</Folder>
+				<Folder name="ScreenMainMenu">
+					<File>Screens\ScreenMainMenu.h</File>
+					<File>Screens\ScreenMainMenu.cpp</File>
+				</Folder>
+				<Folder name="ScreenManager">
+					<File>Screens\ScreenManager.h</File>
+					<File>Screens\ScreenManager.cpp</File>
+				</Folder>
+				<Folder name="ScreenTestBattle">
+					<File>Screens\ScreenTestBattle.h</File>
+					<File>Screens\ScreenTestBattle.cpp</File>
+				</Folder>
+				<Folder name="ScreenTestControls">
+					<File>Screens\ScreenTestControls.h</File>
+					<File>Screens\ScreenTestControls.cpp</File>
+				</Folder>
+				<Folder name="ScreenType">
+					<File>Screens\ScreenType.h</File>
+				</Folder>
+			</Folder>
+			<Folder name="System">
+				<Folder name="BinaryFile">
+					<File>System\IBinaryFile.h</File>
+					<File>System\BinaryFile.h</File>
+					<File>System\BinaryFile.cpp</File>
+					<File>System\BinaryFile.Test.cpp</File>
+				</Folder>
+				<Folder name="System">
+					<File>System\ISystem.h</File>
+					<File>System\System.h</File>
+					<File>System\System.cpp</File>
+				</Folder>
+			</Folder>
+			<Folder name="Root">
+				<Folder name="Application">
+					<File>IApplication.h</File>
+					<File>Application.h</File>
+					<File>Application.cpp</File>
+				</Folder>
+				<Folder name="DateTime">
+					<File>IDateTime.h</File>
+					<File>DateTime.h</File>
+					<File>DateTime.cpp</File>
+					<File>DateTime.Test.cpp</File>
+				</Folder>
+				<Folder name="DateTimeUtility">
+					<File>IDateTimeUtility.h</File>
+					<File>DateTimeUtility.h</File>
+					<File>DateTimeUtility.cpp</File>
+					<File>DateTimeUtility.Test.cpp</File>
+				</Folder>
+				<Folder name="Error">
+					<File>Error.h</File>
+					<File>Error.cpp</File>
+					<File>Error.Test.cpp</File>
+				</Folder>
+				<Folder name="FactoryInject">
+					<File>FactoryInject.h</File>
+					<File>FactoryInject.cpp</File>
+				</Folder>
+				<Folder name="Game">
+					<File>Game.h</File>
+					<File>Game.cpp</File>
+				</Folder>
+				<Folder name="IdleHandler">
+					<File>IdleHandler.h</File>
+					<File>IdleHandler.cpp</File>
+				</Folder>
+				<Folder name="IdleMap">
+					<File>IdleMap.h</File>
+					<File>IdleMap.cpp</File>
+				</Folder>
+				<Folder name="Singleton">
+					<File>Singleton.h</File>
+				</Folder>
+			</Folder>
+		</Folder>
+		<Folder name="Headers">
+			<File>constants.h</File>
+			<File>WindowsInclude.h</File>
+		</Folder>
+		<Folder name="Resources">
+			<Folder name="Backgrounds">
+				<File>background\BACK01.dat</File>
+				<File>background\BACK02.dat</File>
+				<File>background\BACK03.dat</File>
+				<File>background\BACK04.dat</File>
+				<File>background\BACK05.dat</File>
+				<File>background\BACK06.dat</File>
+				<File>background\BACK07.dat</File>
+				<File>background\BACK08.dat</File>
+				<File>background\BACK09.dat</File>
+				<File>background\BACK10.dat</File>
+				<File>background\BACK11.dat</File>
+				<File>background\BACK12.dat</File>
+				<File>background\BACK13.dat</File>
+				<File>background\BACK14.dat</File>
+				<File>background\BACK15.dat</File>
+				<File>background\BACK16.dat</File>
+				<File>background\BACK17.dat</File>
+			</Folder>
+			<Folder name="Images">
+				<Folder name="Base">
+					<Folder name="Bridges">
+						<File>images\base\bridges\horizontal.xmg</File>
+						<File>images\base\bridges\vertical.xmg</File>
+					</Folder>
+					<Folder name="Construction">
+						<File>images\base\construction\cross.xmg</File>
+						<File>images\base\construction\hangar.xmg</File>
+						<File>images\base\construction\octagon.xmg</File>
+						<File>images\base\construction\square.xmg</File>
+					</Folder>
+					<Folder name="Facilities">
+						<File>images\base\facilities\access_lift.xmg</File>
+						<File>images\base\facilities\alien_containment.xmg</File>
+						<File>images\base\facilities\fusion_ball_defences.xmg</File>
+						<File>images\base\facilities\general_stores.xmg</File>
+						<File>images\base\facilities\grav_shield.xmg</File>
+						<File>images\base\facilities\hangar.xmg</File>
+						<File>images\base\facilities\hyper_wave_decoder.xmg</File>
+						<File>images\base\facilities\laboratory.xmg</File>
+						<File>images\base\facilities\large_radar_system.xmg</File>
+						<File>images\base\facilities\laser_defences.xmg</File>
+						<File>images\base\facilities\living_quarters.xmg</File>
+						<File>images\base\facilities\mind_shield.xmg</File>
+						<File>images\base\facilities\missile_defences.xmg</File>
+						<File>images\base\facilities\plasma_defences.xmg</File>
+						<File>images\base\facilities\psionic_laboratory.xmg</File>
+						<File>images\base\facilities\small_radar_system.xmg</File>
+						<File>images\base\facilities\workshop.xmg</File>
+					</Folder>
+					<Folder name="Preview">
+						<File>images\base\preview\background.xmg</File>
+						<File>images\base\preview\construction_1x1.xmg</File>
+						<File>images\base\preview\construction_2x2.xmg</File>
+						<File>images\base\preview\facility_1x1.xmg</File>
+						<File>images\base\preview\facility_2x2.xmg</File>
+					</Folder>
+					<Folder name="Shapes">
+						<File>images\base\shapes\cross.xmg</File>
+						<File>images\base\shapes\octagon.xmg</File>
+						<File>images\base\shapes\square.xmg</File>
+					</Folder>
+					<File>images\base\background.xmg</File>
+				</Folder>
+				<Folder name="Battlescape">
+					<File>images\battlescape\test_corner.xmg</File>
+					<File>images\battlescape\test_floor.xmg</File>
+					<File>images\battlescape\test_floor_1.xmg</File>
+					<File>images\battlescape\test_floor_2.xmg</File>
+					<File>images\battlescape\test_left.xmg</File>
+					<File>images\battlescape\test_top.xmg</File>
+				</Folder>
+				<Folder name="Craft">
+					<Folder name="Weapon">
+						<File>images\craft\weapon\avalanche.xmg</File>
+						<File>images\craft\weapon\cannon.xmg</File>
+						<File>images\craft\weapon\fusion_ball.xmg</File>
+						<File>images\craft\weapon\laser_beam.xmg</File>
+						<File>images\craft\weapon\plasma_beam.xmg</File>
+						<File>images\craft\weapon\stingray.xmg</File>
+					</Folder>
+					<File>images\craft\avenger.xmg</File>
+					<File>images\craft\firestorm.xmg</File>
+					<File>images\craft\interceptor.xmg</File>
+					<File>images\craft\lightning.xmg</File>
+					<File>images\craft\skyranger.xmg</File>
+				</Folder>
+				<Folder name="Equipment">
+					<File>images\equipment\crew.xmg</File>
+					<File>images\equipment\items.xmg</File>
+					<File>images\equipment\tank.xmg</File>
+				</Folder>
+				<Folder name="Rank">
+					<File>images\rank\captain.xmg</File>
+					<File>images\rank\colonel.xmg</File>
+					<File>images\rank\commander.xmg</File>
+					<File>images\rank\rookie.xmg</File>
+					<File>images\rank\sergeant.xmg</File>
+					<File>images\rank\squaddie.xmg</File>
+				</Folder>
+			</Folder>
+			<Folder name="Palettes">
+				<File>palettes\backpals.dat</File>
+				<File>palettes\palette_0.dat</File>
+				<File>palettes\palette_1.dat</File>
+				<File>palettes\palette_2.dat</File>
+				<File>palettes\palette_3.dat</File>
+				<File>palettes\palette_4.dat</File>
+			</Folder>
+		</Folder>
+		<File>main.cpp</File>
+		<File>main.Test.cpp</File>
+	</Files>
+</Project>
+

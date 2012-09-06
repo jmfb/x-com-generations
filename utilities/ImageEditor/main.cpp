@@ -21,7 +21,7 @@ bool GetImagePoint(LPARAM lparam, unsigned long& ix, unsigned long& iy);
 int __stdcall WinMain(HINSTANCE instance, HINSTANCE previous, char* command, int show)
 {
 	gInstance = instance;
-	
+
 	//Register the main window
     WNDCLASSEX cls;
     cls.cbSize = sizeof(cls);
@@ -37,7 +37,7 @@ int __stdcall WinMain(HINSTANCE instance, HINSTANCE previous, char* command, int
     cls.lpszClassName = "image_editor_wnd";
     cls.hIconSm = cls.hIcon;
     ATOM atom = ::RegisterClassEx(&cls);
-	
+
 	//Create the main window
     HWND hwnd = ::CreateWindowEx(
         WS_EX_OVERLAPPEDWINDOW,
@@ -53,7 +53,7 @@ int __stdcall WinMain(HINSTANCE instance, HINSTANCE previous, char* command, int
         gInstance,
         NULL);
     ::ShowWindow(hwnd, show);
-	
+
 	//Run the message loop
 	for (MSG msg; ; )
 	{
@@ -75,20 +75,20 @@ LRESULT __stdcall WinProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	static bool erasing = false;
 	unsigned long ix = 0;
 	unsigned long iy = 0;
-	
+
 	switch(msg)
 	{
 	case WM_CREATE:
 		gImage = new Image();
 		gImage->New(32, 35);
 		break;
-	
+
 	case WM_DESTROY:
 		delete gImage;
 		gImage = 0;
 		::PostQuitMessage(0);
 		break;
-		
+
 	case WM_CLOSE:
 		if (gImage->IsDirty())
 		{
@@ -109,7 +109,7 @@ LRESULT __stdcall WinProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 			}
 		}
 		break;
-		
+
 	case WM_COMMAND:
 		if (HIWORD(wparam) == 0)
 		{
@@ -156,7 +156,7 @@ LRESULT __stdcall WinProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 			}
 		}
 		break;
-		
+
 	case WM_PAINT:
 		{
 			PAINTSTRUCT ps = {0};
@@ -165,7 +165,7 @@ LRESULT __stdcall WinProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 			::EndPaint(hwnd, &ps);
 		}
 		break;
-		
+
 	case WM_LBUTTONDOWN:
 		if (!drawing)
 		{
@@ -199,7 +199,7 @@ LRESULT __stdcall WinProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 			}
 		}
 		break;
-		
+
 	case WM_LBUTTONUP:
 	case WM_RBUTTONUP:
 		if (drawing)
@@ -209,7 +209,7 @@ LRESULT __stdcall WinProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 			erasing = false;
 		}
 		break;
-		
+
 	case WM_MOUSEMOVE:
 		if (drawing && GetImagePoint(lparam, ix, iy))
 		{
@@ -256,7 +256,13 @@ void OnPaint(HWND hwnd, HDC hdc)
 			unsigned long x = ix * (IMAGE_SCALE + 1) + 1;
 			unsigned long y = iy * (IMAGE_SCALE + 1) + 1;
 			auto pixel = gImage->GetPixel(ix, iy);
-			RECT rect = { x, y, x + IMAGE_SCALE, y + IMAGE_SCALE };
+			RECT rect =
+			{
+				static_cast<long>(x),
+				static_cast<long>(y),
+				static_cast<long>(x + IMAGE_SCALE),
+				static_cast<long>(y + IMAGE_SCALE)
+			};
 			if (pixel.first)
 			{
 				HBRUSH brush = ::CreateSolidBrush(pixel.second);
