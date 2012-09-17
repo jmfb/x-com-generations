@@ -10,6 +10,9 @@
 #include "Graphics/Palette.h"
 #include "System/BinaryFile.h"
 #include "Graphics/Image.h"
+#include "Game.h"
+#include "Screens/ScreenManager.h"
+#include "IdleMap.h"
 
 namespace UnitTest
 {
@@ -23,4 +26,8 @@ namespace UnitTest
 	INJECT(XCom::IPalette, XCom::Palette, Instance, ());
 	INJECT(XCom::IBinaryFile, XCom::BinaryFile, Instance, ());
 	INJECT(XCom::IImage, XCom::Image, Instance, (IFactory*));
+	INJECT(XCom::IGame, XCom::Game, Singleton, (IFactory*));
+	INJECT(XCom::IScreenManager, XCom::ScreenManager, Singleton, ());
+	INJECT(XCom::IIdleMap, XCom::IdleMap, Singleton, ());
 }
+

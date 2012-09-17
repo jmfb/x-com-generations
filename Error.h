@@ -2,10 +2,25 @@
 #include <string>
 #include <exception>
 
-#define ReportUnhandled() XCom::Error::ReportUnhandledEx(__FILE__, __LINE__, __PRETTY_FUNCTION__)
-#define CheckWindowsError(error, location) XCom::Error::CheckWindowsErrorEx(error, __FILE__, __LINE__, __PRETTY_FUNCTION__, location)
-#define CheckError(error, code, location, description) XCom::Error::CheckErrorEx(error, __FILE__, __LINE__, code, __PRETTY_FUNCTION__, location, description)
-#define RaiseError(code, location, description) throw XCom::Error(__FILE__, __LINE__, code, __PRETTY_FUNCTION__, location, description)
+#define ReportUnhandled() \
+	XCom::Error::ReportUnhandledEx(__FILE__, __LINE__, __PRETTY_FUNCTION__)
+
+//NOTE: GetLastError must be called before the string arguments are converted to std::string.
+//		I have not investigated what, but something clears the error code in that scenario.
+//		The do/while loop construct is just to enforce clients to put a semicolon after the macro usage.
+#define CheckWindowsError(error, location) \
+	do \
+	{ \
+		auto code = ::GetLastError(); \
+		XCom::Error::CheckWindowsErrorEx(error, code, __FILE__, __LINE__, __PRETTY_FUNCTION__, location); \
+	} \
+	while (false)
+
+#define CheckError(error, code, location, description) \
+	XCom::Error::CheckErrorEx(error, __FILE__, __LINE__, static_cast<unsigned long>(code), __PRETTY_FUNCTION__, location, description)
+
+#define RaiseError(code, location, description) \
+	throw XCom::Error(__FILE__, __LINE__, static_cast<unsigned long>(code), __PRETTY_FUNCTION__, location, description)
 
 namespace XCom
 {
@@ -26,9 +41,10 @@ public:
 
 	Error& operator=(const Error& rhs);
 
-	enum Codes
+	enum class Codes : unsigned long
 	{
-		UNHANDLED_EXCEPTION = 0xC0000005
+		UnhandledException = 0xC0000005,
+		NullPointer = 1
 	};
 
 	const std::string& GetFile() const;
@@ -42,13 +58,13 @@ public:
 	std::string ToString() const;
 
 	static void ReportUnhandledEx(const std::string& file, unsigned long line, const std::string& function);
-	static void CheckWindowsErrorEx(bool isError, const std::string& file, unsigned long line, const std::string& function, const std::string& location);
+	static void CheckWindowsErrorEx(bool isError, unsigned long code, const std::string& file, unsigned long line, const std::string& function, const std::string& location);
 	static void CheckErrorEx(bool isError, const std::string& file, unsigned long line, unsigned long code, const std::string& function, const std::string& location, const std::string& description);
 	static std::string GetWindowsErrorDescription(unsigned long code);
 	static std::string GetDisplayErrorDescription(unsigned long code);
 
 	const char* what() const throw() override;
-	
+
 private:
 	std::string mFile;
 	unsigned long mLine;

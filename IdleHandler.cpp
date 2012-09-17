@@ -1,5 +1,5 @@
 #include "IdleHandler.h"
-#include "IdleMap.h"
+#include "FactoryInject.h"
 
 namespace XCom
 {
@@ -11,13 +11,14 @@ IdleHandler::IdleHandler()
 
 void IdleHandler::RegisterForIdle()
 {
-	mIdleId = IdleMap::Get().Register(this);
+	mIdleId = UnitTest::Inject<IIdleMap>::Resolve()->Register(this);
 }
 
 void IdleHandler::UnregisterFromIdle()
 {
-	IdleMap::Get().Unregister(mIdleId);
+	UnitTest::Inject<IIdleMap>::Resolve()->Unregister(mIdleId);
 	mIdleId = 0;
 }
 
 }
+

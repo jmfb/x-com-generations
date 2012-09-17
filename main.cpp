@@ -24,6 +24,7 @@ int __stdcall WinMain(HINSTANCE instance, HINSTANCE previous, char* command, int
 	catch (...)
 	{
 		ReportUnhandled();
-		return XCom::Error::UNHANDLED_EXCEPTION;
+		return static_cast<int>(XCom::Error::Codes::UnhandledException);
 	}
 }
+

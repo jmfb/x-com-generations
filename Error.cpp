@@ -110,16 +110,13 @@ std::string Error::ToString() const
 
 void Error::ReportUnhandledEx(const std::string& file, unsigned long line, const std::string& function)
 {
-	Error(file, line, UNHANDLED_EXCEPTION, function, "", "Unhandled exception.").Report();
+	Error(file, line, static_cast<unsigned long>(Codes::UnhandledException), function, "", "Unhandled exception.").Report();
 }
 
-void Error::CheckWindowsErrorEx(bool isError, const std::string& file, unsigned long line, const std::string& function, const std::string& location)
+void Error::CheckWindowsErrorEx(bool isError, unsigned long code, const std::string& file, unsigned long line, const std::string& function, const std::string& location)
 {
 	if (isError)
-	{
-		unsigned long code = ::GetLastError();
 		throw Error(file, line, code, function, location, GetWindowsErrorDescription(code));
-	}
 }
 
 void Error::CheckErrorEx(bool isError, const std::string& file, unsigned long line, unsigned long code, const std::string& function, const std::string& location, const std::string& description)

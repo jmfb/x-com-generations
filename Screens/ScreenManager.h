@@ -1,32 +1,34 @@
+////////////////////////////////////////////////////////////////////////////////
+// Filename:    ScreenManager.h
+// Description: ...
+//
+// Created:     2012-09-16 21:43:45
+// Author:      Jacob Buysse
+////////////////////////////////////////////////////////////////////////////////
 #pragma once
-#include "../Singleton.h"
 #include "BaseScreen.h"
 #include "ScreenType.h"
+#include "IScreenManager.h"
 
 namespace XCom
 {
-
-class ScreenManager : public Singleton<ScreenManager>
-{
-private:
-	ScreenManager();
-	~ScreenManager();
+	class ScreenManager : public IScreenManager
+	{
+	public:
+		ScreenManager() = default;
+		ScreenManager(const ScreenManager& rhs) = delete;
+		~ScreenManager() noexcept(true) = default;
 	
-	friend class Singleton<ScreenManager>;
+		ScreenManager& operator=(const ScreenManager& rhs) = delete;
 	
-public:
-	void Render() const;
-	void Set(ScreenType type, long param = 0);
+		void Render() const final;
+		void Set(ScreenType type, long param) final;
 	
-private:
-	static BaseScreen* FindScreen(ScreenType type);
-
-private:	
-	BaseScreen* mActiveScreen;
-
-private:
-	ScreenManager(const ScreenManager& rhs);
-	ScreenManager& operator=(const ScreenManager& rhs);
-};
-
+	private:
+		static BaseScreen* FindScreen(ScreenType type);
+	
+	private:
+		BaseScreen* mActiveScreen = nullptr;
+	};
 }
+

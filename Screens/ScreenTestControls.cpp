@@ -1,5 +1,5 @@
 #include "ScreenTestControls.h"
-#include "ScreenManager.h"
+#include "../FactoryInject.h"
 #include <sstream>
 
 namespace XCom
@@ -22,7 +22,7 @@ ScreenTestControls::ScreenTestControls()
 	mBar.SetBar(50, 101);
 	mBar.SetClearColor(Color(0, 255, 0));
 	mEdit.Init(this, 150, 130, 170, EDIT_CLICK, "Edit me", FONT_LARGE, SCHEME_WHITE, ID_EDIT);
-	mEllipsis.Init(this, &mEdit, 319, true, SCHEME_PURPLE);	
+	mEllipsis.Init(this, &mEdit, 319, true, SCHEME_PURPLE);
 	mImage.Init(this, 156, 94, IMAGE_RANK_COMMANDER);
 	mText.Init(this, 160, 60, "50", FONT_NORMAL, SCHEME_GREEN);
 	mUpDown.Init(this, 190, 60, SCHEME_AQUA, ID_UPDOWN);
@@ -32,7 +32,7 @@ ScreenTestControls::ScreenTestControls()
 	mList.AddColumn(40, ALIGN_LEFT);
 	mList.AddColumn(40, ALIGN_CENTER);
 	mList.AddColumn(40, ALIGN_RIGHT);
-	
+
 	const char* values[][3] = {
 		{ "Eat", "My", "Dick" },
 		{ "Lick", "Your", "Ass" },
@@ -45,7 +45,7 @@ ScreenTestControls::ScreenTestControls()
 		{ "I", "Like", "Your" },
 		{ "Drakes", "Bay", "Motel" }
 	};
-	
+
 	for (unsigned long row = 0; row < 10; ++row)
 	{
 		unsigned long index = mList.AddRow();
@@ -67,7 +67,7 @@ void ScreenTestControls::OnButton(unsigned long id)
 	switch(id)
 	{
 	case ID_RETURN:
-		ScreenManager::Get().Set(SCREEN_MAIN_MENU);
+		UnitTest::Inject<IScreenManager>::Resolve()->Set(SCREEN_MAIN_MENU);
 		break;
 	case ID_EDIT:
 		mEdit.SetText("[" + mEdit.GetText() + "]");

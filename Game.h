@@ -1,24 +1,31 @@
+////////////////////////////////////////////////////////////////////////////////
+// Filename:    Game.h
+// Description: ...
+//
+// Created:     2012-09-16 21:24:52
+// Author:      Jacob Buysse
+////////////////////////////////////////////////////////////////////////////////
 #pragma once
-#include "Singleton.h"
+#include "IGame.h"
+#include <UnitTest/UnitTest.h>
 
 namespace XCom
 {
+	class Game : public IGame
+	{
+	public:
+		Game(UnitTest::IFactoryPtr factory);
+		Game(const Game& rhs) = delete;
+		virtual ~Game() noexcept(true) = default;
 
-class Game : public Singleton<Game>
-{
-public:
-	void RenderScene();
-	void Quit();
-	
-private:
-	Game();
-	~Game();
+		Game& operator=(const Game& rhs) = delete;
 
-	friend class Singleton<Game>;
-	
-private:
-	Game(const Game& rhs);
-	Game& operator=(const Game& rhs);
-};
+		void RenderScene() final;
+		void Quit() final;
 
+	private:
+		friend class GameTest;
+		UnitTest::IFactoryPtr factory;
+	};
 }
+

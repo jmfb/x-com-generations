@@ -8,10 +8,8 @@ namespace XCom
 class IApplication
 {
 public:
-	virtual ~IApplication()
-	{
-	}
-	
+	virtual ~IApplication() = default;
+
 	virtual int Run(HINSTANCE instance, char* command, int show) = 0;
 	virtual void Quit() = 0;
 	virtual void DrawPixels(unsigned char* data) = 0;

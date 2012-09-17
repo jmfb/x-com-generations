@@ -178,6 +178,7 @@
 					<File>Screens\ScreenMainMenu.cpp</File>
 				</Folder>
 				<Folder name="ScreenManager">
+					<File>Screens\IScreenManager.h</File>
 					<File>Screens\ScreenManager.h</File>
 					<File>Screens\ScreenManager.cpp</File>
 				</Folder>
@@ -232,18 +233,23 @@
 				<Folder name="FactoryInject">
 					<File>FactoryInject.h</File>
 					<File>FactoryInject.cpp</File>
+					<File>FactoryInject.Test.cpp</File>
 				</Folder>
 				<Folder name="Game">
+					<File>IGame.h</File>
 					<File>Game.h</File>
 					<File>Game.cpp</File>
+					<File>Game.Test.cpp</File>
 				</Folder>
 				<Folder name="IdleHandler">
 					<File>IdleHandler.h</File>
 					<File>IdleHandler.cpp</File>
 				</Folder>
 				<Folder name="IdleMap">
+					<File>IIdleMap.h</File>
 					<File>IdleMap.h</File>
 					<File>IdleMap.cpp</File>
+					<File>IdleMap.Test.cpp</File>
 				</Folder>
 				<Folder name="Singleton">
 					<File>Singleton.h</File>

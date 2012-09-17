@@ -1,3 +1,10 @@
+////////////////////////////////////////////////////////////////////////////////
+// Filename:    ScreenManager.cpp
+// Description: ...
+//
+// Created:     2012-09-16 21:45:24
+// Author:      Jacob Buysse
+////////////////////////////////////////////////////////////////////////////////
 #include "ScreenManager.h"
 #include "../Mouse/MouseEvents.h"
 #include "ScreenMainMenu.h"
@@ -7,15 +14,6 @@
 
 namespace XCom
 {
-
-ScreenManager::ScreenManager()
-	: mActiveScreen(0)
-{
-}
-
-ScreenManager::~ScreenManager()
-{
-}
 
 void ScreenManager::Render() const
 {
@@ -30,7 +28,7 @@ void ScreenManager::Set(ScreenType type, long param)
 		mActiveScreen->OnKillFocus();
 		UnitTest::Inject<IMouseEvents>::Resolve()->ReleaseFocus();
 	}
-	
+
 	mActiveScreen = FindScreen(type);
 	if (mActiveScreen)
 	{

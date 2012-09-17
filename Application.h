@@ -14,21 +14,21 @@ class Application : public IApplication
 public:
 	Application();
 	Application(const Application& rhs) = delete;
-	~Application();
+	virtual ~Application() noexcept(true) = default;
 
 	Application& operator=(const Application& rhs) = delete;
-	
-	virtual int Run(HINSTANCE instance, char* command, int show);
-	virtual void Quit();
-	virtual void DrawPixels(unsigned char* data);
-	virtual HWND GetWindowHandle() const;
-	virtual LRESULT CallbackWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
-	
+
+	int Run(HINSTANCE instance, char* command, int show) final;
+	void Quit() final;
+	void DrawPixels(unsigned char* data) final;
+	HWND GetWindowHandle() const final;
+	LRESULT CallbackWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) final;
+
 private:
 	void CreateWindowAtom();
 	void CreateWindowHandle();
 	int RunMessageLoop();
-	
+
 	void OnCreate(HWND hwnd);
 	void OnSize();
 	bool OnSetCursor(LPARAM lparam);
@@ -41,9 +41,9 @@ private:
 	void OnRButtonDown();
 	void OnRButtonUp();
 	void OnDestroy();
-	
+
 	static LRESULT __stdcall StaticWindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
-	
+
 private:
 	HINSTANCE mInstance;
 	std::string mCommandLine;
@@ -51,7 +51,7 @@ private:
 	ATOM mWindowAtom;
 	HWND mWindowHandle;
 	HDC mWindowDC;
-    HGLRC mOpenGLContext;
+	HGLRC mOpenGLContext;
 	bool mPaused;
 };
 

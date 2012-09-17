@@ -141,7 +141,7 @@ public:
 		try
 		{
 			::SetLastError(code);
-			Error::CheckWindowsErrorEx(true, file, line, function, location);
+			Error::CheckWindowsErrorEx(true, ::GetLastError(), file, line, function, location);
 			Assert.Fail("Should have thrown.");
 		}
 		catch (const Error& error)
@@ -157,7 +157,7 @@ public:
 
 	TEST_METHOD(CheckWindowsErrorExNoThrow)
 	{
-		Error::CheckWindowsErrorEx(false, "", 0, "", "");
+		Error::CheckWindowsErrorEx(false, 0, "", 0, "", "");
 	}
 
 	TEST_METHOD(CheckWindowsErrorMacro)

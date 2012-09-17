@@ -1,6 +1,5 @@
 #include "ScreenMainMenu.h"
-#include "../Game.h"
-#include "ScreenManager.h"
+#include "../FactoryInject.h"
 
 namespace XCom
 {
@@ -17,10 +16,10 @@ enum
 ScreenMainMenu::ScreenMainMenu()
 {
 	mBorder.Init(this, 32, 179, 256, 160, SCHEME_AQUA, BACK_TITLE, 0);
-	
+
 	mTitle.Init(this, X_CENTER, 154, "X-Com", FONT_LARGE, SCHEME_YELLOW);
 	mSubTitle.Init(this, X_CENTER, 138, "UFO Defense", FONT_NORMAL, SCHEME_YELLOW);
-	
+
 	mNewGame.Init(this, 64, 109, 192, 20, "New Game", SCHEME_AQUA, ID_NEW_GAME);
 	mLoadGame.Init(this, 64, 81, 192, 20, "Load Saved Game", SCHEME_AQUA, ID_LOAD_GAME);
 	mQuit.Init(this, 64, 53, 192, 20, "Quit", SCHEME_AQUA, ID_QUIT);
@@ -43,15 +42,16 @@ void ScreenMainMenu::OnButton(unsigned long id)
 		//TODO:
 		break;
 	case ID_QUIT:
-		Game::Get().Quit();
+		UnitTest::Inject<IGame>::Resolve()->Quit();
 		break;
 	case ID_TEST:
-		ScreenManager::Get().Set(SCREEN_TEST);
+		UnitTest::Inject<IScreenManager>::Resolve()->Set(SCREEN_TEST);
 		break;
 	case ID_BATTLE:
-		ScreenManager::Get().Set(SCREEN_BATTLE_TEST);
+		UnitTest::Inject<IScreenManager>::Resolve()->Set(SCREEN_BATTLE_TEST);
 		break;
 	}
 }
 
 }
+

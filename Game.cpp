@@ -1,28 +1,29 @@
+////////////////////////////////////////////////////////////////////////////////
+// Filename:    Game.cpp
+// Description: ...
+//
+// Created:     2012-09-16 21:26:17
+// Author:      Jacob Buysse
+////////////////////////////////////////////////////////////////////////////////
 #include "Game.h"
-#include "Screens/ScreenManager.h"
-#include "Application.h"
 #include "FactoryInject.h"
 
 namespace XCom
 {
+	Game::Game(UnitTest::IFactoryPtr factory)
+		: factory(factory)
+	{
+	}
+	
+	void Game::RenderScene()
+	{
+		factory->Resolve<IScreenManager>()->Render();
+		factory->Resolve<IMouse>()->Render();
+	}
 
-Game::Game()
-{
+	void Game::Quit()
+	{
+		factory->Resolve<IApplication>()->Quit();
+	}
 }
 
-Game::~Game()
-{
-}
-
-void Game::RenderScene()
-{
-	ScreenManager::Get().Render();
-	UnitTest::Inject<IMouse>::Resolve()->Render();
-}
-
-void Game::Quit()
-{
-	UnitTest::Inject<IApplication>::Resolve()->Quit();
-}
-
-}

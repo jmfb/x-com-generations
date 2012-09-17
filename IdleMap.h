@@ -1,33 +1,35 @@
+////////////////////////////////////////////////////////////////////////////////
+// Filename:    IdleMap.h
+// Description: ...
+//
+// Created:     2012-09-16 22:17:08
+// Author:      Jacob Buysse
+////////////////////////////////////////////////////////////////////////////////
 #pragma once
 #include "Singleton.h"
 #include "IdleHandler.h"
+#include "IIdleMap.h"
 #include <map>
 
 namespace XCom
 {
-
-class IdleMap : public Singleton<IdleMap>
-{
-private:
-	IdleMap();
-	~IdleMap();
+	class IdleMap : public IIdleMap
+	{
+	public:
+		IdleMap() = default;
+		IdleMap(const IdleMap& rhs) = delete;
+		virtual ~IdleMap() noexcept(true) = default;
 	
-	friend class Singleton<IdleMap>;
-
-public:
-	unsigned long Register(IdleHandler* handler);
-	void Unregister(unsigned long idleId);
+		IdleMap& operator=(const IdleMap& rhs) = delete;
 	
-	void OnIdle();
+		unsigned long Register(IdleHandler* handler) final;
+		void Unregister(unsigned long idleId) final;
+		void OnIdle() final;
 	
-private:
-	unsigned long mNextId;
-	typedef std::map<unsigned long, IdleHandler*> HandlerMap;
-	HandlerMap mHandlerMap;
-	
-private:
-	IdleMap(const IdleMap& rhs);
-	IdleMap& operator=(const IdleMap& rhs);
-};
-
+	private:
+		friend class IdleMapTest;
+		unsigned long nextId = 1;
+		std::map<unsigned long, IdleHandler*> handlerMap;
+	};
 }
+
