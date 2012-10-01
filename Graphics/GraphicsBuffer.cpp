@@ -25,10 +25,10 @@ GraphicsBuffer::GraphicsBuffer()
 	mPalettes[2]->Load("./palettes/palette_2.dat");
 	mPalettes[3]->Load("./palettes/palette_3.dat");
 	mPalettes[4]->Load("./palettes/palette_4.dat");
-	
+
 	//Load the back palette
 	mPalettes[5]->Load("./palettes/backpals.dat");
-	
+
 	//The back palette contains 8 color bars that should be located at
 	//position 224 for some of the background images
 	for (unsigned long index = 0; index < 8; ++index)
@@ -36,7 +36,7 @@ GraphicsBuffer::GraphicsBuffer()
 		mPalettes[6 + index]->Load("./palettes/backpals.dat");
 		mPalettes[6 + index]->Move(index * 16, 16, 224);
 	}
-	
+
 	//Load the background images (files are numbered sequentially)
 	for (unsigned long index = 0; index < BACK_COUNT; ++index)
 	{
@@ -44,7 +44,7 @@ GraphicsBuffer::GraphicsBuffer()
 		out << "./background/BACK" << std::setw(2) << std::setfill('0') << (index + 1) << ".dat";
 		mBackgrounds[index].Load(out.str());
 	}
-	
+
 	LoadImages();
 }
 
@@ -285,7 +285,8 @@ void GraphicsBuffer::LoadImages()
 		"battlescape/test_floor_1",
 		"battlescape/test_floor_2",
 		"battlescape/test_left",
-		"battlescape/test_top"
+		"battlescape/test_top",
+		"battlescape/test_top_window"
 	};
 	for (unsigned long index = 0; index < IMAGE_COUNT; ++index)
 	{

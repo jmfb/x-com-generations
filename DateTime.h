@@ -4,20 +4,22 @@
 
 namespace XCom
 {
+	class DateTime : public IDateTime
+	{
+	public:
+		DateTime(IDateTimeUtilityPtr dateTimeUtility);
+		DateTime(const DateTime& rhs) = delete;
+		~DateTime() noexcept(true) = default;
 
-class DateTime : public IDateTime
-{
-public:
-	DateTime(IDateTimeUtilityPtr dateTimeUtility);
+		DateTime& operator=(const DateTime& rhs) = delete;
+		
+		void SetNow() override;
+		bool TestInterval(unsigned long interval) override;
+		std::chrono::high_resolution_clock::time_point GetValue() const override;
 	
-	virtual void SetNow();
-	virtual bool TestInterval(unsigned long interval);
-
-	std::chrono::high_resolution_clock::time_point GetValue() const;
-	
-private:
-	IDateTimeUtilityPtr mDateTimeUtility;
-	std::chrono::high_resolution_clock::time_point mValue;	
-};
-
+	private:
+		IDateTimeUtilityPtr dateTimeUtility;
+		std::chrono::high_resolution_clock::time_point value;
+	};
 }
+

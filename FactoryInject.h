@@ -13,6 +13,8 @@
 #include "Game.h"
 #include "Screens/ScreenManager.h"
 #include "IdleMap.h"
+#include "ScrollMovementCalculator.h"
+#include "ScrollMovement.h"
 
 namespace UnitTest
 {
@@ -29,5 +31,7 @@ namespace UnitTest
 	INJECT(XCom::IGame, XCom::Game, Singleton, (IFactory*));
 	INJECT(XCom::IScreenManager, XCom::ScreenManager, Singleton, ());
 	INJECT(XCom::IIdleMap, XCom::IdleMap, Singleton, ());
+	INJECT(XCom::IScrollMovementCalculator, XCom::ScrollMovementCalculator, Instance, ());
+	INJECT(XCom::IScrollMovement, XCom::ScrollMovement, Instance, (IFactory*));
 }
 

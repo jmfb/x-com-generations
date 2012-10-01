@@ -1,15 +1,8 @@
 #include "DateTime.h"
+#include "TimePointStream.h"
 #include <UnitTest/UnitTest.h>
 #include <ctime>
 using UnitTest::Assert;
-
-std::ostream& operator<<(std::ostream& out, std::chrono::high_resolution_clock::time_point value)
-{
-	char buffer[100] = {0};
-	std::time_t time = std::chrono::high_resolution_clock::to_time_t(value);
-	std::strftime(buffer, 100, "%Y-%m-%d %H:%M:%S", std::localtime(&time));
-	return out << buffer;
-}
 
 namespace XCom
 {

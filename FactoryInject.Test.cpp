@@ -105,6 +105,11 @@ namespace UnitTest
 		{
 			TestSingleton<XCom::IIdleMap>();
 		}
+
+		TEST_METHOD(InjectScrollMovementCalculator)
+		{
+			TestInstance<XCom::IScrollMovementCalculator>();
+		}
 	};
 }
 

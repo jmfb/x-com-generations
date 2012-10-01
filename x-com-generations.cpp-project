@@ -218,6 +218,7 @@
 					<File>DateTime.h</File>
 					<File>DateTime.cpp</File>
 					<File>DateTime.Test.cpp</File>
+					<File>TimePointStream.h</File>
 				</Folder>
 				<Folder name="DateTimeUtility">
 					<File>IDateTimeUtility.h</File>
@@ -253,6 +254,18 @@
 				</Folder>
 				<Folder name="Singleton">
 					<File>Singleton.h</File>
+				</Folder>
+				<Folder name="ScrollMovement">
+					<File>ScrollMovement.h</File>
+					<File>ScrollMovement.cpp</File>
+					<File>ScrollMovement.Test.cpp</File>
+					<File>IScrollMovement.h</File>
+				</Folder>
+				<Folder name="ScrollMovementCalculator">
+					<File>ScrollMovementCalculator.h</File>
+					<File>ScrollMovementCalculator.cpp</File>
+					<File>ScrollMovementCalculator.Test.cpp</File>
+					<File>IScrollMovementCalculator.h</File>
 				</Folder>
 			</Folder>
 		</Folder>
@@ -332,6 +345,7 @@
 					<File>images\battlescape\test_floor_2.xmg</File>
 					<File>images\battlescape\test_left.xmg</File>
 					<File>images\battlescape\test_top.xmg</File>
+					<File>images\battlescape\test_top_window.xmg</File>
 				</Folder>
 				<Folder name="Craft">
 					<Folder name="Weapon">
